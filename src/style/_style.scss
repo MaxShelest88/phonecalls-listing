@@ -1,21 +1,19 @@
 body {
 	background-color: $back;
 	color: $text;
-	font-family: "Montserrat";
+	font-family: "SFProDisplay";
 }
 
 .header {
 	grid-area: header;
 }
 
-
-
 .content {
 	grid-area: content;
 }
 
 .wrapper {
-	min-height: 100%;
+	min-height: 100vh;
 	display: grid;
 	grid-template: minmax(64px, auto) 1fr / minmax(240px, auto) 1fr ;
 	grid-template-areas:

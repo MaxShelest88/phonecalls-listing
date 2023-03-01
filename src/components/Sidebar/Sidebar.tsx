@@ -27,6 +27,38 @@ const Sidebar: React.FC = () => {
             icon={chartIcon}
             text="Итоги"
           />
+          <NavItem
+            icon={ordersIcon}
+            text="Заказы"
+          />
+          <NavItem
+            icon={messageIcon}
+            text="Сообщения"
+          />
+          <NavItem
+            icon={peopleIcon}
+            text="Контрагенты"
+          />
+          <NavItem
+            icon={documentIcon}
+            text="Документы"
+          />
+          <NavItem
+            icon={executorIcon}
+            text="Исполнители"
+          />
+          <NavItem
+            icon={caseIcon}
+            text="Отчеты"
+          />
+          <NavItem
+            icon={knowlageIcon}
+            text="База знаний"
+          />
+          <NavItem
+            icon={settingsIcon}
+            text="Настройки"
+          />
         </ul>
       </nav>
     </aside>

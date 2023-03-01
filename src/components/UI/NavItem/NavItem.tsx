@@ -8,7 +8,7 @@ interface NavItemProps {
 const NavItem: React.FC<NavItemProps> = ({ icon, text }) => {
   return (
     <div className={classes.item}>
-      <div>
+      <div className={classes.icon}>
         <img
           src={icon}
           alt="navicon"

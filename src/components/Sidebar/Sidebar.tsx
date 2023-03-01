@@ -10,7 +10,7 @@ import caseIcon from '../../assets/icons/briefcase-outline.svg';
 import knowlageIcon from '../../assets/icons/local_library_black_24dp.svg';
 import settingsIcon from '../../assets/icons/settings-24px.svg';
 import NavItem from '../UI/NavItem/NavItem';
-
+import Button from '../UI/Button/Button';
 
 const Sidebar: React.FC = () => {
   return (
@@ -61,6 +61,10 @@ const Sidebar: React.FC = () => {
           />
         </ul>
       </nav>
+      <div className={classes.actions}>
+        <Button text="Добавить заказ" />
+        <Button text="Оплата" />
+      </div>
     </aside>
   );
 };

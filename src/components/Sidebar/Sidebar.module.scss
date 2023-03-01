@@ -1,9 +1,18 @@
 .side {
 	grid-area: sidebar;
 	background-color: #091336;
-	padding: 20px 12px;
+	padding: 20px 0px;
 }
 
 .logo {
 	margin-bottom: 32px;
+	padding: 0 12px;
+}
+
+.menu {
+	margin-bottom: 64px;
+}
+
+.actions {
+	padding: 0px 20px;
 }

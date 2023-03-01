@@ -3,6 +3,7 @@ import logo from '../../assets/icons/logo.svg';
 import chartIcon from '../../assets/icons/chart-timeline-variant.svg';
 import ordersIcon from '../../assets/icons/orders-24px.svg';
 import messageIcon from '../../assets/icons/mail_outline-24px.svg';
+import callIcon from '../../assets/icons/calls-24px.svg';
 import peopleIcon from '../../assets/icons/people-24px.svg';
 import documentIcon from '../../assets/icons/documents-24px.svg';
 import executorIcon from '../../assets/icons/perm_identity_black_24dp.svg';
@@ -34,6 +35,11 @@ const Sidebar: React.FC = () => {
           <NavItem
             icon={messageIcon}
             text="Сообщения"
+          />
+          <NavItem
+            icon={callIcon}
+            text="Звонки"
+            active
           />
           <NavItem
             icon={peopleIcon}

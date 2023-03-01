@@ -10,11 +10,24 @@
 
 .active {
 	background: rgba(216, 228, 251, 0.32);
+	.text {
+		color: #ffffff;
+	}
 }
 
 .icon {
 	margin-right: 12px;
+	flex: 0 0 24px;
 }
 .text {
 	color: rgba(255, 255, 255, 0.6);
+	flex: 1 1 auto;
+}
+
+.circule {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #ffd500;
+	box-shadow: 0px 3px 8px rgba(237, 218, 1, 0.5);
 }

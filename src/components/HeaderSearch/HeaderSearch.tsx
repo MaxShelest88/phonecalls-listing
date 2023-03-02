@@ -14,12 +14,12 @@ const HeaderSearch = () => {
   const resetHandler = () => {
     inputRef.current?.focus();
     reset();
-	};
-	
-	const onBlur = () => {
-		onBlurHandler()
-		setIsHovered(false);
-	}
+  };
+
+  const onBlur = () => {
+    onBlurHandler();
+    setIsHovered(false);
+  };
 
   return (
     <div className={classes.container}>

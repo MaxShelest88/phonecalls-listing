@@ -10,6 +10,7 @@ export const listItems = [{}];
 
 const Header: React.FC = () => {
   const [organization, setOrganization] = useState('ИП Сидорова Александра Михайловна');
+  const [organizationIsVisible, setOrganizationIsVisible] = useState(false);
   return (
     <div className={classes.header}>
       <div className={classes.date}>Среда, 13 окт</div>

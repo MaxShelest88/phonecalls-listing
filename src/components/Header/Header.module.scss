@@ -23,7 +23,7 @@
 }
 
 .search {
-	padding:0 44px 0 56px;
+	padding: 0 44px 0 56px;
 	grid-column: 4/5;
 }
 
@@ -39,6 +39,11 @@
 		color: #899cb1;
 	}
 	&__arrow {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
 
@@ -47,8 +52,24 @@
 	display: flex;
 	align-items: center;
 	padding-left: 40px;
+
 	&__image {
+		background-color: #efefef;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-right: 4px;
+		img {
+			max-width: 100%;
+		}
 	}
 	&__arrow {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }

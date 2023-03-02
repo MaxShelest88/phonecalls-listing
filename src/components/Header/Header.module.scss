@@ -32,6 +32,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 	&__name {
 		margin-right: 4px;
 		cursor: pointer;
@@ -44,6 +45,36 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		transition: all 0.3s ease 0s;
+		&.active {
+			transform: rotate(-180deg);
+		}
+	}
+	&__dropdown {
+		position: absolute;
+		top: 50px;
+		left: -60%;
+		background: #ffffff;
+		border: 1px solid #eaf0fa;
+		box-shadow: 4px 16px 50px rgba(129, 135, 163, 0.24);
+		border-radius: 4px;
+		max-width: 310px;
+		ul li {
+			font-size: 0.9375rem;
+			line-height: 1.75rem;
+			padding: 10px 22px;
+			transition: all 0.3s ease 0s;
+			color: #899CB1;
+			&.active{
+				color: #005FF8;
+			}
+			&:hover {
+				background: rgba(0, 95, 248, 0.13);
+				border-radius: 3px 3px 0px 0px;
+				opacity: 0.87;
+				cursor: pointer;
+			}
+		}
 	}
 }
 

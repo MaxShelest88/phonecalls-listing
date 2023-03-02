@@ -20,7 +20,7 @@ const AnalyticsItem: React.FC<AnalyticsItemProps> = ({ text, data, color, width 
       <div className={classes.barContainer}>
         <div
           className={classes.bar}
-          style={{ backgroundColor: color, width: '80%' }}
+          style={{ backgroundColor: color, width: '68px' }}
         />
       </div>
     </div>

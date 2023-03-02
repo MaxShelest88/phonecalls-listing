@@ -1,0 +1,48 @@
+@import "/src/style/var";
+
+.iconLeft {
+	position: absolute;
+	top: 12px;
+	left: 18px;
+}
+.iconRight {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	display: block;
+	cursor: pointer;
+}
+
+.container {
+	position: relative;
+	width: 100%;
+}
+
+.input:focus + .iconRight {
+	top: 8px;
+}
+
+.input.active + .iconRight {
+	top: 8px;
+}
+
+.input {
+	width: 100%;
+	height: 40px;
+	padding: 10px 0 10px 46px;
+	border-radius: 48px;
+	color: #122945;
+	&.active {
+		border: 1px solid #eaf0fa;
+	}
+	&:focus {
+		border: 1px solid #005ff8;
+	}
+
+	&.error {
+		border: 1px solid $red;
+	}
+}
+.error {
+	color: $red;
+}

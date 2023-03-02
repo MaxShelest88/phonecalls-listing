@@ -5,7 +5,6 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
-	text-align: center;
 	width: 200px;
 	transition: all 0.3s ease 0s;
 	min-height: 52px;
@@ -13,6 +12,8 @@
 	border-radius: 4px;
 	position: relative;
 	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.5rem;
 	&:hover {
 		background-color: $hover;
 	}

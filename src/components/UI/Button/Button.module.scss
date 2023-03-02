@@ -1,13 +1,28 @@
+@import "/src/style/var";
+
 .button {
 	color: white;
 	width: 100%;
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	text-align: center;
+	width: 200px;
 	transition: all 0.3s ease 0s;
 	min-height: 52px;
-	background: #005ff8;
+	background: $primary;
 	border-radius: 4px;
-	margin-bottom: 32px;
+	position: relative;
+	font-size: 1rem;
+	&:hover {
+		background-color: $hover;
+	}
+	&:active {
+		background-color: $active;
+	}
+}
+
+.icon {
+	position: absolute;
+	top: 14px;
+	right: 20px;
 }

@@ -1,3 +1,5 @@
+
+
 body {
 	background-color: $back;
 	color: $text;
@@ -15,7 +17,7 @@ body {
 .wrapper {
 	min-height: 100vh;
 	display: grid;
-	grid-template: minmax(64px, auto) 1fr / minmax(240px, auto) 1fr ;
+	grid-template: minmax(64px, auto) 1fr / minmax(240px, auto) 1fr;
 	grid-template-areas:
 		"sidebar header "
 		"sidebar content ";

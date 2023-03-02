@@ -15,4 +15,7 @@
 
 .actions {
 	padding: 0px 20px;
+	button:not(:last-child) {
+		margin-bottom: 36px;
+	}
 }

@@ -1,6 +1,8 @@
 import AnalyticsItem from '../AnalyticsItem/AnalyticsItem';
 import HeaderSearch from '../HeaderSearch/HeaderSearch';
+import IconChevronDown from '../UI/Icons/IconChevronDown';
 import classes from './Header.module.scss';
+import userImage from '../../assets/img/user.png';
 
 const Header: React.FC = () => {
   return (
@@ -28,6 +30,23 @@ const Header: React.FC = () => {
       </div>
       <div className={classes.search}>
         <HeaderSearch />
+      </div>
+      <div className={classes.organization}>
+        <div className={classes.organization__name}>ИП Сидорова Александра Михайловна</div>
+        <div className={classes.organization__arrow}>
+          <IconChevronDown color={'#ADBFDF'} />
+        </div>
+      </div>
+      <div className={classes.user}>
+        <div className={classes.user__image}>
+          <img
+            src={userImage}
+            alt="user avatar"
+          />
+        </div>
+        <div className={classes.user__arrow}>
+          <IconChevronDown color={'#ADBFDF'} />
+        </div>
       </div>
     </div>
   );

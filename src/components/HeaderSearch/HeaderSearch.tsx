@@ -14,7 +14,12 @@ const HeaderSearch = () => {
   const resetHandler = () => {
     inputRef.current?.focus();
     reset();
-  };
+	};
+	
+	const onBlur = () => {
+		onBlurHandler()
+		setIsHovered(false);
+	}
 
   return (
     <div className={classes.container}>
@@ -24,7 +29,7 @@ const HeaderSearch = () => {
           type="text"
           value={value}
           onChange={onChangeHandler}
-          onBlur={onBlurHandler}
+          onBlur={onBlur}
           error={inputHasError}
           onFocus={onFocusHandler}
           ref={inputRef}

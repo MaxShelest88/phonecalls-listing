@@ -1,0 +1,148 @@
+.image {
+	cursor: pointer;
+	background-color: #efefef;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 4px;
+	img {
+		max-width: 100%;
+	}
+}
+.arrow {
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	&.active {
+		transform: rotate(-180deg);
+	}
+}
+.dropdown {
+	position: absolute;
+	top: 50px;
+	left: 0;
+	transform: translate(-158px);
+	background: #ffffff;
+	border: 1px solid #eaf0fa;
+	box-shadow: 4px 16px 50px rgba(129, 135, 163, 0.24);
+	border-radius: 4px;
+	width: 368px;
+}
+.card {
+	padding: 18px 29px 16px 32px;
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 6px;
+}
+.name {
+	font-weight: 500;
+	font-size: 1.125rem;
+	line-height: 1.375rem;
+}
+.exitIcon {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	&:hover {
+		svg g path {
+			fill: #005ff8;
+		}
+	}
+}
+.desc {
+	display: flex;
+	align-items: center;
+	font-size: 0.9375rem;
+	line-height: 1.1625rem;
+	color: #5e7793;
+	margin-bottom: 20px;
+}
+.dott {
+	margin: 0 8px;
+	display: block;
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	background: #adbfdf;
+}
+.contacts {
+}
+.tel {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+}
+.telIcon {
+	height: 16px;
+	width: 16px;
+	margin-right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.telNumber {
+	color: #5e7793;
+}
+.mail {
+	display: flex;
+	align-items: center;
+}
+.mailIcon {
+	height: 16px;
+	width: 16px;
+	margin-right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.mailAddr {
+	a {
+		color: #5e7793;
+	}
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	font-size: 0.9375rem;
+	line-height: 1.75rem;
+	padding: 10px 22px;
+	transition: all 0.3s ease 0s;
+	color: #899cb1;
+	&.active {
+		color: #005ff8;
+	}
+	&:hover {
+		background: rgba(0, 95, 248, 0.13);
+		border-radius: 3px 3px 0px 0px;
+		opacity: 0.87;
+		cursor: pointer;
+		.itemIcon {
+			opacity: 1;
+		}
+	}
+}
+.itemIcon {
+	margin-left: auto;
+	transition: all 0.3s ease 0s;
+	width: 20px;
+	height: 18px;
+	display: flex;
+	opacity: 0;
+	align-items: center;
+	justify-content: center;
+}
+.itemImage {
+}
+.itemName {
+}
+
+.list {
+}

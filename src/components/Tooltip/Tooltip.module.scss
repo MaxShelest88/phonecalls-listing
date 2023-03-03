@@ -1,0 +1,18 @@
+.wrapper {
+	position: relative;
+}
+.tooltip {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #ffffff;
+	border: 1px solid #eaf0fa;
+	/* эта тень */
+
+	box-shadow: 10px 10px 50px rgba(221, 224, 231, 0.56);
+	border-radius: 4px;
+	padding: 8px;
+	position: absolute;
+	top: 100%;
+	right: 0;
+}

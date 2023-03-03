@@ -3,6 +3,7 @@ import IconChevronDown from '../UI/Icons/IconChevronDown';
 import classes from './AuthUser.module.scss';
 import userImage from '../../assets/img/user.png';
 import avatar from '../../assets/img/avatar.png';
+import Tooltip from '../Tooltip/Tooltip';
 
 interface listItem {
   id?: number;
@@ -62,7 +63,7 @@ const AuthUser: React.FC = (): JSX.Element => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_5686_877)">
+            <g clipPath="url(#clip0_5686_877)">
               <path
                 d="M11 7L9.6 8.4L12.2 11H2V13H12.2L9.6 15.6L11 17L16 12L11 7ZM20 19H12V21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3H12V5H20V19Z"
                 fill="#0000F4"
@@ -97,36 +98,41 @@ const AuthUser: React.FC = (): JSX.Element => {
       <div className={`${classes.arrow} ${userIsVisible ? classes.active : ''}`}>
         <IconChevronDown color={userIsVisible ? '#005ff8' : '#ADBFDF'} />
       </div>
-      {!userIsVisible && (
+      {userIsVisible && (
         <div className={classes.dropdown}>
           <div className={classes.card}>
             <div className={classes.header}>
               <div className={classes.name}>Упоров Кирилл</div>
-              <div className={classes.exitIcon}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#clip0_5676_871)">
-                    <path
-                      d="M17 8L15.59 9.41L17.17 11H9V13H17.17L15.59 14.58L17 16L21 12L17 8ZM5 5H12V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H12V19H5V5Z"
-                      fill="#ADBFDF"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_5676_871">
-                      <rect
-                        width="24"
-                        height="24"
-                        fill="white"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
+              <Tooltip text='Выйти'>
+              	<div
+	                tip-anchor="exit"
+	                className={classes.exitIcon}
+	              >
+	                <svg
+	                  width="24"
+	                  height="24"
+	                  viewBox="0 0 24 24"
+	                  fill="none"
+	                  xmlns="http://www.w3.org/2000/svg"
+	                >
+	                  <g clipPath="url(#clip0_5676_871)">
+	                    <path
+	                      d="M17 8L15.59 9.41L17.17 11H9V13H17.17L15.59 14.58L17 16L21 12L17 8ZM5 5H12V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H12V19H5V5Z"
+	                      fill="#ADBFDF"
+	                    />
+	                  </g>
+	                  <defs>
+	                    <clipPath id="clip0_5676_871">
+	                      <rect
+	                        width="24"
+	                        height="24"
+	                        fill="white"
+	                      />
+	                    </clipPath>
+	                  </defs>
+	                </svg>
+	              </div>
+              </Tooltip>
             </div>
             <div className={classes.desc}>
               Директор
@@ -177,9 +183,10 @@ const AuthUser: React.FC = (): JSX.Element => {
               </div>
             </div>
           </div>
+          <div className={classes.line} />
           <div className={classes.list}>
             <div className={classes.listTitle}>Операторы</div>
-            <ul>
+            <ul className={classes.listItems}>
               {operatorsList.map((item) => {
                 return (
                   <ListItem
@@ -191,7 +198,7 @@ const AuthUser: React.FC = (): JSX.Element => {
               })}
             </ul>
             <div className={classes.listTitle}>Логисты</div>
-            <ul>
+            <ul className={classes.listItems}>
               {logistsList.map((item) => {
                 return (
                   <ListItem
@@ -203,7 +210,7 @@ const AuthUser: React.FC = (): JSX.Element => {
               })}
             </ul>
             <div className={classes.listTitle}>Бухгалтеры</div>
-            <ul>
+            <ul className={classes.listItems}>
               {buhList.map((item) => {
                 return (
                   <ListItem

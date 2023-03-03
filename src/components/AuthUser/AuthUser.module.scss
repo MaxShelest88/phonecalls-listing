@@ -34,6 +34,12 @@
 }
 .card {
 	padding: 18px 29px 16px 32px;
+	position: relative;
+}
+
+.line {
+	border: 1px solid #eaf0fa;
+	margin: 0 29px 0 32px;
 }
 .header {
 	display: flex;
@@ -113,17 +119,16 @@
 	align-items: center;
 	font-size: 0.9375rem;
 	line-height: 1.75rem;
-	padding: 10px 22px;
+	padding: 8px 32px;
 	transition: all 0.3s ease 0s;
 	color: #899cb1;
-	&.active {
-		color: #005ff8;
-	}
 	&:hover {
 		background: rgba(0, 95, 248, 0.13);
 		border-radius: 3px 3px 0px 0px;
 		opacity: 0.87;
 		cursor: pointer;
+		color: #0024cb;
+
 		.itemIcon {
 			opacity: 1;
 		}
@@ -140,9 +145,33 @@
 	justify-content: center;
 }
 .itemImage {
+	margin-right: 12px;
+	height: 32px;
+	width: 32;
+	border-radius: 50%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	img {
+		max-width: 100%;
+	}
 }
 .itemName {
 }
 
+.listItems {
+	margin-bottom: 24px;
+}
+
 .list {
+	padding-top: 16px;
+}
+
+.listTitle {
+	padding: 0 25px;
+	margin-bottom: 8px;
+	font-size: 0.9375rem;
+	line-height: 1.1875rem;
+	color: #5e7793;
 }

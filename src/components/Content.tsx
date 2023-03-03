@@ -1,9 +1,12 @@
 import Header from './Header/Header';
+import DropDown from './UI/DropDown/DropDown';
 
 const Content: React.FC = () => {
   return (
     <>
-      <div className="content">Content</div>
+      <div className="content">
+        
+      </div>
     </>
   );
 };

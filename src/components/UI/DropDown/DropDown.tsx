@@ -1,27 +1,36 @@
 import classes from './DropDown.module.scss';
 
-interface MyListItemProps<T> {
+interface ListItemProps {
   text: string;
-  data?: T;
+  img?: string;
 }
 
-interface DropDownProps<T> {
-  items: MyListItemProps<T>[];
+interface DropDownProps {
+  items: ListItemProps[];
 }
 
-const DropDown = <T extends unknown>({ items }: DropDownProps<T>): JSX.Element => {
+const DropDown: React.FC<DropDownProps> = ({ items }): JSX.Element => {
+  const DropDownItem: React.FC<ListItemProps> = (props): JSX.Element => {
+    return (
+      <li className={classes.item}>
+        <div>
+          <img
+            src={props.img}
+            alt="item"
+          />
+        </div>
+        <span>{props.text}</span>
+      </li>
+    );
+  };
   return (
-    <div
-      className={classes.container}
-    >
+    <div className={classes.container}>
       <ul>
-        {items.map((item: MyListItemProps<T>, index) => (
-          <li
-            className={classes.item}
+        {items.map((item: ListItemProps, index) => (
+          <DropDownItem
+            text={item.text}
             key={index}
-          >
-            {item.text}
-          </li>
+          />
         ))}
       </ul>
     </div>

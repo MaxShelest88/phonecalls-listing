@@ -1,5 +1,5 @@
 import Header from './Header/Header';
-import DropDown from './UI/DropDown/DropDown';
+import DropDown from './Dropdown/DropDown';
 
 const Content: React.FC = () => {
   return (

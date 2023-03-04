@@ -29,16 +29,10 @@
 
 .organization {
 	grid-column: 5/6;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: relative;
+	
 }
 
 .user {
 	grid-column: 6/7;
-	display: flex;
-	align-items: center;
 	padding-left: 40px;
-	position: relative;
 }

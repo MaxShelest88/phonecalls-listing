@@ -84,7 +84,7 @@ const AuthUser: React.FC = (): JSX.Element => {
     );
   };
   return (
-    <>
+    <div className={classes.container}>
       <div
         ref={userRef}
         onClick={() => setUserIsVisible((prevState) => !prevState)}
@@ -224,7 +224,7 @@ const AuthUser: React.FC = (): JSX.Element => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default AuthUser;

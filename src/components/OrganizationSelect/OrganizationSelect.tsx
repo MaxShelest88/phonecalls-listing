@@ -32,7 +32,7 @@ const OrganizationSelect = () => {
   };
 
   return (
-    <>
+    <div className={classes.container}>
       <div
         ref={organizationRef}
         onClick={() => setOrganizationIsVisible((prevState) => !prevState)}
@@ -58,7 +58,7 @@ const OrganizationSelect = () => {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default OrganizationSelect;

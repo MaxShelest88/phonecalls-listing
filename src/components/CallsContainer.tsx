@@ -1,5 +1,6 @@
+import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
-import { ICall } from '../models/ICallList';
+import { ICall, ICallList } from '../models/ICallList';
 import Loading from './Loading/Loading';
 
 const CallsContainer = () => {
@@ -11,17 +12,22 @@ const CallsContainer = () => {
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(URL, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${TOKEN}` },
-      });
-      const data = await response.json();
+      const { data } = await axios.post<ICallList>(
+        URL,
+        {},
+        {
+          headers: { Authorization: `Bearer ${TOKEN}` },
+        },
+      );
       setCalls(data.results);
       setIsLoading(false);
     } catch (e) {
-      let message;
-      if (e instanceof Error) {
+      let message: string;
+      if (axios.isAxiosError(e) && e.response) {
         message = e.message;
+        setError(message);
+      } else {
+        message = String(error);
         setError(message);
       }
       setIsLoading(false);
@@ -44,7 +50,7 @@ const CallsContainer = () => {
         <td>{call.in_out}</td>
         <td>{call.date}</td>
         <td>{call.person_avatar}</td>
-        <td>{call.in_out ? call.from_number : call.to_number}</td>
+        <td>{call.from_number}</td>
         <td>{call.source}</td>
         <td>{call.time}</td>
       </tr>

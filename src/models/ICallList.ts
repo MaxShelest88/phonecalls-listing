@@ -53,7 +53,7 @@ export interface ICall {
   status: 'Дозвонился' | 'Не дозвонился';
   record: string;
   line_number: string;
-  in_out: number;
+  in_out: 0 | 1;
   from_site: number;
   source: string;
   errors: IError[];

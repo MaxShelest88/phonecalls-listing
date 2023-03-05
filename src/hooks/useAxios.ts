@@ -1,22 +1,17 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { useState, useEffect } from 'react';
-import { ICall, ICallList } from '../models/ICallList';
 
-export const useFetchCalls = (url: string, token: string) => {
-  const [calls, setCalls] = useState<ICall[]>([]);
+// TODO: типизировать
+
+export const useAxios = (config: AxiosRequestConfig) => {
+  const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post<ICallList>(
-        url,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
-        },
-      );
-      setCalls(data.results);
+      const { data } = await axios.request(config);
+      setData(data.results);
       setIsLoading(false);
     } catch (e) {
       let message: string;
@@ -37,5 +32,5 @@ export const useFetchCalls = (url: string, token: string) => {
     fetchPosts();
   }, []);
 
-  return { calls, error, isLoading };
+	return { data, error, isLoading };
 };

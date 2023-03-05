@@ -1,14 +1,15 @@
 import { ICall } from "../../models/ICallList";
 import TableRow from "./TableRow/TableRow";
+import classes from './CallsTable.module.scss';
 
 interface CallTableProps {
-  calls: ICall[];
+  calls: ICall[] | [];
 }
 
 const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
   return (
-    <table>
-      <thead>
+    <table className={classes.table}>
+      <thead className={classes['table-head']}>
         <tr>
           <th>Тип</th>
           <th>Время</th>

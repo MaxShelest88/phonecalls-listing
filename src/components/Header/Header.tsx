@@ -1,8 +1,8 @@
 import AnalyticsItem from '../AnalyticsItem/AnalyticsItem';
-import HeaderSearch from '../HeaderSearch/HeaderSearch';
+import HeaderSearch from './HeaderSearch/HeaderSearch';
 import classes from './Header.module.scss';
-import OrganizationSelect from '../OrganizationSelect/OrganizationSelect';
-import AuthUser from '../AuthUser/AuthUser';
+import OrganizationSelect from './HeaderOrganizationSelect/HeaderOrganizationSelect';
+import HeaderUser from './HeaderUser/HeaderUser';
 
 const Header: React.FC = (): JSX.Element => {
   return (
@@ -35,7 +35,7 @@ const Header: React.FC = (): JSX.Element => {
         <OrganizationSelect />
       </div>
       <div className={classes.user}>
-        <AuthUser />
+        <HeaderUser />
       </div>
     </div>
   );

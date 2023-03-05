@@ -10,7 +10,7 @@ import executorIcon from '../../assets/icons/sidebar/perm_identity_black_24dp.sv
 import caseIcon from '../../assets/icons/sidebar/briefcase-outline.svg';
 import knowlageIcon from '../../assets/icons/sidebar/local_library_black_24dp.svg';
 import settingsIcon from '../../assets/icons/sidebar/settings-24px.svg';
-import NavItem from '../NavItem/NavItem';
+import NavItem from './NavItem/NavItem';
 import Button from '../UI/Button/Button';
 import addIcon from '../../assets/icons/sidebar/button/primary/Vector.svg';
 import payIcon from '../../assets/icons/sidebar/button/pay/Vector.svg';

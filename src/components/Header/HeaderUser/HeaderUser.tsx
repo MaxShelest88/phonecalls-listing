@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import IconChevronDown from '../UI/Icons/IconChevronDown';
-import classes from './AuthUser.module.scss';
-import userImage from '../../assets/img/user.png';
-import avatar from '../../assets/img/avatar.png';
-import Tooltip from '../Tooltip/Tooltip';
+import IconChevronDown from '../../UI/Icons/IconChevronDown';
+import classes from './HeaderUser.module.scss';
+import userImage from '../../../assets/img/user.png';
+import avatar from '../../../assets/img/avatar.png';
+import Tooltip from '../../Tooltip/Tooltip';
 
 interface listItem {
   id?: number;
@@ -29,7 +29,7 @@ const buhList: listItem[] = [
   { id: 9, image: avatar, name: 'Константин Константинопольский' },
 ];
 
-const AuthUser: React.FC = (): JSX.Element => {
+const HeaderUser: React.FC = (): JSX.Element => {
   const [userIsVisible, setUserIsVisible] = useState(false);
   const userRef = useRef<HTMLDivElement>(null);
 
@@ -103,35 +103,35 @@ const AuthUser: React.FC = (): JSX.Element => {
           <div className={classes.card}>
             <div className={classes.header}>
               <div className={classes.name}>Упоров Кирилл</div>
-              <Tooltip text='Выйти'>
-              	<div
-	                tip-anchor="exit"
-	                className={classes.exitIcon}
-	              >
-	                <svg
-	                  width="24"
-	                  height="24"
-	                  viewBox="0 0 24 24"
-	                  fill="none"
-	                  xmlns="http://www.w3.org/2000/svg"
-	                >
-	                  <g clipPath="url(#clip0_5676_871)">
-	                    <path
-	                      d="M17 8L15.59 9.41L17.17 11H9V13H17.17L15.59 14.58L17 16L21 12L17 8ZM5 5H12V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H12V19H5V5Z"
-	                      fill="#ADBFDF"
-	                    />
-	                  </g>
-	                  <defs>
-	                    <clipPath id="clip0_5676_871">
-	                      <rect
-	                        width="24"
-	                        height="24"
-	                        fill="white"
-	                      />
-	                    </clipPath>
-	                  </defs>
-	                </svg>
-	              </div>
+              <Tooltip text="Выйти">
+                <div
+                  tip-anchor="exit"
+                  className={classes.exitIcon}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clipPath="url(#clip0_5676_871)">
+                      <path
+                        d="M17 8L15.59 9.41L17.17 11H9V13H17.17L15.59 14.58L17 16L21 12L17 8ZM5 5H12V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H12V19H5V5Z"
+                        fill="#ADBFDF"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_5676_871">
+                        <rect
+                          width="24"
+                          height="24"
+                          fill="white"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
               </Tooltip>
             </div>
             <div className={classes.desc}>
@@ -227,4 +227,4 @@ const AuthUser: React.FC = (): JSX.Element => {
     </div>
   );
 };
-export default AuthUser;
+export default HeaderUser;

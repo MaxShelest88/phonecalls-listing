@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import IconChevronDown from '../UI/Icons/IconChevronDown';
-import classes from './OrganizationSelect.module.scss';
+import IconChevronDown from '../../UI/Icons/IconChevronDown';
+import classes from './HeaderOrganizationSelect.module.scss';
 
 export const listItems = [
   { text: 'Все организации' },
@@ -9,7 +9,7 @@ export const listItems = [
   { text: 'ИП Иванов М.М.' },
 ];
 
-const OrganizationSelect = () => {
+const HeaderOrganizationSelect = () => {
   const [organization, setOrganization] = useState('ИП Сидорова Александра Михайловна');
   const [organizationIsVisible, setOrganizationIsVisible] = useState(false);
   const organizationRef = useRef<HTMLDivElement>(null);
@@ -61,4 +61,4 @@ const OrganizationSelect = () => {
     </div>
   );
 };
-export default OrganizationSelect;
+export default HeaderOrganizationSelect;

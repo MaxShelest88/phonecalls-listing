@@ -5,5 +5,19 @@ export const formatTime = (time: number): string => {
 };
 
 export const formatDate = (date: string) => {
-	const currentDate = new Date();
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const currentDateData = new Date();
+  const currentDate = currentDateData.getDate();
+  const itemDateData = new Date(date);
+  const itemDate = itemDateData.getDate();
+  if (itemDate - currentDate === -1) {
+    return 'Вчера';
+  } else {
+    return itemDateData.toLocaleString('ru', options);
+  }
 };

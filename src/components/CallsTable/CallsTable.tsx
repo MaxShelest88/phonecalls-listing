@@ -10,6 +10,7 @@ interface CallTableProps {
 }
 
 const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
+	
   const groupCallsByDate = calls.reduce(
     (callObj: { [key: string]: ICall[] }, item: ICall, index: number, array: ICall[]) => {
       callObj[item.date_notime] = array.filter(
@@ -24,9 +25,6 @@ const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
     date: item[0],
     calls: item[1] as ICall[],
   }));
-
-	const currentDate = new Date();
-	
 
   return (
     <table className={classes.table}>

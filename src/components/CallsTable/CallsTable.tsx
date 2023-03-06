@@ -16,6 +16,7 @@ const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
           <th>Сотрудник</th>
           <th>Звонок</th>
           <th>Источник</th>
+          <th>Оценка</th>
           <th>Длительность</th>
         </tr>
       </thead>

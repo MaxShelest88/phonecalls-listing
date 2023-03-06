@@ -7,11 +7,14 @@ export const useAxios = (config: AxiosRequestConfig) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // console.log(data);
+
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
       const { data } = await axios.request(config);
-      setData(data.results);
+      setData(data);
       setIsLoading(false);
     } catch (e) {
       let message: string;
@@ -32,5 +35,5 @@ export const useAxios = (config: AxiosRequestConfig) => {
     fetchPosts();
   }, []);
 
-	return { data, error, isLoading };
+  return { data, error, isLoading };
 };

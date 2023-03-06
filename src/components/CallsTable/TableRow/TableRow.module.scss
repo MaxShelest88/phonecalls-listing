@@ -1,0 +1,36 @@
+.row {
+	td {
+		padding: 16px 0;
+	}
+}
+.type {
+	width: 56px;
+}
+.date {
+	width: 86px;
+}
+.user {
+	width: 128px;
+}
+.user-image {
+	width: 32px;
+	height: 32px;
+	img {
+		max-width: 100%;
+	}
+}
+.number {
+	width: 326px;
+}
+
+.source {
+	width: 214px;
+}
+.rating {
+	width: 461px;
+}
+
+td.time {
+	text-align: end;
+	padding-right: 40px;
+}

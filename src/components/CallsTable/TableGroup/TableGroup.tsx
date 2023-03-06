@@ -13,12 +13,10 @@ const TableGroup: React.FC<TableGroupProps> = (arr) => {
 
 	const currentDay = new Date().getDay()
 	const itemDay = new Date(arr.date).getDay();
-
-	console.log(formatDate(arr.date));
 	
   return (
     <React.Fragment>
-      <tr>{currentDay !== itemDay && <td>{formatDate(arr.date)}</td>}</tr>
+      <tr>{currentDay !== itemDay && <td colSpan={3}>{formatDate(arr.date)}</td>}</tr>
       {arr.calls.map((call) => (
         <TableRow
           call={call}

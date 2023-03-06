@@ -5,9 +5,6 @@ td {
 
 table {
 	border-collapse: collapse;
-}
-
-.table {
 	width: 100%;
 }
 
@@ -18,5 +15,8 @@ table {
 	tr th {
 		padding: 24px 40px 20px 0;
 		text-align: left;
+		&:first-child {
+			padding-left: 12px;
+		}
 	}
 }

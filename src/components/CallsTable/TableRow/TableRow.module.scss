@@ -2,9 +2,14 @@
 	td {
 		padding: 16px 0;
 	}
+	cursor: pointer;
+	&:hover{
+		background: rgba(212, 223, 243, 0.17);
+	}
 }
-.type {
+td.type {
 	width: 56px;
+	padding-left: 12px;
 }
 .date {
 	width: 86px;
@@ -15,6 +20,8 @@
 .user-image {
 	width: 32px;
 	height: 32px;
+	overflow: hidden;
+	border-radius: 50%;
 	img {
 		max-width: 100%;
 	}

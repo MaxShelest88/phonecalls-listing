@@ -7,6 +7,7 @@ interface TableRowProps {
 }
 
 const TableRow: React.FC<TableRowProps> = ({ call }) => {
+	
   return (
     <tr className={classes.row}>
       <td className={classes.type}>

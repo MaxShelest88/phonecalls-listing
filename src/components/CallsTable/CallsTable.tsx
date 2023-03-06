@@ -1,12 +1,33 @@
-import { ICall } from "../../models/ICallList";
-import TableRow from "./TableRow/TableRow";
+import { ICall } from '../../models/ICallList';
+import TableRow from './TableRow/TableRow';
 import classes from './CallsTable.module.scss';
+import React from 'react';
+import TableGroup from './TableGroup/TableGroup';
+import { table } from 'console';
 
 interface CallTableProps {
-  calls: ICall[] | [];
+  calls: ICall[];
 }
 
 const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
+  const groupCallsByDate = calls.reduce(
+    (callObj: { [key: string]: ICall[] }, item: ICall, index: number, array: ICall[]) => {
+      callObj[item.date_notime] = array.filter(
+        (call: ICall) => call.date_notime === item.date_notime,
+      );
+      return callObj;
+    },
+    {} as { [key: string]: ICall[] },
+  );
+
+  const callsGroupArr = Object.entries(groupCallsByDate).map((item) => ({
+    date: item[0],
+    calls: item[1] as ICall[],
+  }));
+
+	const currentDate = new Date();
+	
+
   return (
     <table className={classes.table}>
       <thead className={classes['table-head']}>
@@ -21,11 +42,8 @@ const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
         </tr>
       </thead>
       <tbody>
-        {calls.map((call) => (
-          <TableRow
-            call={call}
-            key={call.id}
-          />
+        {callsGroupArr.map((groupItem) => (
+			  <TableGroup {...groupItem} key={groupItem.date } />
         ))}
       </tbody>
     </table>

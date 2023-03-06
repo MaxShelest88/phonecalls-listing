@@ -2,7 +2,7 @@ import React from "react";
 import { ICall } from "../../../models/ICallList";
 import { formatDate } from "../../../utils/formatters";
 import TableRow from "../TableRow/TableRow";
-
+import classes from './TableGroup.module.scss';
 
 interface TableGroupProps {
 	date: string, 
@@ -16,7 +16,18 @@ const TableGroup: React.FC<TableGroupProps> = (arr) => {
 	
   return (
     <React.Fragment>
-      <tr>{currentDay !== itemDay && <td colSpan={3}>{formatDate(arr.date)}</td>}</tr>
+      <tr className={classes['date-row']}>
+        {currentDay !== itemDay && (
+          <td colSpan={3}>
+            <div>
+              <span className={classes.date}>
+                {formatDate(arr.date)}
+                <span className={classes.quantity}>{arr.calls.length}</span>
+              </span>
+            </div>
+          </td>
+        )}
+      </tr>
       {arr.calls.map((call) => (
         <TableRow
           call={call}

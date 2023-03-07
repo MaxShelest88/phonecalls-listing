@@ -2,23 +2,10 @@ import classes from './Datepiker.module.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { useEffect, useRef, useState } from 'react';
-import { IDatepikerListItemProps, IDatepikerProps } from '../../models/IDatepiker';
+import { IDatepikerProps } from '../../models/IDatepiker';
+import DropdownItem from './DropdownItem/DropdownItem';
 registerLocale('ru', ru);
 
-const DropdownItem: React.FC<IDatepikerListItemProps> = ({
-  name,
-  value,
-  onClickHandler,
-}): JSX.Element => {
-  return (
-    <li
-      onClick={() => onClickHandler(name, value)}
-      className={classes.item}
-    >
-      <span>{name}</span>
-    </li>
-  );
-};
 
 const Datepiker: React.FC<IDatepikerProps> = ({
   items,

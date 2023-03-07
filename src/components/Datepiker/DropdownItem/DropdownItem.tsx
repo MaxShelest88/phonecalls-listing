@@ -1,5 +1,5 @@
 import { IDatepikerListItemProps } from '../../../models/IDatepiker';
-import classes from './Datepiker.module.scss';
+import classes from './DropdownItem.module.scss';
 
 const DropdownItem: React.FC<IDatepikerListItemProps> = ({
   name,

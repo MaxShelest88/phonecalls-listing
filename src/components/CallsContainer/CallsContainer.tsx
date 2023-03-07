@@ -1,13 +1,13 @@
-import { useCallback, useState, useMemo, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useAxios } from '../../hooks/useAxios';
 import CallsTable from '../CallsTable/CallsTable';
-
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ICall, ICallList } from '../../models/ICallList';
+import { ICallList } from '../../models/ICallList';
 import Datepiker from '../Datepiker/Datepiker';
 import { IDatepikerListItem } from '../../models/IDatepiker';
+import { useCalls } from '../../hooks/useCalls';
 
 const datePikerListItems: IDatepikerListItem[] = [
   { value: 2, name: '3 дня' },
@@ -49,24 +49,14 @@ const CallsContainer = () => {
   }, []);
 
   const setDaysBeforeCurrentDate = useCallback((days: number): Date => {
-    const date = new Date();
-    return new Date(date.setDate(date.getDate() - days));
+    const currentDate = new Date();
+    return new Date(currentDate.setDate(currentDate.getDate() - days));
   }, []);
 
   const [finishDate, setFinishDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
 
-  console.log(startDate.getDate());
-
-  const filteredCalls = useMemo(() => {
-    return calls.results.filter((call) => {
-      const callDate = new Date(call.date);
-      return (
-        callDate.setHours(0, 0, 0, 0) >= startDate.setHours(0, 0, 0, 0) &&
-        callDate.setHours(0, 0, 0, 0) <= finishDate.setHours(0, 0, 0, 0)
-      );
-    });
-  }, [calls, finishDate, startDate]);
+  const filteredCalls = useCalls({ calls: calls.results, startDate, finishDate });
 
   const onItemClickHandler = (value: number) => {
     setStartDate(setDaysBeforeCurrentDate(value));

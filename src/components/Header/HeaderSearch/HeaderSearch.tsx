@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useInput } from '../../../hooks/useIntput';
+import { useInput } from '../../../hooks/useInput';
 import IconClose from '../../UI/Icons/IconClose';
 import IconSearch from '../../UI/Icons/IconSearch';
 import Input from '../../UI/Input/Input';

@@ -1,19 +1,16 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useState, useEffect } from 'react';
 
-// TODO: типизировать
-
-export const useAxios = (config: AxiosRequestConfig) => {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+export const useAxios = <T>(config: AxiosRequestConfig, initilValue: T): [T, boolean, string] => {
+  const [data, setData] = useState<T>(initilValue);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   // console.log(data);
-
-  const fetchPosts = async () => {
+  const fetchData = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.request(config);
+      const { data } = await axios.request<T>(config);
       setData(data);
       setIsLoading(false);
     } catch (e) {
@@ -32,8 +29,8 @@ export const useAxios = (config: AxiosRequestConfig) => {
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchData();
   }, []);
 
-  return { data, error, isLoading };
+  return [data, isLoading, error];
 };

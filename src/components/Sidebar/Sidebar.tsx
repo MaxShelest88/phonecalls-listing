@@ -12,7 +12,6 @@ import knowlageIcon from '../../assets/icons/sidebar/local_library_black_24dp.sv
 import settingsIcon from '../../assets/icons/sidebar/settings-24px.svg';
 import NavItem from './NavItem/NavItem';
 import Button from '../UI/Button/Button';
-import addIcon from '../../assets/icons/sidebar/button/primary/Vector.svg';
 import payIcon from '../../assets/icons/sidebar/button/pay/Vector.svg';
 import IconAdd from '../UI/Icons/IconAdd';
 

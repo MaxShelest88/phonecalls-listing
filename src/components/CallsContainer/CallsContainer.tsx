@@ -19,8 +19,6 @@ const datePikerListItems: IDatepikerListItem[] = [
 const CallsContainer = () => {
   //   const URL = './mock_calls.json';
 
-  console.log(process.env.REACT_APP_URL);
-
   const [fetchCalls, calls, isLoading, error] = useAxios<ICallList>(
     {
       url: process.env.REACT_APP_URL,

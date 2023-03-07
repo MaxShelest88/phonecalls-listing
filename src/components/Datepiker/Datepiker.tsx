@@ -3,7 +3,6 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { useEffect, useRef, useState } from 'react';
 import { IDatepikerProps } from '../../models/IDatepiker';
-import DropdownItem from './DropdownItem/DropdownItem';
 import { formatDate } from '../../utils/formatters';
 registerLocale('ru', ru);
 
@@ -50,23 +49,40 @@ const Datepiker: React.FC<IDatepikerProps> = ({
   return (
     <div className={classes.container}>
       <div
+        className={classes['top-value']}
         ref={dropdownRef}
         onClick={() => setDropdownIsVisible((prevState) => !prevState)}
       >
-        {selectedValue}
+        <svg
+          width="16"
+          height="18"
+          viewBox="0 0 16 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.4 1.63636H13.6V0H12V1.63636H4V0H2.4V1.63636H1.6C0.72 1.63636 0 2.37273 0 3.27273V16.3636C0 17.2636 0.72 18 1.6 18H14.4C15.28 18 16 17.2636 16 16.3636V3.27273C16 2.37273 15.28 1.63636 14.4 1.63636ZM14.4 16.3636H1.6V5.72727H14.4V16.3636Z"
+            fill="#ADBFDF"
+          />
+        </svg>
+        <span>{selectedValue}</span>
       </div>
       {dropdownIsVisible && (
         <div className={classes.dropdown}>
           <ul>
-            {items.map((item, index) => (
-              <DropdownItem
-                onClickHandler={onClickHandler}
-                name={item.name}
-                value={item.value}
-                key={index}
-              />
+            {items.map((item) => (
+              <li
+                onClick={() => onClickHandler(item.name, item.value)}
+                className={`${classes.item} ${item.name === selectedValue ? classes.active : ''}`}
+                key={item.value}
+              >
+                <span>{item.name}</span>
+              </li>
             ))}
-            <li onClick={(e) => e.stopPropagation()}>
+            <li
+              className={classes['date-items']}
+              onClick={(e) => e.stopPropagation()}
+            >
               <DatePicker
                 locale="ru"
                 selected={startDate}

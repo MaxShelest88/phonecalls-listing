@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { IDatepikerListItemProps, IDatepikerProps } from '../../models/IDatepiker';
 registerLocale('ru', ru);
 
-const DropDownItem: React.FC<IDatepikerListItemProps> = ({
+const DropdownItem: React.FC<IDatepikerListItemProps> = ({
   name,
   value,
   onClickHandler,
@@ -74,7 +74,7 @@ const Datepiker: React.FC<IDatepikerProps> = ({
         <div className={classes.dropdown}>
           <ul>
             {items.map((item, index) => (
-              <DropDownItem
+              <DropdownItem
                 onClickHandler={onClickHandler}
                 name={item.name}
                 value={item.value}

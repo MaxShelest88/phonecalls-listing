@@ -11,9 +11,9 @@ import { useCalls } from '../../hooks/useCalls';
 
 const datePikerListItems: IDatepikerListItem[] = [
   { value: 2, name: '3 дня' },
-  { value: 6, name: 'неделя' },
-  { value: 30, name: 'месяц' },
-  { value: 364, name: 'год' },
+  { value: 6, name: 'Неделя' },
+  { value: 30, name: 'Месяц' },
+  { value: 364, name: 'Год' },
 ];
 
 const CallsContainer = () => {

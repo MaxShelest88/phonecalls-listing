@@ -55,7 +55,7 @@ const CallsContainer = () => {
     return calls?.filter((call) => {
       const callDate = new Date(call.date_notime);
       return (
-        callDate.getTime() >= startDate!.getTime() && callDate.getTime() <= finishDate!.getTime()
+        callDate.getDate() >= startDate!.getDate() && callDate.getDate() <= finishDate!.getDate()
       );
     });
   }, [calls, finishDate, startDate]);

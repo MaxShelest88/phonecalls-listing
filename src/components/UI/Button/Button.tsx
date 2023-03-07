@@ -1,12 +1,7 @@
+import { IButtonProps } from '../../../models/IButton';
 import classes from './Button.module.scss';
 
-interface ButtonProps {
-  icon: string;
-  text: string;
-  pl: number;
-}
-
-const Button: React.FC<ButtonProps> = ({ icon, text, pl }) => {
+const Button: React.FC<IButtonProps> = ({ icon, text, pl }) => {
   return (
     <button className={classes.button}>
       <span
@@ -15,11 +10,15 @@ const Button: React.FC<ButtonProps> = ({ icon, text, pl }) => {
       >
         {text}
       </span>
-      <img
-        className={classes.icon}
-        src={icon}
-        alt=""
-      />
+      {typeof icon === 'string' ? (
+        <img
+          className={classes.icon}
+          src={icon}
+          alt=""
+        />
+      ) : (
+        <div className={classes.icon}>{icon}</div>
+      )}
     </button>
   );
 };

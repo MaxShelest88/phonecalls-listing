@@ -1,9 +1,7 @@
 import { ICall } from '../../models/ICallList';
-import TableRow from './TableRow/TableRow';
 import classes from './CallsTable.module.scss';
 import React from 'react';
 import TableGroup from './TableGroup/TableGroup';
-import { table } from 'console';
 
 interface CallTableProps {
   calls: ICall[];

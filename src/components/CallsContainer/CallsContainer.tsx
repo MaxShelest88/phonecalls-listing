@@ -30,9 +30,11 @@ const CallsContainer = () => {
   });
 
   return (
-    <div className={classes['table-container']}>
-      {isLoading ? <Loading /> : error ? <div>{error}</div> : <CallsTable calls={calls || []} />}
-    </div>
+    <>
+      <div className={classes['table-container']}>
+        {isLoading ? <Loading /> : error ? <div>{error}</div> : <CallsTable calls={calls || []} />}
+      </div>
+    </>
   );
 };
 export default CallsContainer;

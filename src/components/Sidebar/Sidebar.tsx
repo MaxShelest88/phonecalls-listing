@@ -14,6 +14,7 @@ import NavItem from './NavItem/NavItem';
 import Button from '../UI/Button/Button';
 import addIcon from '../../assets/icons/sidebar/button/primary/Vector.svg';
 import payIcon from '../../assets/icons/sidebar/button/pay/Vector.svg';
+import IconAdd from '../UI/Icons/IconAdd';
 
 const Sidebar: React.FC = () => {
   return (
@@ -72,7 +73,13 @@ const Sidebar: React.FC = () => {
       <div className={classes.actions}>
         <Button
           pl={24}
-          icon={addIcon}
+          icon={
+            <IconAdd
+              size="24"
+              opacity="0.56"
+              color="#D8E4FB"
+            />
+          }
           text="Добавить заказ"
         />
         <Button

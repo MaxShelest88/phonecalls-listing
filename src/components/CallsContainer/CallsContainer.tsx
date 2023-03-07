@@ -4,15 +4,14 @@ import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 
 const CallsContainer = () => {
-  //   const URL = 'https://api.skilla.ru/mango/getList';
+
   const URL = './mock_calls.json';
-  //   const TOKEN = 'testtoken';
 
   //   const { data: calls, isLoading, error } = useAxios({
   //     url: URL,
   //     method: 'post',
   //     headers: {
-  //       Authorization: `Bearer ${TOKEN}`,
+  //       Authorization: `Bearer ${env.TOKEN}`,
   //       Accept: 'application/json',
   //     },
   //   });

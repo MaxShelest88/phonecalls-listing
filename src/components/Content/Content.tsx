@@ -1,4 +1,4 @@
-import CallsContainer from './CallsContainer/CallsContainer';
+import CallsContainer from '../CallsContainer/CallsContainer';
 
 const Content: React.FC = () => {
   return (

@@ -9,7 +9,7 @@ import { ICall } from '../../models/ICallList';
 import Datepiker from '../Datepiker/Datepiker';
 import { IDatepikerListItem } from '../../models/IDatepiker';
 
-const datePikerListItems:IDatepikerListItem[] = [
+const datePikerListItems: IDatepikerListItem[] = [
   { value: 3, name: '3 дня' },
   { value: 7, name: 'неделя' },
   { value: 30, name: 'месяц' },
@@ -59,10 +59,10 @@ const CallsContainer = () => {
       );
     });
   }, [calls, finishDate, startDate]);
-	
-	const onItemClickHandler = (value:number) => {
-		setStartDate(setDaysBeforeCurrentDate(value));
-	}
+
+  const onItemClickHandler = (value: number) => {
+    setStartDate(setDaysBeforeCurrentDate(value));
+  };
 
   return (
     <>

@@ -4,8 +4,8 @@ import ru from 'date-fns/locale/ru';
 import { useEffect, useRef, useState } from 'react';
 import { IDatepikerProps } from '../../models/IDatepiker';
 import DropdownItem from './DropdownItem/DropdownItem';
+import { formatDate } from '../../utils/formatters';
 registerLocale('ru', ru);
-
 
 const Datepiker: React.FC<IDatepikerProps> = ({
   items,
@@ -39,15 +39,13 @@ const Datepiker: React.FC<IDatepikerProps> = ({
 
   const onStartDateChangeHandler = (date: Date) => {
     setStartDate(date);
-    setSelectedValue(`${startDate.getDate()} - ${finishDate.getDate()}`);
-  };
-  const onFinishDateChangeHandler = (date: Date) => {
-    setFinishDate(date);
-    setSelectedValue(`${startDate.getDate()} - ${finishDate.getDate()}`);
-    setDropdownIsVisible(false);
+    setSelectedValue(`${formatDate(date)} - ${formatDate(finishDate)}`);
   };
 
-  // TODO: Добавить onClick на Datepicker и передать туда значения setSelectedValue setDropdownIsVisible
+  const onFinishDateChangeHandler = (date: Date) => {
+    setFinishDate(date);
+    setSelectedValue(`${formatDate(startDate)} - ${formatDate(date)}`);
+  };
 
   return (
     <div className={classes.container}>
@@ -68,7 +66,7 @@ const Datepiker: React.FC<IDatepikerProps> = ({
                 key={index}
               />
             ))}
-            <li>
+            <li onClick={(e) => e.stopPropagation()}>
               <DatePicker
                 locale="ru"
                 selected={startDate}

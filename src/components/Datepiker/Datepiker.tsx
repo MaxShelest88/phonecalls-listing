@@ -2,29 +2,33 @@ import classes from './Datepiker.module.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { useEffect, useRef, useState } from 'react';
+import { IDatepikerListItemProps, IDatepikerProps } from '../../models/IDatepiker';
 registerLocale('ru', ru);
 
-interface ListItemProps {
-  text: string;
-  img?: string;
-}
+const DropDownItem: React.FC<IDatepikerListItemProps> = ({
+  name,
+  value,
+  onClickHandler,
+}): JSX.Element => {
+  return (
+    <li
+      onClick={() => onClickHandler(name, value)}
+      className={classes.item}
+    >
+      <span>{name}</span>
+    </li>
+  );
+};
 
-interface DatepikerProps {
-  items: ListItemProps[];
-  startDate: Date;
-  finishDate: Date;
-  setStartDate: (date: Date) => void;
-  setFinishDate: (date: Date) => void;
-}
-
-const Datepiker: React.FC<DatepikerProps> = ({
+const Datepiker: React.FC<IDatepikerProps> = ({
   items,
   startDate,
   finishDate,
   setStartDate,
   setFinishDate,
+  onClick,
 }): JSX.Element => {
-  const [selectedValue, setSelectedValue] = useState('Дата пикер');
+  const [selectedValue, setSelectedValue] = useState('3 дня');
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -40,37 +44,28 @@ const Datepiker: React.FC<DatepikerProps> = ({
     };
   }, []);
 
-  const onClickHandler = (value: string) => {
-    setSelectedValue(value);
+  const onClickHandler = (name: string, value: number) => {
+    setSelectedValue(name);
+    onClick(value);
     setDropdownIsVisible(false);
   };
 
-  const DropDownItem: React.FC<ListItemProps> = (props): JSX.Element => {
-    return (
-      <li className={classes.item}>
-        <div>
-          <img
-            src={props.img}
-            alt="item"
-          />
-        </div>
-        <span>{props.text}</span>
-      </li>
-    );
-  };
-
   return (
-    <div
-      ref={dropdownRef}
-      className={classes.container}
-    >
-      <div onClick={() => setDropdownIsVisible((prevState) => !prevState)}>{selectedValue}</div>
+    <div className={classes.container}>
+      <div
+        ref={dropdownRef}
+        onClick={() => setDropdownIsVisible((prevState) => !prevState)}
+      >
+        {selectedValue}
+      </div>
       {dropdownIsVisible && (
         <div className={classes.dropdown}>
           <ul>
-            {items.map((item: ListItemProps, index) => (
+            {items.map((item, index) => (
               <DropDownItem
-                text={item.text}
+                onClickHandler={onClickHandler}
+                name={item.name}
+                value={item.value}
                 key={index}
               />
             ))}

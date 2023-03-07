@@ -1,7 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useState, useEffect } from 'react';
 
-export const useAxios = <T>(config: AxiosRequestConfig, initilValue: T): [T, boolean, string] => {
+export const useAxios = <T>(
+  config: AxiosRequestConfig,
+  initilValue: T,
+): [() => {}, T, boolean, string] => {
   const [data, setData] = useState<T>(initilValue);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -28,9 +31,5 @@ export const useAxios = <T>(config: AxiosRequestConfig, initilValue: T): [T, boo
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  return [data, isLoading, error];
+  return [fetchData, data, isLoading, error];
 };

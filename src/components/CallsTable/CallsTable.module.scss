@@ -1,7 +1,4 @@
-tr,
-td {
-	border-bottom: 1px solid #eaf0fa;
-}
+
 
 td {
 	font-size: 0.9375rem;
@@ -20,6 +17,7 @@ table {
 	tr th {
 		padding: 24px 40px 20px 0;
 		text-align: left;
+		border-bottom: 1px solid #eaf0fa;
 		&:first-child {
 			padding-left: 12px;
 		}

@@ -15,10 +15,10 @@ const TableGroup: React.FC<TableGroupProps> = (arr) => {
 	const itemDay = new Date(arr.date).getDay();
 	
   return (
-    <React.Fragment>
+    <tbody className={classes['body']}>
       <tr className={classes['date-row']}>
         {currentDay !== itemDay && (
-          <td colSpan={3}>
+          <td colSpan={100}>
             <div>
               <span className={classes.date}>
                 {formatDate(arr.date)}
@@ -34,7 +34,7 @@ const TableGroup: React.FC<TableGroupProps> = (arr) => {
           key={call.id}
         />
       ))}
-    </React.Fragment>
+    </tbody>
   );
 };
 export default TableGroup;

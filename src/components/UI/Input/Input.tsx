@@ -1,22 +1,8 @@
 import classes from './Input.module.scss';
 import React, { useImperativeHandle, useRef } from 'react';
+import { IInputComponentProps } from '../../../models/IInput';
 
-interface InputProps {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
-  placeholder?: string;
-  name: string;
-  type?: string;
-  error?: boolean;
-  onBlur: () => void;
-  onFocus: () => void;
-  reset: () => void;
-  ref?: React.Ref<HTMLInputElement> | null;
-}
-
-const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
+const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref) => {
   const {
     onChange,
     onFocus,

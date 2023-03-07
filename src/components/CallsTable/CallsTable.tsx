@@ -8,7 +8,6 @@ interface CallTableProps {
 }
 
 const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
-	
   const groupCallsByDate = calls.reduce(
     (callObj: { [key: string]: ICall[] }, item: ICall, index: number, array: ICall[]) => {
       callObj[item.date_notime] = array.filter(
@@ -37,11 +36,13 @@ const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
           <th>Длительность</th>
         </tr>
       </thead>
-      <tbody>
-        {callsGroupArr.map((groupItem) => (
-			  <TableGroup {...groupItem} key={groupItem.date } />
-        ))}
-      </tbody>
+
+      {callsGroupArr.map((groupItem) => (
+        <TableGroup
+          {...groupItem}
+          key={groupItem.date}
+        />
+      ))}
     </table>
   );
 };

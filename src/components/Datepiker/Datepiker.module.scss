@@ -17,18 +17,27 @@
 
 .container {
 	position: relative;
-	
 }
 
-.top-value{
+.top-value {
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: $primary;
-	svg{
+	svg {
 		margin-right: 8px;
 	}
+	&:hover {
+			svg path {
+				fill: $primary;
+			}
+		}
+		&:active {
+			svg path {
+				fill: $active;
+			}
+		}
 }
 
 .item {
@@ -49,5 +58,6 @@
 	}
 }
 
-.date-items{display: flex;
+.date-items {
+	display: flex;
 }

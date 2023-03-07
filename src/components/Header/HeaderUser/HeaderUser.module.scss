@@ -67,7 +67,7 @@
 	cursor: pointer;
 	&:hover {
 		svg g path {
-			fill: #005ff8;
+			fill: $primary;
 		}
 	}
 	&:active{

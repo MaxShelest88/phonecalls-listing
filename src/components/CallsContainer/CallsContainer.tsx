@@ -4,7 +4,6 @@ import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 
 const CallsContainer = () => {
-
   const URL = './mock_calls.json';
 
   //   const { data: calls, isLoading, error } = useAxios({
@@ -30,6 +29,9 @@ const CallsContainer = () => {
 
   return (
     <>
+		  <div className={classes['filters-container']}>
+			  <div className={classes['datepiker-container']}></div>
+		</div>
       <div className={classes['table-container']}>
         {isLoading ? <Loading /> : error ? <div>{error}</div> : <CallsTable calls={calls || []} />}
       </div>

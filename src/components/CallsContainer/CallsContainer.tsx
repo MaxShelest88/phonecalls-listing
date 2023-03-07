@@ -5,39 +5,44 @@ import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ICall } from '../../models/ICallList';
+import { ICall, ICallList } from '../../models/ICallList';
 import Datepiker from '../Datepiker/Datepiker';
 import { IDatepikerListItem } from '../../models/IDatepiker';
 
 const datePikerListItems: IDatepikerListItem[] = [
-  { value: 3, name: '3 дня' },
-  { value: 7, name: 'неделя' },
+  { value: 2, name: '3 дня' },
+  { value: 6, name: 'неделя' },
   { value: 30, name: 'месяц' },
-  { value: 365, name: 'год' },
+  { value: 364, name: 'год' },
 ];
 
 const CallsContainer = () => {
-  const URL = './mock_calls.json';
+  //   const URL = './mock_calls.json';
 
-  //   const [ calls, isLoading, error ] = useAxios<ICall[]>({
-  //     url: URL,
-  //     method: 'post',
-  //     headers: {
-  //       Authorization: `Bearer ${env.TOKEN}`,
-  //       Accept: 'application/json',
-  //     },
-  //   });
+  console.log(process.env.REACT_APP_URL);
 
-  const [fetchCalls, calls, isLoading, error] = useAxios<ICall[]>(
+  const [fetchCalls, calls, isLoading, error] = useAxios<ICallList>(
     {
-      url: URL,
-      method: 'get',
+      url: process.env.REACT_APP_URL,
+      method: 'post',
       headers: {
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
+        Accept: 'application/json',
       },
     },
-    [],
+    { total_rows: '', results: [] },
   );
+
+  //   const [fetchCalls, calls, isLoading, error] = useAxios<ICall[]>(
+  //     {
+  //       url: URL,
+  //       method: 'get',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     },
+  //     [],
+  //   );
 
   useEffect(() => {
     fetchCalls();
@@ -49,13 +54,16 @@ const CallsContainer = () => {
   }, []);
 
   const [finishDate, setFinishDate] = useState<Date>(new Date());
-  const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(3));
+  const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
+
+  console.log(startDate.getDate());
 
   const filteredCalls = useMemo(() => {
-    return calls?.filter((call) => {
-      const callDate = new Date(call.date_notime);
+    return calls.results.filter((call) => {
+      const callDate = new Date(call.date);
       return (
-        callDate.getDate() >= startDate!.getDate() && callDate.getDate() <= finishDate!.getDate()
+        callDate.setHours(0, 0, 0, 0) >= startDate.setHours(0, 0, 0, 0) &&
+        callDate.setHours(0, 0, 0, 0) <= finishDate.setHours(0, 0, 0, 0)
       );
     });
   }, [calls, finishDate, startDate]);

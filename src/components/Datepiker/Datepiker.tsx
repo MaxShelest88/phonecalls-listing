@@ -50,6 +50,18 @@ const Datepiker: React.FC<IDatepikerProps> = ({
     setDropdownIsVisible(false);
   };
 
+  const onStartDateChangeHandler = (date: Date) => {
+    setStartDate(date);
+    setSelectedValue(`${startDate.getDate()} - ${finishDate.getDate()}`);
+  };
+  const onFinishDateChangeHandler = (date: Date) => {
+    setFinishDate(date);
+    setSelectedValue(`${startDate.getDate()} - ${finishDate.getDate()}`);
+    setDropdownIsVisible(false);
+  };
+
+  // TODO: Добавить onClick на Datepicker и передать туда значения setSelectedValue setDropdownIsVisible
+
   return (
     <div className={classes.container}>
       <div
@@ -73,12 +85,12 @@ const Datepiker: React.FC<IDatepikerProps> = ({
               <DatePicker
                 locale="ru"
                 selected={startDate}
-                onChange={(date) => date && setStartDate(date)}
+                onChange={(date) => date && onStartDateChangeHandler(date)}
               />
               <DatePicker
                 locale="ru"
                 selected={finishDate}
-                onChange={(date) => date && setFinishDate(date)}
+                onChange={(date) => date && onFinishDateChangeHandler(date)}
               />
             </li>
           </ul>

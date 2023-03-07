@@ -30,7 +30,7 @@ const Datepiker: React.FC<IDatepikerProps> = ({
     };
   }, []);
 
-  const onClickHandler = (name: string, value: number) => {
+  const onItemClickHandler = (name: string, value: number) => {
     setSelectedValue(name);
     onClick(value);
     setDropdownIsVisible(false);
@@ -72,7 +72,7 @@ const Datepiker: React.FC<IDatepikerProps> = ({
           <ul>
             {items.map((item) => (
               <li
-                onClick={() => onClickHandler(item.name, item.value)}
+                onClick={() => onItemClickHandler(item.name, item.value)}
                 className={`${classes.item} ${item.name === selectedValue ? classes.active : ''}`}
                 key={item.value}
               >

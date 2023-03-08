@@ -6,12 +6,14 @@ import { IDatepikerProps } from '../../models/IDatepiker';
 import { formatDate } from '../../utils/formatters';
 registerLocale('ru', ru);
 
+// TODO: Валидация, стилизация инпутов, стрелки
+
 const Datepiker: React.FC<IDatepikerProps> = ({
   items,
   startDate,
-  finishDate,
+  endDate,
   setStartDate,
-  setFinishDate,
+  setEndDate,
   onClick,
 }): JSX.Element => {
   const [selectedValue, setSelectedValue] = useState('3 дня');
@@ -38,11 +40,11 @@ const Datepiker: React.FC<IDatepikerProps> = ({
 
   const onStartDateChangeHandler = (date: Date) => {
     setStartDate(date);
-    setSelectedValue(`${formatDate(date)} - ${formatDate(finishDate)}`);
+    setSelectedValue(`${formatDate(date)} - ${formatDate(endDate)}`);
   };
 
-  const onFinishDateChangeHandler = (date: Date) => {
-    setFinishDate(date);
+  const onEndDateChangeHandler = (date: Date) => {
+    setEndDate(date);
     setSelectedValue(`${formatDate(startDate)} - ${formatDate(date)}`);
   };
 
@@ -87,11 +89,18 @@ const Datepiker: React.FC<IDatepikerProps> = ({
                 locale="ru"
                 selected={startDate}
                 onChange={(date) => date && onStartDateChangeHandler(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
               />
               <DatePicker
                 locale="ru"
-                selected={finishDate}
-                onChange={(date) => date && onFinishDateChangeHandler(date)}
+                selected={endDate}
+                onChange={(date) => date && onEndDateChangeHandler(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
               />
             </li>
           </ul>

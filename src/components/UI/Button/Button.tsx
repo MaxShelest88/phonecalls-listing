@@ -1,4 +1,3 @@
-
 import { IButtonComponentProps } from '../../../models/IButton';
 import classes from './Button.module.scss';
 

@@ -1,27 +1,20 @@
 import { ICall } from '../../models/ICallList';
 import classes from './CallsTable.module.scss';
-import React from 'react';
+import React, { useMemo } from 'react';
 import TableGroup from './TableGroup/TableGroup';
 
 interface CallTableProps {
-  calls: ICall[];
+  groupedCallsObj: { [key: string]: ICall[] };
 }
 
-const CallsTable: React.FC<CallTableProps> = ({ calls }) => {
-  const groupCallsByDate = calls.reduce(
-    (callObj: { [key: string]: ICall[] }, item: ICall, index: number, array: ICall[]) => {
-      callObj[item.date_notime] = array.filter(
-        (call: ICall) => call.date_notime === item.date_notime,
-      );
-      return callObj;
-    },
-    {} as { [key: string]: ICall[] },
-  );
-
-  const callsGroupArr = Object.entries(groupCallsByDate).map((item) => ({
-    date: item[0],
-    calls: item[1] as ICall[],
-  }));
+const CallsTable: React.FC<CallTableProps> = ({ groupedCallsObj }) => {
+	
+  const callsGroupArr = useMemo(() => {
+    return Object.entries(groupedCallsObj).map((item) => ({
+      date: item[0],
+      calls: item[1] as ICall[],
+    }));
+  }, [groupedCallsObj]);
 
   return (
     <table className={classes.table}>

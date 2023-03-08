@@ -12,8 +12,8 @@ export interface IDatepikerListItemProps {
 export interface IDatepikerProps {
   items: IDatepikerListItem[];
   startDate: Date;
-  finishDate: Date;
+  endDate: Date;
   setStartDate: (date: Date) => void;
-  setFinishDate: (date: Date) => void;
+  setEndDate: (date: Date) => void;
   onClick: (value: number) => void;
 }

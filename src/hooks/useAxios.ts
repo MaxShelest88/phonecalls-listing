@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export const useAxios = <T>(
   config: AxiosRequestConfig,

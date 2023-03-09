@@ -6,7 +6,7 @@ export const useFilterCalls = (calls: ICall[], startDate: Date, endDate: Date): 
     return calls.filter((call) => {
       const callDate = new Date(call.date);
       return (
-        callDate.setHours(0, 0, 0, 0) >= startDate.setHours(0, 0, 0, 0) &&
+        callDate.setHours(0, 0, 0, 0) >=  startDate.setHours(0, 0, 0, 0) &&
         callDate.setHours(0, 0, 0, 0) <= endDate.setHours(0, 0, 0, 0)
       );
     });

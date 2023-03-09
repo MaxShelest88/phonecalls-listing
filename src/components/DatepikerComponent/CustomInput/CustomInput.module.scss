@@ -1,2 +1,10 @@
 .input {
+	width: 56px;
+	font-size: 0.875rem;
+	line-height: 175%;
+	color: #adbfdf;
+	cursor: pointer;
+	::placeholder {
+		color: #adbfdf;
+	}
 }

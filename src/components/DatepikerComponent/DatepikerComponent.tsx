@@ -6,9 +6,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { IDatepikerProps } from '../../models/IDatepiker';
 import { formatDate } from '../../utils/formatters';
 import CustomInput from './CustomInput/CustomInput';
+import IconCalendar from '../UI/Icons/IconCalendar';
 registerLocale('ru', ru);
 
-// TODO: стилизация инпутов, стрелки
+// TODO: стрелки
 
 const DatepikerComponent: React.FC<IDatepikerProps> = ({
   items,
@@ -69,18 +70,7 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
         ref={dropdownRef}
         onClick={() => setDropdownIsVisible((prevState) => !prevState)}
       >
-        <svg
-          width="16"
-          height="18"
-          viewBox="0 0 16 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14.4 1.63636H13.6V0H12V1.63636H4V0H2.4V1.63636H1.6C0.72 1.63636 0 2.37273 0 3.27273V16.3636C0 17.2636 0.72 18 1.6 18H14.4C15.28 18 16 17.2636 16 16.3636V3.27273C16 2.37273 15.28 1.63636 14.4 1.63636ZM14.4 16.3636H1.6V5.72727H14.4V16.3636Z"
-            fill="#ADBFDF"
-          />
-        </svg>
+        <IconCalendar color="#ADBFDF" />
         <span>{selectedValue}</span>
       </div>
       {dropdownIsVisible && (
@@ -99,39 +89,48 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
               className={classes['date-items']}
               onClick={(e) => e.stopPropagation()}
             >
-              <DatePicker
-                locale="ru"
-                selected={startDateLocal}
-                onChange={(date) => date && onStartDateChangeHandler(date)}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                includeDateIntervals={[
-                  {
-                    start: subDays(new Date(), callsDays),
-                    end: addDays(new Date(), 0),
-                  },
-                ]}
-                customInput={<CustomInput />}
-                placeholderText="__.__.__"
-              />
-              -
-              <DatePicker
-                locale="ru"
-                selected={endDateLocal}
-                onChange={(date) => date && onEndDateChangeHandler(date)}
-                selectsEnd
-                startDate={startDate}
-                endDate={endDate}
-                minDate={startDate}
-                includeDateIntervals={[
-                  {
-                    start: subDays(new Date(), callsDays),
-                    end: addDays(new Date(), 0),
-                  },
-                ]}
-                placeholderText="__.__.__"
-              />
+              <p className={classes.title}>Указать даты</p>
+              <div className={classes['date-block']}>
+                <div className={classes['date-inputs']}>
+                  <DatePicker
+                    locale="ru"
+                    dateFormat="dd.MM.yy"
+                    selected={startDateLocal}
+                    onChange={(date) => date && onStartDateChangeHandler(date)}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                    includeDateIntervals={[
+                      {
+                        start: subDays(new Date(), callsDays),
+                        end: addDays(new Date(), 0),
+                      },
+                    ]}
+                    customInput={<CustomInput />}
+                    placeholderText="_ _._ _._ _"
+                  />
+                  <div className={classes.line} />
+                  <DatePicker
+                    locale="ru"
+                    dateFormat="dd.MM.yy"
+                    selected={endDateLocal}
+                    onChange={(date) => date && onEndDateChangeHandler(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    includeDateIntervals={[
+                      {
+                        start: subDays(new Date(), callsDays),
+                        end: addDays(new Date(), 0),
+                      },
+                    ]}
+                    customInput={<CustomInput />}
+                    placeholderText="_ _._ _._ _"
+                  />
+                </div>
+                <IconCalendar color="#ADBFDF" />
+              </div>
             </li>
           </ul>
         </div>

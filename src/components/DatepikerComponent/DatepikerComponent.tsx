@@ -1,12 +1,13 @@
 import classes from './DatepikerComponent.module.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
-import ru from 'date-fns/locale/ru';
-import { useEffect, useRef, useState } from 'react';
+import { ru } from 'date-fns/locale';
+import { subDays, addDays, differenceInDays } from 'date-fns';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { IDatepikerProps } from '../../models/IDatepiker';
 import { formatDate } from '../../utils/formatters';
 registerLocale('ru', ru);
 
-// TODO: Валидация, стилизация инпутов, стрелки
+// TODO: стилизация инпутов, стрелки
 
 const DatepikerComponent: React.FC<IDatepikerProps> = ({
   items,
@@ -15,6 +16,7 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
   setStartDate,
   setEndDate,
   onClick,
+  calls,
 }): JSX.Element => {
   const [selectedValue, setSelectedValue] = useState('3 дня');
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
@@ -31,6 +33,13 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
       document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
+  const callsDays = useMemo(() => {
+    return differenceInDays(
+      new Date(calls[0]?.date_notime),
+      new Date(calls[calls.length - 1]?.date_notime),
+    );
+  }, [calls]);
 
   const onItemClickHandler = (name: string, value: number) => {
     setSelectedValue(name);
@@ -92,6 +101,12 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
+                includeDateIntervals={[
+                  {
+                    start: subDays(new Date(), callsDays),
+                    end: addDays(new Date(), 0),
+                  },
+                ]}
               />
               <DatePicker
                 locale="ru"
@@ -101,6 +116,12 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
                 startDate={startDate}
                 endDate={endDate}
                 minDate={startDate}
+                includeDateIntervals={[
+                  {
+                    start: subDays(new Date(), callsDays),
+                    end: addDays(new Date(), 0),
+                  },
+                ]}
               />
             </li>
           </ul>

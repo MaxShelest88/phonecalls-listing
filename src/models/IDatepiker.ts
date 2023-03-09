@@ -1,3 +1,4 @@
+import { ICall } from './ICallList';
 export interface IDatepikerListItem {
   value: number;
   name: string;
@@ -16,4 +17,5 @@ export interface IDatepikerProps {
   setStartDate: (date: Date) => void;
   setEndDate: (date: Date) => void;
   onClick: (value: number) => void;
+  calls:ICall[]
 }

@@ -63,14 +63,17 @@ const CallsContainer = () => {
     <>
       <div className={classes['filters-container']}>
         <div className={classes['datepiker-container']}>
-          <DatepikerComponent
-            items={datePikerListItems}
-            endDate={endDate}
-            startDate={startDate}
-            setEndDate={setEndDate}
-            setStartDate={setStartDate}
-            onClick={onItemClickHandler}
-          />
+          {!isLoading && !error && (
+            <DatepikerComponent
+              items={datePikerListItems}
+              endDate={endDate}
+              startDate={startDate}
+              setEndDate={setEndDate}
+              setStartDate={setStartDate}
+              onClick={onItemClickHandler}
+              calls={calls.results}
+            />
+          )}
         </div>
       </div>
       <div className={classes['table-container']}>

@@ -1,4 +1,4 @@
-import classes from './Datepiker.module.scss';
+import classes from './DatepikerComponent.module.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { useEffect, useRef, useState } from 'react';
@@ -8,7 +8,7 @@ registerLocale('ru', ru);
 
 // TODO: Валидация, стилизация инпутов, стрелки
 
-const Datepiker: React.FC<IDatepikerProps> = ({
+const DatepikerComponent: React.FC<IDatepikerProps> = ({
   items,
   startDate,
   endDate,
@@ -109,4 +109,4 @@ const Datepiker: React.FC<IDatepikerProps> = ({
     </div>
   );
 };
-export default Datepiker;
+export default DatepikerComponent;

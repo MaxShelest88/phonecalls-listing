@@ -14,7 +14,7 @@ export const useFilterCalls = (calls: ICall[], startDate: Date, endDate: Date): 
   return filteredCalls;
 };
 
-export const useGroupCalls = (
+export const useCalls = (
   calls: ICall[],
   startDate: Date,
   endDate: Date,

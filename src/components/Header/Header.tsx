@@ -1,4 +1,4 @@
-import AnalyticsItem from '../AnalyticsItem/AnalyticsItem';
+import AnalyticsItem from './AnalyticsItem/AnalyticsItem';
 import HeaderSearch from './HeaderSearch/HeaderSearch';
 import classes from './Header.module.scss';
 import OrganizationSelect from './HeaderOrganizationSelect/HeaderOrganizationSelect';

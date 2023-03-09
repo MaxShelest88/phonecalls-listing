@@ -5,9 +5,9 @@ import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ICallList } from '../../models/ICallList';
-import Datepiker from '../Datepiker/Datepiker';
+import DatepikerComponent from '../DatepikerComponent/DatepikerComponent';
 import { IDatepikerListItem } from '../../models/IDatepiker';
-import { useFilterCalls, useGroupCalls } from '../../hooks/useCalls';
+import { useCalls } from '../../hooks/useCalls';
 
 const datePikerListItems: IDatepikerListItem[] = [
   { value: 2, name: '3 дня' },
@@ -53,7 +53,7 @@ const CallsContainer = () => {
 
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
-  const groupedCallsObj = useGroupCalls(calls.results, startDate, endDate);
+  const groupedCallsObj = useCalls(calls.results, startDate, endDate);
 
   const onItemClickHandler = (value: number) => {
     setStartDate(setDaysBeforeCurrentDate(value));
@@ -63,7 +63,7 @@ const CallsContainer = () => {
     <>
       <div className={classes['filters-container']}>
         <div className={classes['datepiker-container']}>
-          <Datepiker
+          <DatepikerComponent
             items={datePikerListItems}
             endDate={endDate}
             startDate={startDate}
@@ -79,9 +79,7 @@ const CallsContainer = () => {
         ) : error ? (
           <div>{error}</div>
         ) : (
-          <CallsTable
-            groupedCallsObj={groupedCallsObj}
-          />
+          <CallsTable groupedCallsObj={groupedCallsObj} />
         )}
       </div>
     </>

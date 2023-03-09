@@ -1,21 +1,22 @@
 import { ICall } from './ICallList';
-export interface IDatepikerListItem {
+
+export interface IDatepickerComponentListItem {
   value: number;
   name: string;
 }
 
-export interface IDatepikerListItemProps {
+export interface IDatepickerComponentListItemProps {
   value: number;
   name: string;
   onClickHandler: (name: string, value: number) => void;
 }
 
-export interface IDatepikerProps {
-  items: IDatepikerListItem[];
+export interface IDatepickerComponentProps {
+  items: IDatepickerComponentListItem[];
   startDate: Date;
   endDate: Date;
   setStartDate: (date: Date) => void;
   setEndDate: (date: Date) => void;
   onClick: (value: number) => void;
-  calls:ICall[]
+  calls: ICall[];
 }

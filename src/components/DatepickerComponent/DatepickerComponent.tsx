@@ -1,17 +1,18 @@
-import classes from './DatepikerComponent.module.scss';
+import classes from './DatepickerComponent.module.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import { subDays, addDays, differenceInDays } from 'date-fns';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { IDatepikerProps } from '../../models/IDatepiker';
+import { IDatepickerComponentProps } from '../../models/IDatepicker';
 import { formatDate } from '../../utils/formatters';
 import CustomInput from './CustomInput/CustomInput';
 import IconCalendar from '../UI/Icons/IconCalendar';
+import IconArrowLeft from '../UI/Icons/IconArrowLeft';
 registerLocale('ru', ru);
 
 // TODO: стрелки
 
-const DatepikerComponent: React.FC<IDatepikerProps> = ({
+const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   items,
   startDate,
   endDate,
@@ -65,13 +66,21 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
 
   return (
     <div className={classes.container}>
-      <div
-        className={classes['top-value']}
-        ref={dropdownRef}
-        onClick={() => setDropdownIsVisible((prevState) => !prevState)}
-      >
-        <IconCalendar color="#ADBFDF" />
-        <span>{selectedValue}</span>
+      <div className={classes['date-container']}>
+        <div className={classes['arrow']}>
+          <IconArrowLeft color={'#ADBFDF'} />
+        </div>
+        <div
+          className={classes['top-value']}
+          ref={dropdownRef}
+          onClick={() => setDropdownIsVisible((prevState) => !prevState)}
+        >
+          <IconCalendar color="#ADBFDF" />
+          <span>{selectedValue}</span>
+        </div>
+        <div className={`${classes.arrow} ${classes.right}`}>
+          <IconArrowLeft color={'#ADBFDF'} />
+        </div>
       </div>
       {dropdownIsVisible && (
         <div className={classes.dropdown}>
@@ -138,4 +147,4 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
     </div>
   );
 };
-export default DatepikerComponent;
+export default DatepickerComponent;

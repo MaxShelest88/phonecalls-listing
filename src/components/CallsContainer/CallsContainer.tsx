@@ -5,11 +5,11 @@ import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ICallList } from '../../models/ICallList';
-import DatepikerComponent from '../DatepikerComponent/DatepikerComponent';
-import { IDatepikerListItem } from '../../models/IDatepiker';
+import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
+import { IDatepickerComponentListItem } from '../../models/IDatepicker';
 import { useCalls } from '../../hooks/useCalls';
 
-const datePikerListItems: IDatepikerListItem[] = [
+const datePikerListItems: IDatepickerComponentListItem[] = [
   { value: 2, name: '3 дня' },
   { value: 6, name: 'Неделя' },
   { value: 30, name: 'Месяц' },
@@ -17,7 +17,6 @@ const datePikerListItems: IDatepikerListItem[] = [
 ];
 
 const CallsContainer = () => {
-
   const [fetchCalls, calls, isLoading, error] = useAxios<ICallList>(
     {
       url: process.env.REACT_APP_URL,
@@ -50,9 +49,9 @@ const CallsContainer = () => {
   return (
     <>
       <div className={classes['filters-container']}>
-        <div className={classes['datepiker-container']}>
+        <div className={classes['datepicker-container']}>
           {!isLoading && !error && (
-            <DatepikerComponent
+            <DatepickerComponent
               items={datePikerListItems}
               endDate={endDate}
               startDate={startDate}

@@ -5,6 +5,7 @@ import { subDays, addDays, differenceInDays } from 'date-fns';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { IDatepikerProps } from '../../models/IDatepiker';
 import { formatDate } from '../../utils/formatters';
+import CustomInput from './CustomInput/CustomInput';
 registerLocale('ru', ru);
 
 // TODO: стилизация инпутов, стрелки
@@ -21,6 +22,8 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
   const [selectedValue, setSelectedValue] = useState('3 дня');
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [startDateLocal, setStartDateLocal] = useState<Date | null>(null);
+  const [endDateLocal, setendDateLocal] = useState<Date | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -49,11 +52,13 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
 
   const onStartDateChangeHandler = (date: Date) => {
     setStartDate(date);
+    setStartDateLocal(date);
     setSelectedValue(`${formatDate(date)} - ${formatDate(endDate)}`);
   };
 
   const onEndDateChangeHandler = (date: Date) => {
     setEndDate(date);
+    setendDateLocal(date);
     setSelectedValue(`${formatDate(startDate)} - ${formatDate(date)}`);
   };
 
@@ -96,7 +101,7 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
             >
               <DatePicker
                 locale="ru"
-                selected={startDate}
+                selected={startDateLocal}
                 onChange={(date) => date && onStartDateChangeHandler(date)}
                 selectsStart
                 startDate={startDate}
@@ -107,10 +112,13 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
                     end: addDays(new Date(), 0),
                   },
                 ]}
+                customInput={<CustomInput />}
+                placeholderText="__.__.__"
               />
+              -
               <DatePicker
                 locale="ru"
-                selected={endDate}
+                selected={endDateLocal}
                 onChange={(date) => date && onEndDateChangeHandler(date)}
                 selectsEnd
                 startDate={startDate}
@@ -122,6 +130,7 @@ const DatepikerComponent: React.FC<IDatepikerProps> = ({
                     end: addDays(new Date(), 0),
                   },
                 ]}
+                placeholderText="__.__.__"
               />
             </li>
           </ul>

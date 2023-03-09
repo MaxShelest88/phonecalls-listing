@@ -10,7 +10,7 @@ body {
 
 .content {
 	grid-area: content;
-	padding-top: 20px;
+	
 }
 
 .wrapper {
@@ -20,4 +20,11 @@ body {
 	grid-template-areas:
 		"sidebar header "
 		"sidebar content ";
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1440px;
+	padding-top: 20px;
+	padding-bottom: 546px;
 }

@@ -3,7 +3,9 @@ import CallsContainer from '../CallsContainer/CallsContainer';
 const Content: React.FC = () => {
   return (
     <div className="content">
-      <CallsContainer />
+      <div className="container">
+        <CallsContainer />
+      </div>
     </div>
   );
 };

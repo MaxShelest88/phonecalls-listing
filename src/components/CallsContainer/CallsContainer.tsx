@@ -17,7 +17,6 @@ const datePikerListItems: IDatepikerListItem[] = [
 ];
 
 const CallsContainer = () => {
-  //   const URL = './mock_calls.json';
 
   const [fetchCalls, calls, isLoading, error] = useAxios<ICallList>(
     {
@@ -30,17 +29,6 @@ const CallsContainer = () => {
     },
     { total_rows: '', results: [] },
   );
-
-  //   const [fetchCalls, calls, isLoading, error] = useAxios<ICall[]>(
-  //     {
-  //       url: URL,
-  //       method: 'get',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //     [],
-  //   );
 
   useEffect(() => {
     fetchCalls();

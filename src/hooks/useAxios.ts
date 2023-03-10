@@ -9,7 +9,6 @@ export const useAxios = <T>(
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  // console.log(data);
   const fetchData = async () => {
     try {
       setIsLoading(true);

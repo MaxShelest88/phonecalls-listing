@@ -11,8 +11,6 @@ import IconArrowLeft from '../UI/Icons/IconArrowLeft';
 import React from 'react';
 registerLocale('ru', ru);
 
-// TODO: стрелки
-
 const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   items,
   startDate,
@@ -44,8 +42,8 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
 
   const callsDays = useMemo(() => {
     return differenceInDays(
-      new Date(calls[0]?.date_notime).setHours(0, 0, 0, 0),
-      new Date(calls[calls.length - 1]?.date_notime).setHours(0, 0, 0, 0),
+      new Date(calls[0]?.date_notime),
+      new Date(calls[calls.length - 1]?.date_notime)
     );
   }, [calls]);
 

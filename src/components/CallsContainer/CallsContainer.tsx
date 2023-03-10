@@ -26,6 +26,7 @@ const CallsContainer = () => {
         Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
         Accept: 'application/json',
       },
+      params: { limit: 100 },
     },
     { total_rows: '', results: [] },
   );
@@ -52,11 +53,9 @@ const CallsContainer = () => {
     [setDaysBeforeCurrentDate],
   );
 
-  console.log(count);
-
   useEffect(() => {
-     setSelectedValue(datePikerListItems[count].name);
-     setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
+    setSelectedValue(datePikerListItems[count].name);
+    setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
   }, [count, datePikerListItems, setDaysBeforeCurrentDate]);
 
   const onArrowClickHandler = useCallback(
@@ -73,7 +72,7 @@ const CallsContainer = () => {
         }
         case 'right': {
           setCount((prevCount) => prevCount + 1);
-          if (count >= itemsNumber -1) {
+          if (count >= itemsNumber - 1) {
             setCount(0);
           }
           break;

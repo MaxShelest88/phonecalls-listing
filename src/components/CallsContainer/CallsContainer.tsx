@@ -1,15 +1,14 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
-import { useAxios } from '../../hooks/useAxios';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ICallList } from '../../models/ICallList';
 import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
 import { IDatepickerComponentListItem } from '../../models/IDatepicker';
 import { useCalls } from '../../hooks/useCalls';
 import IconAdd from '../UI/Icons/IconAdd';
 import DropDown from '../Dropdown/DropDown';
+import { callApi } from '../../services/CallService';
 
 const CallsContainer = () => {
   const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -59,21 +58,7 @@ const CallsContainer = () => {
     ];
   }, []);
 
-  const [fetchCalls, calls, isLoading, error] = useAxios<ICallList>(
-    {
-      url: process.env.REACT_APP_URL,
-      method: 'post',
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
-        Accept: 'application/json',
-      },
-    },
-    { total_rows: '', results: [] },
-  );
-
-  useEffect(() => {
-    fetchCalls();
-  }, []);
+  const {data:calls, isLoading, error} = callApi.useFetchAllCallsQuery('')
 
   const setDaysBeforeCurrentDate = useCallback((days: number): Date => {
     const currentDate = new Date();
@@ -84,7 +69,7 @@ const CallsContainer = () => {
   const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
   const [selectedValue, setSelectedValue] = useState<string>('3 дня');
   const [count, setCount] = useState<number>(0);
-  const groupedCallsObj = useCalls(calls.results, startDate, endDate);
+  const groupedCallsObj = useCalls(calls?.results || [], startDate, endDate);
 
   const onItemClickHandler = useCallback(
     (value: number) => {
@@ -142,7 +127,7 @@ const CallsContainer = () => {
               setEndDate={setEndDate}
               setStartDate={setStartDate}
               onClick={onItemClickHandler}
-              calls={calls.results}
+              calls={calls?.results || []}
               setSelectedValue={setSelectedValue}
               selectedValue={selectedValue}
               onArrowClickHandler={onArrowClickHandler}
@@ -163,7 +148,7 @@ const CallsContainer = () => {
         {isLoading ? (
           <Loading />
         ) : error ? (
-          <div>{error}</div>
+          <div>ошибка запроса</div>
         ) : (
           <CallsTable groupedCallsObj={groupedCallsObj} />
         )}

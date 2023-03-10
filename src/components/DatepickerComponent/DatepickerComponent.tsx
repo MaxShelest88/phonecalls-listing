@@ -8,6 +8,7 @@ import { formatDate } from '../../utils/formatters';
 import CustomInput from './CustomInput/CustomInput';
 import IconCalendar from '../UI/Icons/IconCalendar';
 import IconArrowLeft from '../UI/Icons/IconArrowLeft';
+import React from 'react';
 registerLocale('ru', ru);
 
 // TODO: стрелки
@@ -20,8 +21,10 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   setEndDate,
   onClick,
   calls,
+  selectedValue,
+  setSelectedValue,
+  onArrowClickHandler,
 }): JSX.Element => {
-  const [selectedValue, setSelectedValue] = useState('3 дня');
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [startDateLocal, setStartDateLocal] = useState<Date | null>(null);
@@ -41,8 +44,8 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
 
   const callsDays = useMemo(() => {
     return differenceInDays(
-      new Date(calls[0]?.date_notime),
-      new Date(calls[calls.length - 1]?.date_notime),
+      new Date(calls[0]?.date_notime).setHours(0, 0, 0, 0),
+      new Date(calls[calls.length - 1]?.date_notime).setHours(0, 0, 0, 0),
     );
   }, [calls]);
 
@@ -52,7 +55,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
     setDropdownIsVisible(false);
   };
 
-  const onStartDateChangeHandler = (date: Date) => {
+  const onStartDateChangeHandler =  (date: Date) => {
     setStartDate(date);
     setStartDateLocal(date);
     setSelectedValue(`${formatDate(date)} - ${formatDate(endDate)}`);
@@ -67,7 +70,10 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   return (
     <div className={classes.container}>
       <div className={classes['date-container']}>
-        <div className={classes['arrow']}>
+        <div
+          onClick={() => onArrowClickHandler('left')}
+          className={classes['arrow']}
+        >
           <IconArrowLeft color={'#ADBFDF'} />
         </div>
         <div
@@ -78,7 +84,10 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
           <IconCalendar color="#ADBFDF" />
           <span>{selectedValue}</span>
         </div>
-        <div className={`${classes.arrow} ${classes.right}`}>
+        <div
+          onClick={() => onArrowClickHandler('right')}
+          className={`${classes.arrow} ${classes.right}`}
+        >
           <IconArrowLeft color={'#ADBFDF'} />
         </div>
       </div>
@@ -111,7 +120,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
                     endDate={endDate}
                     includeDateIntervals={[
                       {
-                        start: subDays(new Date(), callsDays),
+                        start: subDays(new Date(), callsDays + 1),
                         end: addDays(new Date(), 0),
                       },
                     ]}
@@ -130,7 +139,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
                     minDate={startDate}
                     includeDateIntervals={[
                       {
-                        start: subDays(new Date(), callsDays),
+                        start: subDays(new Date(), callsDays + 1),
                         end: addDays(new Date(), 0),
                       },
                     ]}
@@ -147,4 +156,4 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
     </div>
   );
 };
-export default DatepickerComponent;
+export default React.memo(DatepickerComponent);

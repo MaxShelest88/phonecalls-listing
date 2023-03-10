@@ -19,4 +19,7 @@ export interface IDatepickerComponentProps {
   setEndDate: (date: Date) => void;
   onClick: (value: number) => void;
   calls: ICall[];
+  selectedValue: string;
+  setSelectedValue: (name: string) => void;
+  onArrowClickHandler: (type: string) => void;
 }

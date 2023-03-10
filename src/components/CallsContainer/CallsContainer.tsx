@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useAxios } from '../../hooks/useAxios';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
@@ -9,14 +9,15 @@ import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
 import { IDatepickerComponentListItem } from '../../models/IDatepicker';
 import { useCalls } from '../../hooks/useCalls';
 
-const datePikerListItems: IDatepickerComponentListItem[] = [
-  { value: 2, name: '3 дня' },
-  { value: 6, name: 'Неделя' },
-  { value: 30, name: 'Месяц' },
-  { value: 364, name: 'Год' },
-];
-
 const CallsContainer = () => {
+  const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
+    return [
+      { value: 2, name: '3 дня' },
+      { value: 6, name: 'Неделя' },
+      { value: 30, name: 'Месяц' },
+      { value: 364, name: 'Год' },
+    ];
+  }, []);
   const [fetchCalls, calls, isLoading, error] = useAxios<ICallList>(
     {
       url: process.env.REACT_APP_URL,
@@ -40,11 +41,44 @@ const CallsContainer = () => {
 
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
+  const [selectedValue, setSelectedValue] = useState<string>('3 дня');
+  const [count, setCount] = useState<number>(0);
   const groupedCallsObj = useCalls(calls.results, startDate, endDate);
 
-  const onItemClickHandler = (value: number) => {
-    setStartDate(setDaysBeforeCurrentDate(value));
-  };
+  const onItemClickHandler = useCallback(
+    (value: number) => {
+      setStartDate(setDaysBeforeCurrentDate(value));
+    },
+    [setDaysBeforeCurrentDate],
+  );
+
+  useEffect(() => {
+    setSelectedValue(datePikerListItems[count].name);
+    setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
+  }, [count, datePikerListItems, setDaysBeforeCurrentDate]);
+
+  const onArrowClickHandler = useCallback(
+    (type: string) => {
+      const itemsNumber = datePikerListItems.length - 1;
+      switch (type) {
+        case 'left': {
+          if (count === 0) {
+            setCount(itemsNumber);
+          }
+          setCount((prevCount) => prevCount - 1);
+          break;
+        }
+        case 'right': {
+          setCount((prevCount) => prevCount + 1);
+          if (count >= itemsNumber) {
+            setCount(0);
+          }
+          break;
+        }
+      }
+    },
+    [count, datePikerListItems],
+  );
 
   return (
     <>
@@ -59,6 +93,9 @@ const CallsContainer = () => {
               setStartDate={setStartDate}
               onClick={onItemClickHandler}
               calls={calls.results}
+              setSelectedValue={setSelectedValue}
+              selectedValue={selectedValue}
+              onArrowClickHandler={onArrowClickHandler}
             />
           )}
         </div>

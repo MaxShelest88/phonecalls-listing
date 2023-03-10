@@ -4,9 +4,15 @@ import { IInputComponentProps } from '../../../models/IInput';
 
 const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref) => {
   const {
+    onChange,
+    onFocus,
     value,
     iconLeft,
     iconRight,
+    placeholder,
+    name,
+    type = 'text',
+    onBlur,
     reset,
   } = props;
 
@@ -29,9 +35,15 @@ const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref) => {
       <div className={classes.container}>
         {iconLeft && <div className={classes.iconLeft}>{iconLeft}</div>}
         <input
-          {...props}
+          type={type}
+          placeholder={placeholder}
+          onFocus={onFocus}
+          name={name}
+          onChange={onChange}
+          value={value}
           className={`${classes.input} ${value && classes.active}`}
           autoComplete={'off'}
+          onBlur={onBlur}
           ref={inputRef}
         />
         {iconRight && (

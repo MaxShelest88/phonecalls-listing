@@ -9,6 +9,7 @@ import { useCalls } from '../../hooks/useCalls';
 import IconAdd from '../UI/Icons/IconAdd';
 import DropDown from '../Dropdown/DropDown';
 import { callApi } from '../../services/CallService';
+import { useCount } from '../../hooks/useCount';
 
 const CallsContainer = () => {
   const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -58,7 +59,7 @@ const CallsContainer = () => {
     ];
   }, []);
 
-  const {data:calls, isLoading, error} = callApi.useFetchAllCallsQuery('')
+  const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
 
   const setDaysBeforeCurrentDate = useCallback((days: number): Date => {
     const currentDate = new Date();
@@ -68,7 +69,7 @@ const CallsContainer = () => {
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
   const [selectedValue, setSelectedValue] = useState<string>('3 дня');
-  const [count, setCount] = useState<number>(0);
+  const [count, onArrowClickHandler] = useCount(datePikerListItems);
   const groupedCallsObj = useCalls(calls?.results || [], startDate, endDate);
 
   const onItemClickHandler = useCallback(
@@ -82,30 +83,6 @@ const CallsContainer = () => {
     setSelectedValue(datePikerListItems[count].name);
     setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
   }, [count, datePikerListItems, setDaysBeforeCurrentDate]);
-
-  const onArrowClickHandler = useCallback(
-    (type: string) => {
-      const itemsNumber = datePikerListItems.length;
-      switch (type) {
-        case 'left': {
-          if (count === 0) {
-            setCount(itemsNumber);
-          }
-          setCount((prevCount) => prevCount - 1);
-
-          break;
-        }
-        case 'right': {
-          setCount((prevCount) => prevCount + 1);
-          if (count >= itemsNumber - 1) {
-            setCount(0);
-          }
-          break;
-        }
-      }
-    },
-    [count, datePikerListItems],
-  );
 
   return (
     <>

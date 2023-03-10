@@ -1,3 +1,5 @@
+@import "/src/style/var";
+
 .table-container {
 	background: #ffffff;
 	box-shadow: 0px 4px 5px #e9edf3;
@@ -5,10 +7,42 @@
 	padding-bottom: 57px;
 	position: relative;
 }
-.filters-container{
+.filters-container {
 	margin-bottom: 20px;
 }
-.datepicker-container{
+.datepicker-container {
 	display: flex;
 	justify-content: end;
+	align-items: center;
+}
+
+.balance {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 145px;
+	height: 40px;
+	background: #ffffff;
+	border-radius: 48px;
+	font-size: 0.875rem;
+	margin-right: 10px;
+	font-weight: 500;
+	cursor: pointer;
+	.balance-text {
+		color: #899cb1;
+		margin-right: 2px;
+	}
+	.balance-number {
+		margin-right: 10px;
+	}
+	&:hover {
+		svg path {
+			fill: #0000F4;
+		}
+	}
+	&:active {
+		svg path {
+			fill: $active;
+		}
+	}
 }

@@ -8,6 +8,7 @@ import { ICallList } from '../../models/ICallList';
 import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
 import { IDatepickerComponentListItem } from '../../models/IDatepicker';
 import { useCalls } from '../../hooks/useCalls';
+import IconAdd from '../UI/Icons/IconAdd';
 
 const CallsContainer = () => {
   const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -26,7 +27,6 @@ const CallsContainer = () => {
         Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
         Accept: 'application/json',
       },
-      params: { limit: 100 },
     },
     { total_rows: '', results: [] },
   );
@@ -86,6 +86,11 @@ const CallsContainer = () => {
     <>
       <div className={classes['filters-container']}>
         <div className={classes['datepicker-container']}>
+          <div className={classes.balance}>
+            <span className={classes['balance-text']}>Баланс:</span>
+            <span className={classes['balance-number']}>272 ₽</span>
+            <IconAdd color="#005FF8" size='24px'/>
+          </div>
           {!isLoading && !error && (
             <DatepickerComponent
               items={datePikerListItems}

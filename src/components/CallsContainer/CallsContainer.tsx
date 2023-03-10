@@ -52,25 +52,28 @@ const CallsContainer = () => {
     [setDaysBeforeCurrentDate],
   );
 
+  console.log(count);
+
   useEffect(() => {
-    setSelectedValue(datePikerListItems[count].name);
-    setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
+     setSelectedValue(datePikerListItems[count].name);
+     setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
   }, [count, datePikerListItems, setDaysBeforeCurrentDate]);
 
   const onArrowClickHandler = useCallback(
     (type: string) => {
-      const itemsNumber = datePikerListItems.length - 1;
+      const itemsNumber = datePikerListItems.length;
       switch (type) {
         case 'left': {
           if (count === 0) {
             setCount(itemsNumber);
           }
           setCount((prevCount) => prevCount - 1);
+
           break;
         }
         case 'right': {
           setCount((prevCount) => prevCount + 1);
-          if (count >= itemsNumber) {
+          if (count >= itemsNumber -1) {
             setCount(0);
           }
           break;

@@ -1,17 +1,17 @@
 import { ICall } from './../models/ICallList';
 import { useMemo } from 'react';
 
-export const useFilterCalls = (calls: ICall[], startDate: Date, endDate: Date): ICall[] => {
-  const filteredCalls = useMemo(() => {
-    return calls.filter((call) => {
+export const useFilterCalls = (calls: ICall[] | undefined, startDate: Date, endDate: Date): ICall[] => {
+	const filteredCalls = useMemo(() => {
+    return calls!.filter((call) => {
       const callDate = new Date(call.date);
       return (
-        callDate.setHours(0, 0, 0, 0) >=  startDate.setHours(0, 0, 0, 0) &&
+        callDate.setHours(0, 0, 0, 0) >= startDate.setHours(0, 0, 0, 0) &&
         callDate.setHours(0, 0, 0, 0) <= endDate.setHours(0, 0, 0, 0)
       );
     });
   }, [calls, endDate, startDate]);
-  return filteredCalls;
+ return filteredCalls;
 };
 
 export const useCalls = (

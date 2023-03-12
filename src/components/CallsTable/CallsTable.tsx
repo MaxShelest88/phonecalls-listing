@@ -7,8 +7,7 @@ interface CallTableProps {
   groupedCallsObj: { [key: string]: ICall[] };
 }
 
-const CallsTable: React.FC<CallTableProps> = ({ groupedCallsObj }) => {
-	
+const CallsTable: React.FC<CallTableProps> = ({ groupedCallsObj }): JSX.Element => {
   const callsGroupArr = useMemo(() => {
     return Object.entries(groupedCallsObj).map((item) => ({
       date: item[0],
@@ -39,4 +38,4 @@ const CallsTable: React.FC<CallTableProps> = ({ groupedCallsObj }) => {
     </table>
   );
 };
-export default CallsTable;
+export default React.memo(CallsTable);

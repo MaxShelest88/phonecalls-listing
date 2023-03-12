@@ -1,4 +1,4 @@
-import {useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
@@ -10,9 +10,9 @@ import DropDown from '../Dropdown/DropDown';
 import { callApi } from '../../services/CallService';
 import { useCount } from '../../hooks/useCount';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setDate } from '../../store/reducers/filter/filterSlice';
+import { setDate, setType } from '../../store/reducers/filter/filterSlice';
 import { subDays } from 'date-fns';
-import { IDate } from '../../store/reducers/filter/types';
+import { IDate, IType } from '../../store/reducers/filter/types';
 
 const CallsContainer = () => {
   const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -26,7 +26,7 @@ const CallsContainer = () => {
   const typesListItems = useMemo(() => {
     return [
       { type: 0, name: 'Исходящие' },
-      { type: 1, name: 'Входищие' },
+      { type: 1, name: 'Входящие' },
     ];
   }, []);
   const callsListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -67,6 +67,7 @@ const CallsContainer = () => {
   const dispatch = useAppDispatch();
   const [count, onArrowClickHandler] = useCount(datePikerListItems);
   const groupedCallsObj = useCalls(calls?.results || [], startDate || '', endDate || '');
+  const typeFilter = useAppSelector((store) => store.filterReducer.typeValue);
 
   useEffect(() => {
     dispatch(
@@ -76,6 +77,14 @@ const CallsContainer = () => {
       } as IDate),
     );
   }, [count, datePikerListItems, dispatch]);
+
+  const onTypeItemClickHandler = (name: string, value: 1 | 0) => {
+    const typeValue: IType = {
+      type: value,
+      name,
+    };
+    dispatch(setType(typeValue));
+  };
 
   return (
     <>
@@ -105,7 +114,8 @@ const CallsContainer = () => {
           <div className={classes.filters}>
             <DropDown
               items={typesListItems}
-              initalValue={'Все типы'}
+              onClickItem={onTypeItemClickHandler}
+              initalValue={typeFilter.name}
             />
           </div>
         </div>

@@ -4,11 +4,13 @@ export interface IDate {
   name: string;
 }
 
+export interface IType {
+  type: -1 | 1 | 0;
+  name: string;
+}
+
 export interface FilterState {
   searchValue: string;
-  typeValue: {
-    type: -1 | 1 | 0;
-    name: string;
-  };
+	typeValue: IType;
   dateValue: IDate;
 }

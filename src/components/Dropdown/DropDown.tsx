@@ -3,12 +3,14 @@ import classes from './DropDown.module.scss';
 
 interface DropDownProps<T> {
   items: T[];
+  onClickItem: (args: T) => void;
   initalValue: string;
 }
 
 const Dropdown = <T extends { value?: number; name?: string; img?: string }>({
   items,
   initalValue,
+  onClickItem,
 }: React.PropsWithChildren<DropDownProps<T>>): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -27,7 +29,10 @@ const Dropdown = <T extends { value?: number; name?: string; img?: string }>({
 
   const DropDownItem: React.FC<T> = (props): JSX.Element => {
     return (
-      <li className={classes.item}>
+      <li
+        className={classes.item}
+        onClick={() => onClickItem(props.name, props.type)}
+      >
         {props.img && (
           <div>
             <img

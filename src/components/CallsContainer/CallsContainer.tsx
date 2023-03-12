@@ -1,8 +1,7 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import {useEffect, useMemo } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
-import 'react-datepicker/dist/react-datepicker.css';
 import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
 import { IDatepickerComponentListItem } from '../../models/IDatepicker';
 import { useCalls } from '../../hooks/useCalls';
@@ -10,7 +9,10 @@ import IconAdd from '../UI/Icons/IconAdd';
 import DropDown from '../Dropdown/DropDown';
 import { callApi } from '../../services/CallService';
 import { useCount } from '../../hooks/useCount';
-
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setDate } from '../../store/reducers/filter/filterSlice';
+import { subDays } from 'date-fns';
+import { IDate } from '../../store/reducers/filter/types';
 
 const CallsContainer = () => {
   const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -61,30 +63,19 @@ const CallsContainer = () => {
   }, []);
 
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
-
-  // TODO переписать на addDays или subDays вроде из date-fns
-  const setDaysBeforeCurrentDate = useCallback((days: number): Date => {
-    const currentDate = new Date();
-    return new Date(currentDate.setDate(currentDate.getDate() - days));
-  }, []);
-
-  const [endDate, setEndDate] = useState<Date>(new Date());
-  const [startDate, setStartDate] = useState<Date>(setDaysBeforeCurrentDate(2));
-  const [selectedValue, setSelectedValue] = useState<string>('3 дня');
+  const { startDate, endDate, name } = useAppSelector((store) => store.filterReducer.dateValue);
+  const dispatch = useAppDispatch();
   const [count, onArrowClickHandler] = useCount(datePikerListItems);
-  const groupedCallsObj = useCalls(calls?.results || [], startDate, endDate);
-
-  const onItemClickHandler = useCallback(
-    (value: number) => {
-      setStartDate(setDaysBeforeCurrentDate(value));
-    },
-    [setDaysBeforeCurrentDate],
-  );
+  const groupedCallsObj = useCalls(calls?.results || [], startDate || '', endDate || '');
 
   useEffect(() => {
-    setSelectedValue(datePikerListItems[count].name);
-    setStartDate(setDaysBeforeCurrentDate(datePikerListItems[count].value));
-  }, [count, datePikerListItems, setDaysBeforeCurrentDate]);
+    dispatch(
+      setDate({
+        startDate: subDays(new Date(), datePikerListItems[count].value).toString(),
+        name: datePikerListItems[count].name,
+      } as IDate),
+    );
+  }, [count, datePikerListItems, dispatch]);
 
   return (
     <>
@@ -101,14 +92,10 @@ const CallsContainer = () => {
           {!isLoading && !error && (
             <DatepickerComponent
               items={datePikerListItems}
-              endDate={endDate}
-              startDate={startDate}
-              setEndDate={setEndDate}
-              setStartDate={setStartDate}
-              onClick={onItemClickHandler}
+              endDate={new Date(endDate)}
+              startDate={new Date(startDate)}
               calls={calls?.results || []}
-              setSelectedValue={setSelectedValue}
-              selectedValue={selectedValue}
+              selectedValue={name}
               onArrowClickHandler={onArrowClickHandler}
             />
           )}

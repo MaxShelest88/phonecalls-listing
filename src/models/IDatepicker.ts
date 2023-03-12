@@ -15,11 +15,7 @@ export interface IDatepickerComponentProps {
   items: IDatepickerComponentListItem[];
   startDate: Date;
   endDate: Date;
-  setStartDate: (date: Date) => void;
-  setEndDate: (date: Date) => void;
-  onClick: (value: number) => void;
   calls: ICall[];
   selectedValue: string;
-  setSelectedValue: (name: string) => void;
   onArrowClickHandler: (type: string) => void;
 }

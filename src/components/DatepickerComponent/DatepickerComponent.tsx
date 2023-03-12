@@ -8,25 +8,27 @@ import { formatDate } from '../../utils/formatters';
 import CustomInput from './CustomInput/CustomInput';
 import IconCalendar from '../UI/Icons/IconCalendar';
 import IconArrowLeft from '../UI/Icons/IconArrowLeft';
+import 'react-datepicker/dist/react-datepicker.css';
 import React from 'react';
+import { useAppDispatch } from '../../hooks/redux';
+import { IDate } from '../../store/reducers/filter/types';
+import { setDaysBeforeCurrentDate } from '../../utils/dateHelper';
+import { setDate } from '../../store/reducers/filter/filterSlice';
 registerLocale('ru', ru);
 
 const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   items,
   startDate,
   endDate,
-  setStartDate,
-  setEndDate,
-  onClick,
   calls,
   selectedValue,
-  setSelectedValue,
   onArrowClickHandler,
 }): JSX.Element => {
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [startDateLocal, setStartDateLocal] = useState<Date | null>(null);
-  const [endDateLocal, setendDateLocal] = useState<Date | null>(null);
+  const [endDateLocal, setEndDateLocal] = useState<Date | null>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -43,26 +45,34 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   const callsDays = useMemo(() => {
     return differenceInDays(
       new Date(calls[0]?.date_notime),
-      new Date(calls[calls.length - 1]?.date_notime)
+      new Date(calls[calls.length - 1]?.date_notime),
     );
   }, [calls]);
 
   const onItemClickHandler = (name: string, value: number) => {
-    setSelectedValue(name);
-    onClick(value);
-    setDropdownIsVisible(false);
+    const dateValue = {
+      startDate: setDaysBeforeCurrentDate(value),
+      name,
+    } as IDate;
+    dispatch(setDate(dateValue));
   };
 
-  const onStartDateChangeHandler =  (date: Date) => {
-    setStartDate(date);
+  const onStartDateChangeHandler = (date: Date) => {
+    const dateValue = {
+      startDate: date.toString(),
+      name: `${formatDate(date)} - ${formatDate(endDate)}`,
+    } as IDate;
+    dispatch(setDate(dateValue));
     setStartDateLocal(date);
-    setSelectedValue(`${formatDate(date)} - ${formatDate(endDate)}`);
   };
 
   const onEndDateChangeHandler = (date: Date) => {
-    setEndDate(date);
-    setendDateLocal(date);
-    setSelectedValue(`${formatDate(startDate)} - ${formatDate(date)}`);
+	  const dateValue = {
+      endDate: date.toString(),
+      name: `${formatDate(date)} - ${formatDate(endDate)}`,
+    } as IDate;
+    dispatch(setDate(dateValue));
+    setEndDateLocal(date);
   };
 
   return (

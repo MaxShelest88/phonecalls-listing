@@ -1,6 +1,6 @@
 import { callApi } from './../services/CallService';
 import { configureStore } from '@reduxjs/toolkit';
-import filterReducer from './filter/filterSlice';
+import filterReducer from './reducers/filter/filterSlice';
 
 export const store = configureStore({
   reducer: { [callApi.reducerPath]: callApi.reducer, filterReducer },

@@ -1,8 +1,9 @@
 import { callApi } from './../services/CallService';
 import { configureStore } from '@reduxjs/toolkit';
+import filterReducer from './filter/filterSlice';
 
 export const store = configureStore({
-  reducer: { [callApi.reducerPath]: callApi.reducer },
+  reducer: { [callApi.reducerPath]: callApi.reducer, filterReducer },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(callApi.middleware),
 });
 

@@ -11,6 +11,7 @@ import DropDown from '../Dropdown/DropDown';
 import { callApi } from '../../services/CallService';
 import { useCount } from '../../hooks/useCount';
 
+
 const CallsContainer = () => {
   const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
     return [
@@ -20,10 +21,10 @@ const CallsContainer = () => {
       { value: 364, name: 'Год' },
     ];
   }, []);
-  const typesListItems: IDatepickerComponentListItem[] = useMemo(() => {
+  const typesListItems = useMemo(() => {
     return [
-      { value: 0, name: 'Исходящие' },
-      { value: 1, name: 'Входищие' },
+      { type: 0, name: 'Исходящие' },
+      { type: 1, name: 'Входищие' },
     ];
   }, []);
   const callsListItems: IDatepickerComponentListItem[] = useMemo(() => {
@@ -61,6 +62,7 @@ const CallsContainer = () => {
 
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
 
+  // TODO переписать на addDays или subDays вроде из date-fns
   const setDaysBeforeCurrentDate = useCallback((days: number): Date => {
     const currentDate = new Date();
     return new Date(currentDate.setDate(currentDate.getDate() - days));

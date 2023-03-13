@@ -16,6 +16,9 @@ import { IListItem } from '../../models/IListItem';
 import IconClose from '../UI/Icons/IconClose';
 import avatar2 from '../../assets/img/avatar2.png';
 import ErrorsDropdown from './ErrorsDropdown/ErrorsDropdown';
+import IconSearch from '../UI/Icons/IconSearch';
+import { useInput } from '../../hooks/useInput';
+import Input from '../UI/Input/Input';
 
 const CallsContainer = () => {
   const datePikerListItems: IListItem[] = useMemo(() => {
@@ -84,6 +87,9 @@ const CallsContainer = () => {
     dateValue.endDate || '',
     typeFilter.value,
   );
+  const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
+    useInput((value: string) => value.trim() !== '');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isFilter.current) {
@@ -136,12 +142,39 @@ const CallsContainer = () => {
               startDate={new Date(dateValue.startDate)}
               calls={calls?.results || []}
               selectedValue={dateValue.name}
-              onArrowClickHandler={onArrowClickHandler}
+              onArrowClickHandler={onArrosdfwClickHandler}
             />
           )}
         </div>
         <div className={classes['filers-block']}>
-          <div className={classes.search}></div>
+          <div className={classes.search}>
+            <Input
+              name="headerSearch"
+              type="text"
+              value={value}
+              placeholder="Поиск по звонкам"
+              onChange={onChangeHandler}
+              onBlur={onBlurHandler}
+              error={inputHasError}
+              onFocus={onFocusHandler}
+              ref={inputRef}
+              reset={reset}
+              iconLeft={
+                <IconSearch
+                  size="16px"
+                  color={'#ADBFDF'}
+                />
+              }
+              iconRight={
+                isFocused && (
+                  <IconClose
+                    size="24px"
+                    color={'#ADBFDF'}
+                  />
+                )
+              }
+            />
+          </div>
           <div className={classes.filters}>
             {filtered && (
               <div

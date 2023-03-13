@@ -23,45 +23,43 @@ const HeaderSearch: React.FC = (): JSX.Element => {
 
   return (
     <div className={classes.container}>
-      <div>
-        <Input
-          name="search"
-          type="text"
-          value={value}
-          onChange={onChangeHandler}
-          onBlur={onBlur}
-          error={inputHasError}
-          onFocus={onFocusHandler}
-          ref={inputRef}
-          reset={resetHandler}
-          iconLeft={
-            (isFocused || value) && (
+      <Input
+        name="headerSearch"
+        type="text"
+        value={value}
+        onChange={onChangeHandler}
+        onBlur={onBlur}
+        error={inputHasError}
+        onFocus={onFocusHandler}
+        ref={inputRef}
+        reset={resetHandler}
+        iconLeft={
+          (isFocused || value) && (
+            <IconSearch
+              size="16px"
+              color={'#ADBFDF'}
+            />
+          )
+        }
+        iconRight={
+          isFocused || value ? (
+            <IconClose
+              size="24px"
+              color={'#ADBFDF'}
+            />
+          ) : (
+            <div
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <IconSearch
                 size="16px"
-                color={'#ADBFDF'}
+                color={`${isHovered ? '#005FF8' : '#ADBFDF'}`}
               />
-            )
-          }
-          iconRight={
-            isFocused || value ? (
-              <IconClose
-                size="24px"
-                color={'#ADBFDF'}
-              />
-            ) : (
-              <div
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <IconSearch
-                  size="16px"
-                  color={`${isHovered ? '#005FF8' : '#ADBFDF'}`}
-                />
-              </div>
-            )
-          }
-        />
-      </div>
+            </div>
+          )
+        }
+      />
     </div>
   );
 };

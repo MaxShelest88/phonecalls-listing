@@ -121,7 +121,7 @@ const CallsContainer = () => {
     setCount(0);
 	};
 	
-	// todo: usedeboune и фильтрацию по телефонам; декомпозиция callscontainer
+	// todo: usedeboune и фильтрацию по телефонам с использованием маски; декомпозиция callscontainer
 
   const onClickHandler = () => {};
 

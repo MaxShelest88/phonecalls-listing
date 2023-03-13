@@ -7,10 +7,13 @@
 	line-height: 1.75rem;
 	color: #899cb1;
 	&:hover {
-		color: #005ff8;
+		color: #002CFB;
 			svg path {
-			fill: #005ff8;
+			fill: #002CFB;
 		}
+	}
+	&.active {
+		color: #002CFB;
 	}
 }
 
@@ -43,7 +46,7 @@
 		color: #122945;
 	}
 	&.active {
-		color: #005ff8;
+		color: #002CFB;
 	}
 	.item-content{
 		flex: 1 1 auto;

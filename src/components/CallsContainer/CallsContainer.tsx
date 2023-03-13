@@ -62,12 +62,12 @@ const CallsContainer = () => {
       { value: 8, name: 'Стоп слова' },
     ];
   }, []);
-  const errorsListItems: IListItem[] = useMemo(() => {
+  const sourceListItems: IListItem[] = useMemo(() => {
     return [
-      { value: 2, name: '3 дня' },
-      { value: 6, name: 'Неделя' },
-      { value: 30, name: 'Месяц' },
-      { value: 364, name: 'Год' },
+      { value: 1, name: 'Все источники' },
+      { value: 2, name: 'Rabota.ru' },
+      { value: 3, name: 'Yandex' },
+      { value: 4, name: 'Google' },
     ];
   }, []);
 
@@ -159,21 +159,31 @@ const CallsContainer = () => {
               items={typesListItems}
               onClickItem={onTypeItemClickHandler}
               selectedItem={typeFilter}
+              filtered={typeFilter.isFilter}
             />
             <DropDown<IListItem>
               items={personListItems}
               onClickItem={onClickHandler}
               selectedItem={personListItems[0]}
+              filtered={false}
             />
             <DropDown<IListItem>
               items={numberListItems}
               onClickItem={onClickHandler}
               selectedItem={numberListItems[0]}
+              filtered={false}
+            />
+            <DropDown<IListItem>
+              items={sourceListItems}
+              onClickItem={onClickHandler}
+              selectedItem={sourceListItems[0]}
+              filtered={false}
             />
             <DropDown<IListItem>
               items={ErrorListItems}
               onClickItem={onClickHandler}
               selectedItem={ErrorListItems[0]}
+              filtered={false}
             />
             <ErrorsDropdown />
           </div>

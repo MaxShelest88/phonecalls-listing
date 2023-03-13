@@ -61,10 +61,11 @@
 	font-size: 0.875rem;
 	line-height: 1.75rem;
 	color: #899cb1;
+	margin-right: 16px;
 	&:hover {
-		color: #005ff8;
+		color: #002CFB;
 		svg path {
-			fill: #005ff8;
+			fill: #002CFB;
 		}
 	}
 	span {

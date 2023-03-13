@@ -6,15 +6,19 @@ interface DropDownProps<T> {
   items: T[];
   onClickItem: (name: string, value: number) => void;
   selectedItem: T;
+  filtered: boolean;
 }
 
 const Dropdown = <T extends { value: number; name: string; img?: string; updates?: boolean }>({
   items,
   selectedItem,
   onClickItem,
+  filtered,
 }: DropDownProps<T>): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+	const dropdownRef = useRef<HTMLDivElement>(null);
+	
+	
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -34,24 +38,24 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
         className={`${classes.item} ${props.name === selectedItem.name ? classes.active : ''}`}
         onClick={() => onClickItem(props.name, props.value)}
       >
-			 <div className={classes['item-content']}>
-       	 {props.img && (
-	          <div className={classes.avatar}>
-	            <img
-	              src={props.img}
-	              alt="avatar"
-	            />
-	          </div>
-	        )}
-	        <span>{props.name}</span>
-       </div>
+        <div className={classes['item-content']}>
+          {props.img && (
+            <div className={classes.avatar}>
+              <img
+                src={props.img}
+                alt="avatar"
+              />
+            </div>
+          )}
+          <span>{props.name}</span>
+        </div>
 
         {props.updates && <div className={classes.updates} />}
       </li>
     );
   };
   return (
-    <div className={`${classes.container}  ${dropdownVisible ? classes.active : ''}`}>
+    <div className={`${classes.container} ${dropdownVisible || filtered ? classes.active : ''}`}>
       <div
         ref={dropdownRef}
         onClick={() => setDropdownIsVisible((prevVisible) => !prevVisible)}

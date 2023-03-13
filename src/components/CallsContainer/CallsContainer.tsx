@@ -86,7 +86,7 @@ const CallsContainer = () => {
     dateValue.startDate || '',
     dateValue.endDate || '',
     typeFilter.value,
-  );
+	);
   const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
     useInput((value: string) => value.trim() !== '');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -119,7 +119,9 @@ const CallsContainer = () => {
     dispatch(resetFilters());
     isFilter.current = false;
     setCount(0);
-  };
+	};
+	
+	// todo: usedeboune и фильтрацию по телефонам; декомпозиция callscontainer
 
   const onClickHandler = () => {};
 
@@ -149,7 +151,7 @@ const CallsContainer = () => {
         <div className={classes['filers-block']}>
           <div className={classes.search}>
             <Input
-              name="headerSearch"
+              name="callsSearch"
               type="text"
               value={value}
               placeholder="Поиск по звонкам"
@@ -166,7 +168,7 @@ const CallsContainer = () => {
                 />
               }
               iconRight={
-                isFocused && (
+                (isFocused || value) && (
                   <IconClose
                     size="24px"
                     color={'#ADBFDF'}

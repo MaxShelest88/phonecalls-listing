@@ -34,14 +34,14 @@
 	background: inherit;
 	color: #122945;
 	&.active {
-		border: 1px solid #eaf0fa;
+		outline: 1px solid #eaf0fa;
 	}
 	&:focus {
-		border: 1px solid #005ff8;
+		outline: 1px solid #005ff8;
 	}
 
 	&.error {
-		border: 1px solid $red;
+		outline: 1px solid $red;
 	}
 }
 .error {

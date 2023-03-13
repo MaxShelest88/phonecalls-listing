@@ -8,7 +8,7 @@
 	color: #899cb1;
 	&:hover {
 		color: #005ff8;
-			svg path {
+		svg path {
 			fill: #005ff8;
 		}
 	}
@@ -45,7 +45,7 @@
 	&.active {
 		color: #005ff8;
 	}
-	.item-content{
+	.item-content {
 		flex: 1 1 auto;
 		display: flex;
 		align-items: center;
@@ -64,20 +64,65 @@
 	}
 }
 
-.avatar{
+.avatar {
 	flex: 0 0 32px;
 	height: 32px;
 	border-radius: 50%;
 	overflow: hidden;
 	margin-right: 8px;
-	img{
+	img {
 		max-width: 100%;
 	}
 }
 
-.updates{
+.updates {
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
 	background: #ffd500;
+}
+
+.btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 8px;
+	border-radius: 4px;
+	&.red {
+		border: 1px solid #ea1a4f;
+		background: #fee9ef;
+		color: #ea1a4f;
+	}
+	&.grey {
+		border: 1px solid #adbfdf;
+		background: #d8e4fb;
+		color: #ea1a4f;
+	}
+	&.green {
+		border: 1px solid #28a879;
+		background: #dbf8ef;
+		color: #00a775;
+	}
+}
+
+.dots {
+	display: flex;
+	gap: 2px;
+	padding: 10px 0;
+}
+
+.dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+
+	&.dot-red {
+		background: #ea1a4f;
+	}
+	&.dot-grey {
+		background: #adbfdf;
+	}
+	&.dot-green {
+		background: #28a879;
+	}
 }

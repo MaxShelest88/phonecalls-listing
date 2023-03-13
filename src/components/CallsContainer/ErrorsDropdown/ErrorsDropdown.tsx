@@ -69,6 +69,7 @@ const ErrorsDropdown = <
               <div className={classes.dots}>
                 <div className={`${classes.dot} ${classes['dot-green']}`} />
                 <div className={`${classes.dot} ${classes['dot-green']}`} />
+                <div className={`${classes.dot} ${classes['dot-green']}`} />
               </div>
             </li>
           </ul>

@@ -3,7 +3,6 @@ import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
 import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
-import { IDatepickerComponentListItem } from '../../models/IDatepicker';
 import { useCalls } from '../../hooks/useCalls';
 import IconAdd from '../UI/Icons/IconAdd';
 import DropDown from '../Dropdown/DropDown';
@@ -13,9 +12,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setDate, setType } from '../../store/reducers/filter/filterSlice';
 import { subDays } from 'date-fns';
 import { IDate, IType } from '../../store/reducers/filter/types';
+import { IListItem } from '../../models/IListItem';
 
 const CallsContainer = () => {
-  const datePikerListItems: IDatepickerComponentListItem[] = useMemo(() => {
+  const datePikerListItems: IListItem[] = useMemo(() => {
     return [
       { value: 2, name: '3 дня' },
       { value: 6, name: 'Неделя' },
@@ -25,11 +25,11 @@ const CallsContainer = () => {
   }, []);
   const typesListItems = useMemo(() => {
     return [
-      { type: 0, name: 'Исходящие' },
-      { type: 1, name: 'Входящие' },
+      { value: 0, name: 'Исходящие' },
+      { value: 1, name: 'Входящие' },
     ];
   }, []);
-  const callsListItems: IDatepickerComponentListItem[] = useMemo(() => {
+  const callsListItems: IListItem[] = useMemo(() => {
     return [
       { value: 2, name: '3 дня' },
       { value: 6, name: 'Неделя' },
@@ -37,7 +37,7 @@ const CallsContainer = () => {
       { value: 364, name: 'Год' },
     ];
   }, []);
-  const sourcesListItems: IDatepickerComponentListItem[] = useMemo(() => {
+  const sourcesListItems: IListItem[] = useMemo(() => {
     return [
       { value: 2, name: '3 дня' },
       { value: 6, name: 'Неделя' },
@@ -45,7 +45,7 @@ const CallsContainer = () => {
       { value: 364, name: 'Год' },
     ];
   }, []);
-  const ratingListItems: IDatepickerComponentListItem[] = useMemo(() => {
+  const ratingListItems: IListItem[] = useMemo(() => {
     return [
       { value: 2, name: '3 дня' },
       { value: 6, name: 'Неделя' },
@@ -53,7 +53,7 @@ const CallsContainer = () => {
       { value: 364, name: 'Год' },
     ];
   }, []);
-  const errorsListItems: IDatepickerComponentListItem[] = useMemo(() => {
+  const errorsListItems: IListItem[] = useMemo(() => {
     return [
       { value: 2, name: '3 дня' },
       { value: 6, name: 'Неделя' },
@@ -78,11 +78,11 @@ const CallsContainer = () => {
     );
   }, [count, datePikerListItems, dispatch]);
 
-  const onTypeItemClickHandler = (name: string, value: 1 | 0) => {
-    const typeValue: IType = {
+  const onTypeItemClickHandler = (name: string, value: number) => {
+    const typeValue = {
       type: value,
       name,
-    };
+    } as IType;
     dispatch(setType(typeValue));
   };
 
@@ -112,7 +112,7 @@ const CallsContainer = () => {
         <div className={classes['filers-block']}>
           <div className={classes.search}></div>
           <div className={classes.filters}>
-            <DropDown
+            <DropDown<IListItem>
               items={typesListItems}
               onClickItem={onTypeItemClickHandler}
               initalValue={typeFilter.name}

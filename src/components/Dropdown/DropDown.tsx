@@ -3,15 +3,15 @@ import classes from './DropDown.module.scss';
 
 interface DropDownProps<T> {
   items: T[];
-  onClickItem: (args: T) => void;
+  onClickItem: (name: string, value: number) => void;
   initalValue: string;
 }
 
-const Dropdown = <T extends { value?: number; name?: string; img?: string }>({
+const Dropdown = <T extends { value: number; name: string; img?: string }>({
   items,
   initalValue,
   onClickItem,
-}: React.PropsWithChildren<DropDownProps<T>>): JSX.Element => {
+}: DropDownProps<T>): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +31,7 @@ const Dropdown = <T extends { value?: number; name?: string; img?: string }>({
     return (
       <li
         className={classes.item}
-        onClick={() => onClickItem(props.name, props.type)}
+        onClick={() => onClickItem(props.name, props.value)}
       >
         {props.img && (
           <div>

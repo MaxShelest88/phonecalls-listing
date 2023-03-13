@@ -134,7 +134,6 @@
 	font-size: 0.9375rem;
 	line-height: 1.75rem;
 	padding: 8px 32px;
-	transition: all 0.3s ease 0s;
 	color: #899cb1;
 	&:hover {
 		background: rgba(0, 95, 248, 0.13);
@@ -150,7 +149,6 @@
 }
 .itemIcon {
 	margin-left: auto;
-	transition: all 0.3s ease 0s;
 	width: 20px;
 	height: 18px;
 	display: flex;

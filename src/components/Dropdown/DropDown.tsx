@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import IconChevronDown from '../UI/Icons/IconChevronDown';
 import classes from './DropDown.module.scss';
 
 interface DropDownProps<T> {
   items: T[];
   onClickItem: (name: string, value: number) => void;
-  initalValue: string;
+  selectedItem: T;
 }
 
 const Dropdown = <T extends { value: number; name: string; img?: string }>({
   items,
-  initalValue,
+  selectedItem,
   onClickItem,
 }: DropDownProps<T>): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState(false);
@@ -30,7 +31,7 @@ const Dropdown = <T extends { value: number; name: string; img?: string }>({
   const DropDownItem: React.FC<T> = (props): JSX.Element => {
     return (
       <li
-        className={classes.item}
+        className={`${classes.item} ${props.name === selectedItem.name ? classes.active : ''}`}
         onClick={() => onClickItem(props.name, props.value)}
       >
         {props.img && (
@@ -46,12 +47,15 @@ const Dropdown = <T extends { value: number; name: string; img?: string }>({
     );
   };
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container}  ${dropdownVisible ? classes.active : ''}`}>
       <div
         ref={dropdownRef}
         onClick={() => setDropdownIsVisible((prevVisible) => !prevVisible)}
       >
-        {initalValue}
+        {selectedItem.name}
+      </div>
+      <div className={`${classes.arrow} ${dropdownVisible ? classes.active : ''}`}>
+        <IconChevronDown color={dropdownVisible ? '#005ff8' : '#ADBFDF'} />
       </div>
       {dropdownVisible && (
         <div className={classes.menu}>

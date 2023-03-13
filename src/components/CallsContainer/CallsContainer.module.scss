@@ -38,12 +38,37 @@
 	}
 	&:hover {
 		svg path {
-			fill: #0000F4;
+			fill: #0000f4;
 		}
 	}
 	&:active {
 		svg path {
 			fill: $active;
 		}
+	}
+}
+
+.filters {
+	display: flex;
+	justify-content: flex-end;
+	gap: 32px;
+}
+
+.reset {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	font-size: 0.875rem;
+	line-height: 1.75rem;
+	color: #899cb1;
+	&:hover {
+		color: #005ff8;
+		svg path {
+			fill: #005ff8;
+		}
+	}
+	span {
+		display: block;
+		margin-right: 4px;
 	}
 }

@@ -1,6 +1,17 @@
 .container {
 	position: relative;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	font-size: 0.875rem;
+	line-height: 1.75rem;
+	color: #899cb1;
+	&:hover {
+		color: #005ff8;
+			svg path {
+			fill: #005ff8;
+		}
+	}
 }
 
 .menu {
@@ -9,7 +20,7 @@
 	max-width: 204px;
 	position: absolute;
 	top: 100%;
-	left: 0;
+	right: 0;
 	z-index: 20;
 	overflow: hidden;
 	/* выпадающее меню */
@@ -31,4 +42,20 @@
 		background: rgba(0, 95, 248, 0.13);
 		color: #122945;
 	}
+	&.active {
+		color: #005ff8;
+	}
 }
+
+.arrow {
+	width: 18px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 4px;
+	&.active {
+		transform: rotate(-180deg);
+	}
+}
+

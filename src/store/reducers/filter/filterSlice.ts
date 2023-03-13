@@ -5,7 +5,7 @@ import { FilterState, IDate } from './types';
 const initialState: FilterState = {
   searchValue: '',
   typeValue: {
-    type: -1,
+    value: -1,
     name: 'Все типы',
   },
   dateValue: {
@@ -13,6 +13,7 @@ const initialState: FilterState = {
     endDate: new Date().toString(),
     name: '3 дня',
   },
+  filtered: false,
 };
 
 const filterSlice = createSlice({
@@ -21,9 +22,11 @@ const filterSlice = createSlice({
   reducers: {
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
+      state.filtered = true;
     },
     setType: (state, action) => {
       state.typeValue = action.payload;
+      state.filtered = true;
     },
     setDate: (state, action: PayloadAction<IDate>) => {
       state.dateValue.startDate = action.payload.startDate
@@ -33,15 +36,17 @@ const filterSlice = createSlice({
         ? action.payload.endDate
         : state.dateValue.endDate;
       state.dateValue.name = action.payload.name;
+      state.filtered = true;
     },
     resetFilters: (state) => {
       state.searchValue = '';
-      state.typeValue = { type: -1, name: 'Все типы' };
+      state.typeValue = { value: -1, name: 'Все типы' };
       state.dateValue = {
         startDate: setDaysBeforeCurrentDate(2),
         endDate: new Date().toString(),
         name: '3 дня',
       };
+      state.filtered = false;
     },
   },
 });

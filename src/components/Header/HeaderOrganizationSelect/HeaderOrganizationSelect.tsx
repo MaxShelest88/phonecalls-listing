@@ -36,7 +36,7 @@ const HeaderOrganizationSelect = () => {
       <div
         ref={organizationRef}
         onClick={() => setOrganizationIsVisible((prevState) => !prevState)}
-        className={classes.name}
+        className={`${classes.name} ${organizationIsVisible ? classes.active : ''}`}
       >
         {organization}
       </div>

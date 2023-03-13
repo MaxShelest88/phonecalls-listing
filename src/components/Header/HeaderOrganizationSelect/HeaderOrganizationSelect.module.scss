@@ -13,6 +13,9 @@
 	cursor: pointer;
 	font-size: 0.9375rem;
 	color: #899cb1;
+	&.active{
+		color: #122945;
+	}
 }
 .arrow {
 	width: 24px;

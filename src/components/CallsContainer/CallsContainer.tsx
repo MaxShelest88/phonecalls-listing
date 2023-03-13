@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
@@ -14,6 +14,8 @@ import { subDays } from 'date-fns';
 import { IDate, IType } from '../../store/reducers/filter/types';
 import { IListItem } from '../../models/IListItem';
 import IconClose from '../UI/Icons/IconClose';
+import avatar2 from '../../assets/img/avatar2.png';
+import ErrorsDropdown from './ErrorsDropdown/ErrorsDropdown';
 
 const CallsContainer = () => {
   const datePikerListItems: IListItem[] = useMemo(() => {
@@ -31,28 +33,33 @@ const CallsContainer = () => {
       { value: 1, name: 'Входящие' },
     ];
   }, []);
-  const callsListItems: IListItem[] = useMemo(() => {
+  const personListItems: IListItem[] = useMemo(() => {
     return [
-      { value: 2, name: '3 дня' },
-      { value: 6, name: 'Неделя' },
-      { value: 30, name: 'Месяц' },
-      { value: 364, name: 'Год' },
+      { value: 1, name: 'Все сотрудники' },
+      { value: 2, name: 'Константин К.', img: avatar2 },
+      { value: 3, name: 'Полина З.', img: avatar2 },
     ];
   }, []);
-  const sourcesListItems: IListItem[] = useMemo(() => {
+  const numberListItems: IListItem[] = useMemo(() => {
     return [
-      { value: 2, name: '3 дня' },
-      { value: 6, name: 'Неделя' },
-      { value: 30, name: 'Месяц' },
-      { value: 364, name: 'Год' },
+      { value: 1, name: 'Все звонки' },
+      { value: 2, name: 'Все клиенты' },
+      { value: 3, name: 'Новые клиенты', updates: true },
+      { value: 4, name: 'Все исполнители' },
+      { value: 5, name: 'Через приложение' },
+      { value: 6, name: 'Прочие звонки' },
     ];
   }, []);
-  const ratingListItems: IListItem[] = useMemo(() => {
+  const ErrorListItems: IListItem[] = useMemo(() => {
     return [
-      { value: 2, name: '3 дня' },
-      { value: 6, name: 'Неделя' },
-      { value: 30, name: 'Месяц' },
-      { value: 364, name: 'Год' },
+      { value: 1, name: 'Все ошибки' },
+      { value: 2, name: 'Приветствие' },
+      { value: 3, name: 'Имя' },
+      { value: 4, name: 'Цена' },
+      { value: 5, name: 'Скидка' },
+      { value: 6, name: 'Предзаказ' },
+      { value: 7, name: 'Благодарность' },
+      { value: 8, name: 'Стоп слова' },
     ];
   }, []);
   const errorsListItems: IListItem[] = useMemo(() => {
@@ -65,29 +72,34 @@ const CallsContainer = () => {
   }, []);
 
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
-  const { startDate, endDate, name } = useAppSelector((store) => store.filterReducer.dateValue);
-  const filtered = useAppSelector((store) => store.filterReducer.filtered);
+  const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
   const dispatch = useAppDispatch();
-  const [count, onArrowClickHandler] = useCount(datePikerListItems);
+  const [count, setCount, onArrowClickHandler] = useCount(datePikerListItems);
+  const [filtered, setFiltered] = useState<boolean>(false);
   const typeFilter = useAppSelector((store) => store.filterReducer.typeValue);
   const groupedCallsObj = useCalls(
     calls?.results || [],
-    startDate || '',
-    endDate || '',
+    dateValue.startDate || '',
+    dateValue.endDate || '',
     typeFilter.value,
   );
 
   useEffect(() => {
-    if (isFilter.current)
+    if (isFilter.current) {
       dispatch(
         setDate({
           startDate: subDays(new Date(), datePikerListItems[count].value).toString(),
           name: datePikerListItems[count].name,
         } as IDate),
       );
+    }
     isFilter.current = true;
   }, [count, datePikerListItems, dispatch]);
+
+  useEffect(() => {
+    setFiltered([dateValue.isFilter, typeFilter.isFilter].includes(true));
+  }, [dateValue.isFilter, typeFilter.isFilter]);
 
   const onTypeItemClickHandler = (name: string, value: number) => {
     const typeValue = {
@@ -95,12 +107,15 @@ const CallsContainer = () => {
       name,
     } as IType;
     dispatch(setType(typeValue));
-	};
-	
-	const onResetHandler = () => {
-		dispatch(resetFilters())
-		isFilter.current = false;
-	}
+  };
+
+  const onResetHandler = () => {
+    dispatch(resetFilters());
+    isFilter.current = false;
+    setCount(0);
+  };
+
+  const onClickHandler = () => {};
 
   return (
     <>
@@ -117,10 +132,10 @@ const CallsContainer = () => {
           {!isLoading && !error && (
             <DatepickerComponent
               items={datePikerListItems}
-              endDate={new Date(endDate)}
-              startDate={new Date(startDate)}
+              endDate={new Date(dateValue.endDate)}
+              startDate={new Date(dateValue.startDate)}
               calls={calls?.results || []}
-              selectedValue={name}
+              selectedValue={dateValue.name}
               onArrowClickHandler={onArrowClickHandler}
             />
           )}
@@ -145,6 +160,22 @@ const CallsContainer = () => {
               onClickItem={onTypeItemClickHandler}
               selectedItem={typeFilter}
             />
+            <DropDown<IListItem>
+              items={personListItems}
+              onClickItem={onClickHandler}
+              selectedItem={personListItems[0]}
+            />
+            <DropDown<IListItem>
+              items={numberListItems}
+              onClickItem={onClickHandler}
+              selectedItem={numberListItems[0]}
+            />
+            <DropDown<IListItem>
+              items={ErrorListItems}
+              onClickItem={onClickHandler}
+              selectedItem={ErrorListItems[0]}
+            />
+            <ErrorsDropdown />
           </div>
         </div>
       </div>

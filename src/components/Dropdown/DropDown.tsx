@@ -8,7 +8,7 @@ interface DropDownProps<T> {
   selectedItem: T;
 }
 
-const Dropdown = <T extends { value: number; name: string; img?: string }>({
+const Dropdown = <T extends { value: number; name: string; img?: string; updates?: boolean }>({
   items,
   selectedItem,
   onClickItem,
@@ -34,15 +34,19 @@ const Dropdown = <T extends { value: number; name: string; img?: string }>({
         className={`${classes.item} ${props.name === selectedItem.name ? classes.active : ''}`}
         onClick={() => onClickItem(props.name, props.value)}
       >
-        {props.img && (
-          <div>
-            <img
-              src={props.img}
-              alt="item"
-            />
-          </div>
-        )}
-        <span>{props.name}</span>
+			 <div className={classes['item-content']}>
+       	 {props.img && (
+	          <div className={classes.avatar}>
+	            <img
+	              src={props.img}
+	              alt="avatar"
+	            />
+	          </div>
+	        )}
+	        <span>{props.name}</span>
+       </div>
+
+        {props.updates && <div className={classes.updates} />}
       </li>
     );
   };

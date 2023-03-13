@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 
-export const useCount = <T>(listItems: T[]):[number, (type:string)=>void] => {
+export const useCount = <T>(
+  listItems: T[],
+): [number, React.Dispatch<React.SetStateAction<number>>, (type: string) => void] => {
   const [count, setCount] = useState<number>(0);
   const itemsNumber = listItems.length;
   const onClickHandler = useCallback(
@@ -24,5 +26,5 @@ export const useCount = <T>(listItems: T[]):[number, (type:string)=>void] => {
     },
     [count, itemsNumber],
   );
-	return [count, onClickHandler]
+  return [count, setCount, onClickHandler];
 };

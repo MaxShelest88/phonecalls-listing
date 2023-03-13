@@ -7,13 +7,14 @@ const initialState: FilterState = {
   typeValue: {
     value: -1,
     name: 'Все типы',
+    isFilter: false,
   },
   dateValue: {
     startDate: setDaysBeforeCurrentDate(2),
     endDate: new Date().toString(),
     name: '3 дня',
+    isFilter: false,
   },
-  filtered: false,
 };
 
 const filterSlice = createSlice({
@@ -22,11 +23,10 @@ const filterSlice = createSlice({
   reducers: {
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
-      state.filtered = true;
     },
     setType: (state, action) => {
       state.typeValue = action.payload;
-      state.filtered = true;
+      state.typeValue.isFilter = state.typeValue.value === -1 ? false : true;
     },
     setDate: (state, action: PayloadAction<IDate>) => {
       state.dateValue.startDate = action.payload.startDate
@@ -36,17 +36,18 @@ const filterSlice = createSlice({
         ? action.payload.endDate
         : state.dateValue.endDate;
       state.dateValue.name = action.payload.name;
-      state.filtered = true;
+      state.dateValue.isFilter = state.dateValue.name === '3 дня' ? false : true;
     },
+    
     resetFilters: (state) => {
       state.searchValue = '';
-      state.typeValue = { value: -1, name: 'Все типы' };
+      state.typeValue = { value: -1, name: 'Все типы', isFilter: false };
       state.dateValue = {
         startDate: setDaysBeforeCurrentDate(2),
         endDate: new Date().toString(),
         name: '3 дня',
+        isFilter: false,
       };
-      state.filtered = false;
     },
   },
 });

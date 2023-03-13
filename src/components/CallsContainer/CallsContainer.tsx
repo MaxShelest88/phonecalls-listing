@@ -142,7 +142,7 @@ const CallsContainer = () => {
               startDate={new Date(dateValue.startDate)}
               calls={calls?.results || []}
               selectedValue={dateValue.name}
-              onArrowClickHandler={onArrosdfwClickHandler}
+              onArrowClickHandler={onArrowClickHandler}
             />
           )}
         </div>

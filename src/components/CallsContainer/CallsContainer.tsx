@@ -24,7 +24,8 @@ const CallsContainer = () => {
     ];
   }, []);
   const typesListItems = useMemo(() => {
-    return [
+	  return [
+      { value: -1, name: 'Все типы' },
       { value: 0, name: 'Исходящие' },
       { value: 1, name: 'Входящие' },
     ];
@@ -66,8 +67,8 @@ const CallsContainer = () => {
   const { startDate, endDate, name } = useAppSelector((store) => store.filterReducer.dateValue);
   const dispatch = useAppDispatch();
   const [count, onArrowClickHandler] = useCount(datePikerListItems);
-  const groupedCallsObj = useCalls(calls?.results || [], startDate || '', endDate || '');
   const typeFilter = useAppSelector((store) => store.filterReducer.typeValue);
+  const groupedCallsObj = useCalls(calls?.results || [], startDate || '', endDate || '', typeFilter.type);
 
   useEffect(() => {
     dispatch(

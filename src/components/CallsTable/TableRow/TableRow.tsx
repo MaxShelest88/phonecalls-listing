@@ -11,22 +11,8 @@ interface TableRowProps {
 
 const TableRow: React.FC<TableRowProps> = ({ call }) => {
   const record = call.record ? true : false;
-  const ctx = new AudioContext();
 
-  const { data } = callApi.useFetchAudioQuery(
-    {
-      record: call.record,
-      partnership_id: call.partnership_id,
-    },
-    { skip: !record },
-  );
 
-  const play = () => {
-    const playSound = ctx.createBufferSource();
-    playSound.buffer = data;
-    playSound.connect(ctx.destination);
-    playSound.start(ctx.currentTime);
-  };
 
   return (
     <tr className={classes.row}>
@@ -78,7 +64,7 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
       {call.record ? (
         <td className={classes.time}>{formatTime(call.time)}</td>
       ) : (
-        <td className={classes.time}>{<Player play={play} />}</td>
+        <td className={classes.time}>{}</td>
       )}
     </tr>
   );

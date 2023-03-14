@@ -1,19 +1,10 @@
-const Player = () => {
-	
+const Player = ({ src }) => {
   return (
     <audio controls>
       <source
-        src="myAudio.mp3"
-        type="audio/mpeg"
+        src={src}
+        type="audio/mpeg, audio/x-mpeg, audio/x-mpeg-3, audio/mpeg3"
       />
-      <source
-        src="myAudio.ogg"
-        type="audio/ogg"
-      />
-      <p>
-        Ваш браузер не поддерживает HTML5 аудио. Вот взамен
-        <a href="myAudio.mp4">ссылка на аудио</a>
-      </p>
     </audio>
   );
 };

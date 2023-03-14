@@ -1,5 +1,7 @@
 import { ICall } from '../../../models/ICallList';
+import { callApi } from '../../../services/CallService';
 import { formatTime } from '../../../utils/formatters';
+import Player from '../../Player/Player';
 import classes from './TableRow.module.scss';
 
 interface TableRowProps {
@@ -7,6 +9,20 @@ interface TableRowProps {
 }
 
 const TableRow: React.FC<TableRowProps> = ({ call }) => {
+  const record = call.record ? true : false;
+
+  const { data } = callApi.useFetchAudioQuery(
+    {
+      record: call.record,
+      partnership_id: call.partnership_id,
+    },
+    { skip: !record },
+	);
+
+	console.log(data);
+	
+	
+
   return (
     <tr className={classes.row}>
       <td className={classes.type}>
@@ -54,7 +70,13 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
       <td className={classes.number}>{call.from_number}</td>
       <td className={classes.source}>{call.source}</td>
       <td className={classes.rating}>Оценка</td>
-      <td className={classes.time}>{formatTime(call.time)}</td>
+      {call.record ? (
+        <td className={classes.time}>{formatTime(call.time)}</td>
+      ) : (
+        <td className={classes.time}>
+         <Player src={data}/>
+        </td>
+      )}
     </tr>
   );
 };

@@ -78,7 +78,7 @@ const CallsContainer = () => {
     data: calls,
     isLoading,
     error,
-  } = callApi.useFetchAllCallsQuery(process.env.REACT_APP_TOKEN as string);
+  } = callApi.useFetchAllCallsQuery('');
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
   const dispatch = useAppDispatch();

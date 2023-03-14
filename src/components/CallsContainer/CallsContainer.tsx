@@ -74,7 +74,9 @@ const CallsContainer = () => {
     ];
   }, []);
 
-  const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
+	const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery(process.env.REACT_APP_TOKEN as string);
+	console.log(calls);
+	
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
   const dispatch = useAppDispatch();
@@ -82,11 +84,11 @@ const CallsContainer = () => {
   const [filtered, setFiltered] = useState<boolean>(false);
   const typeFilter = useAppSelector((store) => store.filterReducer.typeValue);
   const groupedCallsObj = useCalls(
-    calls?.results || [],
+    calls || [],
     dateValue.startDate || '',
     dateValue.endDate || '',
     typeFilter.value,
-	);
+  );
   const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
     useInput((value: string) => value.trim() !== '');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -119,9 +121,9 @@ const CallsContainer = () => {
     dispatch(resetFilters());
     isFilter.current = false;
     setCount(0);
-	};
-	
-	// todo: usedeboune и фильтрацию по телефонам с использованием маски; декомпозиция callscontainer
+  };
+
+  // todo: usedeboune и фильтрацию по телефонам с использованием маски; декомпозиция callscontainer
 
   const onClickHandler = () => {};
 
@@ -142,7 +144,7 @@ const CallsContainer = () => {
               items={datePikerListItems}
               endDate={new Date(dateValue.endDate)}
               startDate={new Date(dateValue.startDate)}
-              calls={calls?.results || []}
+              calls={calls || []}
               selectedValue={dateValue.name}
               onArrowClickHandler={onArrowClickHandler}
             />

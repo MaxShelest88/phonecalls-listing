@@ -1,14 +1,14 @@
 export interface IInputComponentProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
+  iconleft?: React.ReactNode;
+  iconright?: React.ReactNode;
   placeholder?: string;
   name: string;
   type?: string;
-  error?: boolean;
+  error?: 1 | 0;
   onBlur: () => void;
   onFocus: () => void;
-  reset: () => void;
+  onReset: () => void;
   ref?: React.Ref<HTMLInputElement> | null;
 }

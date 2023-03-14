@@ -6,7 +6,7 @@ export const useInput = (validation: (value: string) => boolean) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const valueIsValid = validation(value);
-  const inputHasError = !valueIsValid && isTouched;
+  const inputHasError: boolean = !valueIsValid && isTouched;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

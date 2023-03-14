@@ -1,4 +1,3 @@
-import { IListItem } from './../models/IListItem';
 import { ICall, ICallList } from '../models/ICallList';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 

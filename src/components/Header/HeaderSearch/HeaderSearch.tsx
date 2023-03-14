@@ -29,11 +29,11 @@ const HeaderSearch: React.FC = (): JSX.Element => {
         value={value}
         onChange={onChangeHandler}
         onBlur={onBlur}
-        error={inputHasError}
+        error={inputHasError ? 1 : 0}
         onFocus={onFocusHandler}
         ref={inputRef}
-        reset={resetHandler}
-        iconLeft={
+        onReset={resetHandler}
+        iconleft={
           (isFocused || value) && (
             <IconSearch
               size="16px"
@@ -41,7 +41,7 @@ const HeaderSearch: React.FC = (): JSX.Element => {
             />
           )
         }
-        iconRight={
+        iconright={
           isFocused || value ? (
             <IconClose
               size="24px"

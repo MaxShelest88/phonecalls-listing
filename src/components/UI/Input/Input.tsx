@@ -5,9 +5,9 @@ import { IInputComponentProps } from '../../../models/IInput';
 const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref) => {
   const {
     value,
-    iconLeft,
-    iconRight,
-    reset,
+    iconleft,
+    iconright,
+    onReset,
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,19 +27,19 @@ const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref) => {
   return (
     <>
       <div className={classes.container}>
-        {iconLeft && <div className={classes.iconLeft}>{iconLeft}</div>}
+        {React.isValidElement(iconleft) && <div className={classes.iconLeft}>{iconleft}</div>}
         <input
           {...props}
           className={`${classes.input} ${value && classes.active}`}
           autoComplete={'off'}
           ref={inputRef}
         />
-        {iconRight && (
+        {React.isValidElement(iconright) && (
           <div
             className={classes.iconRight}
-            onClick={() => reset()}
+            onClick={onReset}
           >
-            {iconRight}
+            {iconright}
           </div>
         )}
       </div>

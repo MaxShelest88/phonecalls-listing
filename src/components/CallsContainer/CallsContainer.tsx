@@ -74,9 +74,11 @@ const CallsContainer = () => {
     ];
   }, []);
 
-	const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery(process.env.REACT_APP_TOKEN as string);
-	console.log(calls);
-	
+  const {
+    data: calls,
+    isLoading,
+    error,
+  } = callApi.useFetchAllCallsQuery(process.env.REACT_APP_TOKEN as string);
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
   const dispatch = useAppDispatch();
@@ -159,17 +161,17 @@ const CallsContainer = () => {
               placeholder="Поиск по звонкам"
               onChange={onChangeHandler}
               onBlur={onBlurHandler}
-              error={inputHasError}
+              error={inputHasError ? 1 : 0}
               onFocus={onFocusHandler}
               ref={inputRef}
-              reset={reset}
-              iconLeft={
+              onReset={reset}
+              iconleft={
                 <IconSearch
                   size="16px"
                   color={'#ADBFDF'}
                 />
               }
-              iconRight={
+              iconright={
                 (isFocused || value) && (
                   <IconClose
                     size="24px"

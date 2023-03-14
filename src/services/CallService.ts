@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseUrl = process.env.REACT_APP_URL;
 const token = process.env.REACT_APP_TOKEN;
+const ctx = new AudioContext();
 
 export const callApi = createApi({
   reducerPath: 'callApi',
@@ -18,16 +19,22 @@ export const callApi = createApi({
       transformResponse: (response: ICallList, meta, arg) => response.results,
     }),
     fetchAudio: build.query({
-      query: (args) => {
-        const { record, partnership_id } = args;
+      query: (arg) => {
+        const { record, partnership_id } = arg;
         return {
           url: 'getRecord',
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
           params: { record, partnership_id },
+          responseHandler: async (response: Response) =>
+            response
+              .arrayBuffer()
+              .then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer))
+              .then((decodedAudio) => {
+                return decodedAudio;
+              }),
         };
       },
-      transformResponse: (response, meta, arg) => response.blob(),
     }),
   }),
 });

@@ -11,9 +11,9 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const audioCtxContainer = useRef(null);
+  const audioCtxContainer = useRef<AudioContext | undefined>();
+  const audioRef = useRef<AudioBuffer | undefined>();
   audioCtxContainer.current = new AudioContext();
-  const audioRef = useRef();
   const URL = process.env.REACT_APP_URL;
   const TOKEN = process.env.REACT_APP_TOKEN;
 
@@ -30,7 +30,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
         headers: { Authorization: `Bearer ${TOKEN}` },
         responseType: 'arraybuffer',
       });
-      const decodedAudio = await audioCtxContainer.current.decodeAudioData(data);
+      const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);
       audioRef.current = decodedAudio;
       setIsLoading(false);
     } catch (AxiosError) {

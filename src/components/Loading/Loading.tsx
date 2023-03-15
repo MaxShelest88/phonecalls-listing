@@ -1,4 +1,4 @@
-import classes from './HeaderSearch.module.scss';
+import classes from './Loading.module.scss';
 
 const Loading = () => {
   return <div>Loading</div>;

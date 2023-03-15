@@ -19,6 +19,7 @@ import ErrorsDropdown from './ErrorsDropdown/ErrorsDropdown';
 import IconSearch from '../UI/Icons/IconSearch';
 import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
+import Player from '../Player/Player';
 
 const CallsContainer = () => {
   const datePikerListItems: IListItem[] = useMemo(() => {
@@ -125,15 +126,6 @@ const CallsContainer = () => {
 
   const onClickHandler = () => {};
 
-
-//   const { data, isSuccess } = callApi.useFetchAudioQuery({
-//     record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
-//     partnership_id: "578",
-//   });
-	
-// 	console.log(data);
-	
-
   return (
     <>
       <div className={classes['filters-container']}>
@@ -234,13 +226,14 @@ const CallsContainer = () => {
         </div>
       </div>
       <div className={classes['table-container']}>
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading />
         ) : error ? (
           <div>ошибка запроса</div>
         ) : (
           <CallsTable groupedCallsObj={groupedCallsObj} />
-        )}
+        )} */}
+        <Player />
       </div>
     </>
   );

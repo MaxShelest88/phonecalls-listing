@@ -14,27 +14,15 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
   const URL = process.env.REACT_APP_URL;
   const TOKEN = process.env.REACT_APP_TOKEN;
 
-  //   const fetchAudio = async (record:string, partnership_id:string) => {
-  //     const response = await fetch(
-  //       `https://api.skilla.ru/mango/getRecord?record=${record}&partnership_id=${partnership_id}`,
-  //       {
-  //         method: 'POST',
-  //         headers: { Authorization: `Bearer testtoken` },
-  //       },
-  //     );
-  //     const data = await response.arrayBuffer();
-  //     const decodedAudio = await ctx.decodeAudioData(data);
-  //     audio = decodedAudio;
-  //   };
-
   const fetchAudio = async () => {
-    const { data } = await axios('https://api.skilla.ru/mango/getRecord', {
+    const { data } = await axios('getRecord', {
+      baseURL: URL,
       method: 'POST',
       params: {
         record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
         partnership_id: '578',
       },
-      headers: { Authorization: `Bearer testtoken` },
+      headers: { Authorization: `Bearer ${TOKEN}` },
       responseType: 'arraybuffer',
     });
     const decodedAudio = await ctx.decodeAudioData(data);

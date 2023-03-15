@@ -126,23 +126,17 @@ const CallsContainer = () => {
   const onClickHandler = () => {};
 
 
-  const { data, isSuccess } = callApi.useFetchAudioQuery({
-    record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
-    partnership_id: "578",
-  });
+//   const { data, isSuccess } = callApi.useFetchAudioQuery({
+//     record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
+//     partnership_id: "578",
+//   });
 	
-	console.log(data);
+// 	console.log(data);
 	
 
   return (
     <>
       <div className={classes['filters-container']}>
-        {isSuccess && (
-          <audio
-            src={`${data}`}
-            controls
-          ></audio>
-        )}
         <div className={classes['datepicker-container']}>
           <div className={classes.balance}>
             <span className={classes['balance-text']}>Баланс:</span>

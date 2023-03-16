@@ -1,6 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { formatTime } from '../../utils/formatters';
+import Loading from '../Loading/Loading';
 import IconPause from '../UI/Icons/IconPause';
 import IconPlay from '../UI/Icons/IconPlay';
 import classes from './Player.module.scss';
@@ -21,9 +23,39 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
   const audioRef = useRef<AudioBuffer | undefined>();
   audioCtxContainer.current = new AudioContext();
   const sourceRef = useRef<AudioBufferSourceNode | undefined>();
+  const [active, setActive] = useState(false);
+  const [text, setText] = useState('');
+  const [position, setPosition] = useState(0);
 
   const URL = process.env.REACT_APP_URL;
   const TOKEN = process.env.REACT_APP_TOKEN;
+
+  const showTip = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    let target = e.target as HTMLDivElement;
+    let width;
+    let offsetLeft;
+    if (audioCtxContainer.current?.state === 'suspended') {
+      audioCtxContainer.current.resume();
+    }
+    if (target.parentElement?.className.includes('progress-container')) {
+      width = target.parentElement.offsetWidth;
+      offsetLeft = target.parentElement.offsetLeft;
+    } else {
+      width = target.offsetWidth;
+      offsetLeft = target.offsetLeft;
+    }
+    const clickX = e.nativeEvent.offsetX - offsetLeft;
+    setPosition(clickX);
+    const duration = audioRef.current && audioRef.current.duration;
+    const playbackTime = (clickX / width) * duration!;
+    setText(formatTime(playbackTime));
+
+    setActive(true);
+  },[]);
+
+  const hideTip = () => {
+    setActive(false);
+  };
 
   const fetchAudio = async () => {
     setIsLoading(true);
@@ -63,6 +95,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
           setRate(0);
           clearInterval(interval);
           setPlay(false);
+          setStartedAt(0);
           sourceRef.current?.stop();
           sourceRef.current?.disconnect();
         }
@@ -91,8 +124,8 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     setStoppedAt(Date.now() - startedAt);
   }, [startedAt]);
 
-	function onProgressClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-	  const target = e.target as HTMLDivElement;
+  const onProgressClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLDivElement;
     let width;
     if (audioCtxContainer.current?.state === 'suspended') {
       audioCtxContainer.current.resume();
@@ -102,7 +135,6 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     } else {
       width = target.offsetWidth;
     }
-
     const clickX = e.nativeEvent.offsetX;
     const duration = audioRef.current && audioRef.current.duration;
     sourceRef.current?.disconnect();
@@ -116,7 +148,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
       setPlay(true);
       setStartedAt(Date.now() - playbackTime * 1000);
     }
-  }
+  };
 
   if (error) {
     return <div>Ошибка загрузки аудио: {error}</div>;
@@ -124,33 +156,50 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
 
   return (
     <div className={classes.player}>
-      <div className={classes.time}>{audioRef.current && audioRef.current.duration}</div>
-      {!play ? (
-        <button
-          className={classes['btn-play']}
-          onClick={onPlay}
-          disabled={isLoading}
-        >
-          <IconPlay color="#002CFB" />
-        </button>
+      {isLoading ? (
+        <Loading />
       ) : (
-        <button
-          className={classes['btn-play']}
-          onClick={onStop}
-        >
-          <IconPause color="#002CFB" />
-        </button>
-      )}
+        <>
+          <div className={classes.time}>
+            {audioRef.current && formatTime(audioRef.current.duration)}
+          </div>
+          {!play ? (
+            <button
+              className={classes['btn-play']}
+              onClick={onPlay}
+            >
+              <IconPlay color="#002CFB" />
+            </button>
+          ) : (
+            <button
+              className={classes['btn-play']}
+              onClick={onStop}
+            >
+              <IconPause color="#002CFB" />
+            </button>
+          )}
 
-      <div
-        className={classes['progress-container']}
-        onClick={(e) => onProgressClick(e)}
-      >
-        <div
-          className={classes.progress}
-          style={{ width: `${rate}%` }}
-        />
-      </div>
+          <div
+            className={classes['progress-container']}
+            onClick={(e) => onProgressClick(e)}
+            onMouseEnter={(e) => showTip(e)}
+            onMouseLeave={hideTip}
+          >
+            <div
+              className={classes.progress}
+              style={{ width: `${rate}%` }}
+            />
+            {active && (
+              <div
+                className={classes.tooltip}
+                style={{ left: `${position}px` }}
+              >
+                {text}
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -52,7 +52,6 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     fetchAudio();
   }, []);
 
-  console.log(stoppedAt);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -92,11 +91,13 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     setStoppedAt(Date.now() - startedAt);
   };
 
+  if (error) {
+    return <div>Ошибка загрузки аудио: {error}</div>;
+  }
+
   return (
     <div className={classes.player}>
-      <div className={classes.time}>
-        {audioRef.current && audioRef.current.duration}
-      </div>
+      <div className={classes.time}>{audioRef.current && audioRef.current.duration}</div>
       {!play ? (
         <button
           className={classes['btn-play']}

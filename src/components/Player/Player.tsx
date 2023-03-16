@@ -13,7 +13,8 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const [startedAt, setStartedAt] = useState();
+  const [startedAt, setStartedAt] = useState(0);
+  const [stoppedAt, setStoppedAt] = useState(0);
   const [rate, setRate] = useState(0);
   const [play, setPlay] = useState(false);
   const audioCtxContainer = useRef<AudioContext | undefined>();
@@ -45,26 +46,30 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
       setError(error.message);
       setIsLoading(false);
     }
-	};
-	
-	console.log(rate);
-	
+  };
 
   useEffect(() => {
     fetchAudio();
   }, []);
 
+  console.log(stoppedAt);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      if (play) {
+      const duration = audioRef.current?.duration;
+      if (play && duration) {
         const playbackTime = (Date.now() - startedAt) / 1000;
-        const duration = audioRef.current!.duration;
-        const progressPercent = parseInt((playbackTime * 100) / duration, 10); ;
+        const progressPercent = Math.round((playbackTime * 100) / duration);
         setRate(progressPercent);
+        if (playbackTime >= duration) {
+          setRate(0);
+          clearInterval(interval);
+          setPlay(false);
+        }
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [play]);
+  }, [play, rate, startedAt]);
 
   const onPlay = useCallback(() => {
     if (audioCtxContainer.current?.state === 'suspended') {
@@ -74,15 +79,16 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     if (sourceRef.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
       sourceRef.current.connect(audioCtxContainer?.current!.destination);
-      sourceRef.current.start(audioCtxContainer?.current!.currentTime);
+      sourceRef.current.start(0, stoppedAt / 1000);
       setPlay(true);
-      setStartedAt(Date.now());
+      setStartedAt(Date.now() - stoppedAt);
     }
-  }, []);
+  }, [stoppedAt]);
 
   const onStop = () => {
     sourceRef.current!.stop();
     setPlay(false);
+    setStoppedAt(Date.now() - startedAt);
   };
 
   return (

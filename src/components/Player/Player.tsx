@@ -13,7 +13,8 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const [rate, setRate] = useState();
+  const [startedAt, setStartedAt] = useState();
+  const [rate, setRate] = useState(0);
   const [play, setPlay] = useState(false);
   const audioCtxContainer = useRef<AudioContext | undefined>();
   const audioRef = useRef<AudioBuffer>();
@@ -44,11 +45,26 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
       setError(error.message);
       setIsLoading(false);
     }
-  };
+	};
+	
+	console.log(rate);
+	
 
   useEffect(() => {
     fetchAudio();
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (play) {
+        const playbackTime = (Date.now() - startedAt) / 1000;
+        const duration = audioRef.current!.duration;
+        const progressPercent = parseInt((playbackTime * 100) / duration, 10); ;
+        setRate(progressPercent);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [play]);
 
   const onPlay = useCallback(() => {
     if (audioCtxContainer.current?.state === 'suspended') {
@@ -58,8 +74,9 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     if (sourceRef.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
       sourceRef.current.connect(audioCtxContainer?.current!.destination);
-      sourceRef.current.start();
+      sourceRef.current.start(audioCtxContainer?.current!.currentTime);
       setPlay(true);
+      setStartedAt(Date.now());
     }
   }, []);
 
@@ -89,7 +106,10 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
       )}
 
       <div className={classes['progress-container']}>
-        <div className={classes.progress} />
+        <div
+          className={classes.progress}
+          style={{ width: `${rate}%` }}
+        />
       </div>
     </div>
   );

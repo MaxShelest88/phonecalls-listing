@@ -3,6 +3,7 @@ import React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { formatTime } from '../../utils/formatters';
 import Loading from '../Loading/Loading';
+import IconClose from '../UI/Icons/IconClose';
 import IconPause from '../UI/Icons/IconPause';
 import IconPlay from '../UI/Icons/IconPlay';
 import classes from './Player.module.scss';
@@ -31,7 +32,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
   const TOKEN = process.env.REACT_APP_TOKEN;
 
   const showTip = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    let target = e.target as HTMLDivElement;
+    const target = e.target as HTMLDivElement;
     let width;
     let offsetLeft;
     if (audioCtxContainer.current?.state === 'suspended') {
@@ -51,7 +52,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     setText(formatTime(playbackTime));
 
     setActive(true);
-  },[]);
+  }, []);
 
   const hideTip = () => {
     setActive(false);
@@ -124,7 +125,15 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     setStoppedAt(Date.now() - startedAt);
   }, [startedAt]);
 
-  const onProgressClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const reset = () => {
+    setRate(0);
+    setPlay(false);
+    setStartedAt(0);
+    setStoppedAt(0);
+    sourceRef.current?.stop();
+  };
+
+  const onProgressClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLDivElement;
     let width;
     if (audioCtxContainer.current?.state === 'suspended') {
@@ -148,6 +157,10 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
       setPlay(true);
       setStartedAt(Date.now() - playbackTime * 1000);
     }
+  }, []);
+
+  const stopProp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
   };
 
   if (error) {
@@ -193,11 +206,37 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
               <div
                 className={classes.tooltip}
                 style={{ left: `${position}px` }}
+                onClick={(e) => stopProp(e)}
               >
                 {text}
               </div>
             )}
           </div>
+          <div className={classes.download}>
+            <svg
+              width="13"
+              height="16"
+              viewBox="0 0 13 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 16H13V14.1176H0V16ZM13 5.64706H9.28571V0H3.71429V5.64706H0L6.5 12.2353L13 5.64706Z"
+                fill="#ADBFDF"
+              />
+            </svg>
+          </div>
+          {startedAt !== 0 && (
+            <div
+              onClick={reset}
+              className={classes.close}
+            >
+              <IconClose
+                size="24"
+                color="#ADBFDF"
+              />
+            </div>
+          )}
         </>
       )}
     </div>

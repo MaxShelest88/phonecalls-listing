@@ -91,23 +91,23 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     setStoppedAt(Date.now() - startedAt);
   }, [startedAt]);
 
-  function onProgressClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+	function onProgressClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+	  const target = e.target as HTMLDivElement;
     let width;
     if (audioCtxContainer.current?.state === 'suspended') {
       audioCtxContainer.current.resume();
     }
-    if (e.target.parentElement.className.includes('progress-container')) {
-      width = e.target.parentElement.offsetWidth;
+    if (target.parentElement?.className.includes('progress-container')) {
+      width = target.parentElement.offsetWidth;
     } else {
-      width = e.target.offsetWidth;
+      width = target.offsetWidth;
     }
 
     const clickX = e.nativeEvent.offsetX;
-    const duration = audioRef.current.duration;
-
+    const duration = audioRef.current && audioRef.current.duration;
     sourceRef.current?.disconnect();
     sourceRef.current = audioCtxContainer?.current?.createBufferSource();
-    if (sourceRef.current) {
+    if (sourceRef.current && duration && audioCtxContainer.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
       sourceRef.current.connect(audioCtxContainer.current.destination);
       const playbackTime = (clickX / width) * duration;

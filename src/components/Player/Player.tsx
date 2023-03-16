@@ -9,8 +9,8 @@ import IconPlay from '../UI/Icons/IconPlay';
 import classes from './Player.module.scss';
 
 interface PlayerProps {
-  record?: string;
-  partnership_id?: string;
+  record: string;
+  partnership_id: string;
 }
 
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element => {
@@ -24,65 +24,55 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
   const audioRef = useRef<AudioBuffer | undefined>();
   audioCtxContainer.current = new AudioContext();
   const sourceRef = useRef<AudioBufferSourceNode | undefined>();
-  const [active, setActive] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [text, setText] = useState('');
   const [position, setPosition] = useState(0);
+  const progressContainerRef = useRef<HTMLDivElement>(null);
 
   const URL = process.env.REACT_APP_URL;
   const TOKEN = process.env.REACT_APP_TOKEN;
 
   const showTip = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = e.target as HTMLDivElement;
-    let width;
-    let offsetLeft;
-    if (audioCtxContainer.current?.state === 'suspended') {
-      audioCtxContainer.current.resume();
-    }
-    if (target.parentElement?.className.includes('progress-container')) {
-      width = target.parentElement.offsetWidth;
-      offsetLeft = target.parentElement.offsetLeft;
-    } else {
-      width = target.offsetWidth;
-      offsetLeft = target.offsetLeft;
-    }
-    const clickX = e.nativeEvent.offsetX - offsetLeft;
+    const clickX = e.clientX - progressContainerRef.current!.getBoundingClientRect().left;
+    const width = progressContainerRef.current?.offsetWidth;
     setPosition(clickX);
     const duration = audioRef.current && audioRef.current.duration;
-    const playbackTime = (clickX / width) * duration!;
+    const playbackTime = (clickX / width!) * duration!;
     setText(formatTime(playbackTime));
-
-    setActive(true);
+    setVisible(true);
   }, []);
 
   const hideTip = () => {
-    setActive(false);
+    setVisible(false);
   };
 
-  const fetchAudio = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios('getRecord', {
-        baseURL: URL,
-        method: 'POST',
-        params: {
-          record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
-          partnership_id: '578',
-        },
-        headers: { Authorization: `Bearer ${TOKEN}` },
-        responseType: 'arraybuffer',
-      });
-      const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);
-      audioRef.current = decodedAudio;
-      setIsLoading(false);
-    } catch (AxiosError) {
-      const error = AxiosError as AxiosError;
-      setError(error.message);
-      setIsLoading(false);
+  const fetchAudio = async (record: string, partnership_id: string) => {
+    if (record) {
+      setIsLoading(true);
+      try {
+        const { data } = await axios('getRecord', {
+          baseURL: URL,
+          method: 'POST',
+          params: {
+            record,
+            partnership_id,
+          },
+          headers: { Authorization: `Bearer ${TOKEN}` },
+          responseType: 'arraybuffer',
+        });
+        const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);
+        audioRef.current = decodedAudio;
+        setIsLoading(false);
+      } catch (AxiosError) {
+        const error = AxiosError as AxiosError;
+        setError(error.message);
+        setIsLoading(false);
+      }
     }
   };
 
   useEffect(() => {
-    fetchAudio();
+    fetchAudio(record, partnership_id);
   }, []);
 
   useEffect(() => {
@@ -159,10 +149,6 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     }
   }, []);
 
-  const stopProp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
-  };
-
   if (error) {
     return <div>Ошибка загрузки аудио: {error}</div>;
   }
@@ -193,20 +179,20 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
           )}
 
           <div
+            ref={progressContainerRef}
             className={classes['progress-container']}
             onClick={(e) => onProgressClick(e)}
             onMouseEnter={(e) => showTip(e)}
             onMouseLeave={hideTip}
           >
             <div
-              className={classes.progress}
+              className={classes['progress-bar']}
               style={{ width: `${rate}%` }}
             />
-            {active && (
+            {visible && (
               <div
                 className={classes.tooltip}
                 style={{ left: `${position}px` }}
-                onClick={(e) => stopProp(e)}
               >
                 {text}
               </div>

@@ -226,14 +226,14 @@ const CallsContainer = () => {
         </div>
       </div>
       <div className={classes['table-container']}>
-        {/* {isLoading ? (
+        {isLoading ? (
           <Loading />
         ) : error ? (
           <div>ошибка запроса</div>
         ) : (
           <CallsTable groupedCallsObj={groupedCallsObj} />
-        )} */}
-        <Player />
+        )}
+       
       </div>
     </>
   );

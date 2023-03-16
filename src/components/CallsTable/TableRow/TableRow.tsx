@@ -10,10 +10,7 @@ interface TableRowProps {
 }
 
 const TableRow: React.FC<TableRowProps> = ({ call }) => {
-  const record = call.record ? true : false;
-
-
-
+  const isRecord = call.record ? call.record : false;
   return (
     <tr className={classes.row}>
       <td className={classes.type}>
@@ -61,10 +58,16 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
       <td className={classes.number}>{call.from_number}</td>
       <td className={classes.source}>{call.source}</td>
       <td className={classes.rating}>Оценка</td>
-      {call.record ? (
+      {isRecord? (
         <td className={classes.time}>{formatTime(call.time)}</td>
       ) : (
-        <td className={classes.time}>{}</td>
+        <td className={classes.time}>
+          <Player
+            record={call.record}
+            partnership_id={call.partnership_id}
+            key={call.id}
+          />
+        </td>
       )}
     </tr>
   );

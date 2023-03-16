@@ -65,6 +65,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
           setRate(0);
           clearInterval(interval);
           setPlay(false);
+          sourceRef.current!.disconnect();
         }
       }
     }, 1000);

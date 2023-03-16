@@ -1,5 +1,7 @@
 import axios, { AxiosError } from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import IconPause from '../UI/Icons/IconPause';
 import IconPlay from '../UI/Icons/IconPlay';
 import classes from './Player.module.scss';
 
@@ -11,9 +13,13 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
+  const [rate, setRate] = useState();
+  const [play, setPlay] = useState(false);
   const audioCtxContainer = useRef<AudioContext | undefined>();
-  const audioRef = useRef<AudioBuffer | undefined>();
+  const audioRef = useRef<AudioBuffer>();
   audioCtxContainer.current = new AudioContext();
+  const sourceRef = useRef<AudioBufferSourceNode>();
+
   const URL = process.env.REACT_APP_URL;
   const TOKEN = process.env.REACT_APP_TOKEN;
 
@@ -44,32 +50,48 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     fetchAudio();
   }, []);
 
-  const onPlay = () => {
-    const source = audioCtxContainer.current.createBufferSource();
-    source.buffer = audioRef.current;
-    source.connect(audioCtxContainer.current.destination);
-    source.start(audioCtxContainer.current.currentTime);
-  };
+  const onPlay = useCallback(() => {
+    if (audioCtxContainer.current?.state === 'suspended') {
+      audioCtxContainer.current.resume();
+    }
+    sourceRef.current = audioCtxContainer?.current?.createBufferSource();
+    if (sourceRef.current) {
+      sourceRef.current.buffer = audioRef.current as AudioBuffer;
+      sourceRef.current.connect(audioCtxContainer?.current!.destination);
+      sourceRef.current.start();
+      setPlay(true);
+    }
+  }, []);
 
-  //   const onStop = () => {
-  //     source.buffer = audio;
-  //     source.connect(ctx.destination);
-  //     source.stop(ctx.currentTime);
-  //   };
+  const onStop = () => {
+    sourceRef.current!.stop();
+    setPlay(false);
+  };
 
   return (
     <div className={classes.player}>
       <div className={classes.time}></div>
-      <button
-        className={classes['btn-play']}
-        onClick={onPlay}
-      >
-        <IconPlay color="#002CFB" />
-      </button>
+      {!play ? (
+        <button
+          className={classes['btn-play']}
+          onClick={onPlay}
+          disabled={isLoading}
+        >
+          <IconPlay color="#002CFB" />
+        </button>
+      ) : (
+        <button
+          className={classes['btn-play']}
+          onClick={onStop}
+        >
+          <IconPause color="#002CFB" />
+        </button>
+      )}
+
       <div className={classes['progress-container']}>
         <div className={classes.progress} />
       </div>
     </div>
   );
 };
-export default Player;
+export default React.memo(Player);

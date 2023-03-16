@@ -94,7 +94,9 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
 
   return (
     <div className={classes.player}>
-      <div className={classes.time}></div>
+      <div className={classes.time}>
+        {audioRef.current && audioRef.current.duration}
+      </div>
       {!play ? (
         <button
           className={classes['btn-play']}

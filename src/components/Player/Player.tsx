@@ -63,6 +63,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
           setRate(0);
           clearInterval(interval);
           setPlay(false);
+          sourceRef.current?.stop();
           sourceRef.current?.disconnect();
         }
       }
@@ -90,6 +91,33 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
     setStoppedAt(Date.now() - startedAt);
   }, [startedAt]);
 
+  function onProgressClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    let width;
+    if (audioCtxContainer.current?.state === 'suspended') {
+      audioCtxContainer.current.resume();
+    }
+    if (e.target.parentElement.className.includes('progress-container')) {
+      width = e.target.parentElement.offsetWidth;
+    } else {
+      width = e.target.offsetWidth;
+    }
+
+    const clickX = e.nativeEvent.offsetX;
+    const duration = audioRef.current.duration;
+
+    sourceRef.current?.disconnect();
+    sourceRef.current = audioCtxContainer?.current?.createBufferSource();
+    if (sourceRef.current) {
+      sourceRef.current.buffer = audioRef.current as AudioBuffer;
+      sourceRef.current.connect(audioCtxContainer.current.destination);
+      const playbackTime = (clickX / width) * duration;
+      setRate(Math.round((playbackTime * 100) / duration));
+      sourceRef.current.start(0, playbackTime);
+      setPlay(true);
+      setStartedAt(Date.now() - playbackTime * 1000);
+    }
+  }
+
   if (error) {
     return <div>Ошибка загрузки аудио: {error}</div>;
   }
@@ -114,7 +142,10 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
         </button>
       )}
 
-      <div className={classes['progress-container']}>
+      <div
+        className={classes['progress-container']}
+        onClick={(e) => onProgressClick(e)}
+      >
         <div
           className={classes.progress}
           style={{ width: `${rate}%` }}

@@ -16,12 +16,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #FFFFFF;
+	background: #ffffff;
 }
 
 .progress-container {
 	margin: 0 18px 0 8px;
-	width: 100%;
+	flex: 0 0 164px;
 	height: 4px;
 	background: #adbfdf;
 	border-radius: 50px;

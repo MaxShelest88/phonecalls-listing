@@ -77,6 +77,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
       setStoppedAt(0);
       sourceRef.current?.stop();
       sourceRef.current?.disconnect();
+      audioCtxContainer.current?.close();
     };
   }, []);
 
@@ -101,9 +102,6 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
   }, [play, rate, startedAt]);
 
   const onPlay = useCallback(() => {
-    if (audioCtxContainer.current?.state === 'suspended') {
-      audioCtxContainer.current.resume();
-    }
     sourceRef.current = audioCtxContainer?.current?.createBufferSource();
     if (sourceRef.current && audioCtxContainer.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
@@ -131,9 +129,6 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
   const onProgressClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLDivElement;
     let width;
-    if (audioCtxContainer.current?.state === 'suspended') {
-      audioCtxContainer.current.resume();
-    }
     if (target.parentElement?.className.includes('progress-container')) {
       width = target.parentElement.offsetWidth;
     } else {

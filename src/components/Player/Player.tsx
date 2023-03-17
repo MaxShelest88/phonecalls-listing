@@ -74,6 +74,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
       setRate(0);
       setPlay(false);
       setStartedAt(0);
+      setStoppedAt(0);
       sourceRef.current?.stop();
       sourceRef.current?.disconnect();
     };

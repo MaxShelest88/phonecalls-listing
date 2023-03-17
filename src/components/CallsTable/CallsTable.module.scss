@@ -19,5 +19,8 @@ table {
 		&:first-child {
 			padding-left: 12px;
 		}
+		&:last-child {
+			text-align: right;
+		}
 	}
 }

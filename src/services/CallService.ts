@@ -19,16 +19,5 @@ export const callApi = createApi({
       }),
       transformResponse: (response: ICallList, meta, arg) => response.results,
     }),
-   //  fetchAudio: build.query({
-   //    query: (arg) => {
-   //      const { record, partnership_id } = arg;
-   //      return {
-   //        url: 'getRecord',
-   //        method: 'POST',
-   //        headers: { Authorization: `Bearer ${token}` },
-   //        params: { record, partnership_id },
-   //      };
-   //    },
-   //  }),
   }),
 });

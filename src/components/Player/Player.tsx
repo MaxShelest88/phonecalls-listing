@@ -72,6 +72,13 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
 
   useEffect(() => {
     fetchAudio(record, partnership_id);
+    return () => {
+      setRate(0);
+      setPlay(false);
+      setStartedAt(0);
+      sourceRef.current?.stop();
+      sourceRef.current?.disconnect();
+    };
   }, []);
 
   useEffect(() => {

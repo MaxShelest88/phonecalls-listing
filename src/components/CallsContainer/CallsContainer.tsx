@@ -81,7 +81,7 @@ const CallsContainer = () => {
   const [count, setCount, onArrowClickHandler] = useCount(datePikerListItems);
   const [filtered, setFiltered] = useState<boolean>(false);
   const typeFilter = useAppSelector((store) => store.filterReducer.typeValue);
-  const groupedCallsObj = useCalls(
+  const groupedCalls = useCalls(
     calls || [],
     dateValue.startDate || '',
     dateValue.endDate || '',
@@ -89,7 +89,8 @@ const CallsContainer = () => {
   );
   const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
     useInput((value: string) => value.trim() !== '');
-  const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
+	
 
   useEffect(() => {
     if (isFilter.current) {
@@ -124,15 +125,6 @@ const CallsContainer = () => {
   // todo: usedeboune и фильтрацию по телефонам с использованием маски; декомпозиция callscontainer
 
   const onClickHandler = () => {};
-
-
-//   const { data, isSuccess } = callApi.useFetchAudioQuery({
-//     record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
-//     partnership_id: "578",
-//   });
-	
-// 	console.log(data);
-	
 
   return (
     <>
@@ -239,7 +231,7 @@ const CallsContainer = () => {
         ) : error ? (
           <div>ошибка запроса</div>
         ) : (
-          <CallsTable groupedCallsObj={groupedCallsObj} />
+          <CallsTable groupedCalls={groupedCalls} />
         )}
       </div>
     </>

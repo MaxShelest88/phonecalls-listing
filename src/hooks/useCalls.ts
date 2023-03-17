@@ -26,18 +26,22 @@ export const useCalls = (
   startDate: string,
   endDate: string,
   type: -1 | 1 | 0,
-): { [key: string]: ICall[] } => {
+): { date: string; calls: ICall[] }[] => {
   const filterdCalls = useFilterCalls(calls, startDate, endDate, type);
   const groupedCalls = useMemo(() => {
-    return filterdCalls.reduce(
+    const callsObj = filterdCalls.reduce(
       (callObj: { [key: string]: ICall[] }, item: ICall, index: number, array: ICall[]) => {
         callObj[item.date_notime] = array.filter(
           (call: ICall) => call.date_notime === item.date_notime,
         );
         return callObj;
       },
-      {} as { [key: string]: ICall[] },
+      {} as { [date: string]: ICall[] },
     );
+    return Object.entries(callsObj).map((item) => ({
+      date: item[0],
+      calls: item[1] as ICall[],
+    }));
   }, [filterdCalls]);
   return groupedCalls;
 };

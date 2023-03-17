@@ -14,8 +14,6 @@ interface PlayerProps {
 }
 
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
-  console.log(record);
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [startedAt, setStartedAt] = useState<number>(0);

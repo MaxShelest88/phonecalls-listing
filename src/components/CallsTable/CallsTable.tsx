@@ -4,16 +4,16 @@ import React, { useMemo } from 'react';
 import TableGroup from './TableGroup/TableGroup';
 
 interface CallTableProps {
-  groupedCallsObj: { [key: string]: ICall[] };
+  groupedCalls: { date: string; calls: ICall[] }[];
 }
 
-const CallsTable: React.FC<CallTableProps> = ({ groupedCallsObj }): JSX.Element => {
-  const callsGroupArr = useMemo(() => {
-    return Object.entries(groupedCallsObj).map((item) => ({
-      date: item[0],
-      calls: item[1] as ICall[],
-    }));
-  }, [groupedCallsObj]);
+const CallsTable: React.FC<CallTableProps> = ({ groupedCalls }): JSX.Element => {
+  //   const callsGroupArr = useMemo(() => {
+  //     return Object.entries(groupedCallsObj).map((item) => ({
+  //       date: item[0],
+  //       calls: item[1] as ICall[],
+  //     }));
+  //   }, [groupedCallsObj]);
 
   return (
     <table className={classes.table}>
@@ -29,7 +29,7 @@ const CallsTable: React.FC<CallTableProps> = ({ groupedCallsObj }): JSX.Element 
         </tr>
       </thead>
 
-      {callsGroupArr.map((groupItem) => (
+      {groupedCalls.map((groupItem) => (
         <TableGroup
           {...groupItem}
           key={groupItem.date}

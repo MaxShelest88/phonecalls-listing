@@ -1,9 +1,9 @@
 .row {
 	td {
-		padding: 16px 0;
+		height: 65px;
 	}
 	cursor: pointer;
-	&:hover{
+	&:hover {
 		background: rgba(212, 223, 243, 0.17);
 	}
 }

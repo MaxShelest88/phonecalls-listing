@@ -8,13 +8,6 @@ interface CallTableProps {
 }
 
 const CallsTable: React.FC<CallTableProps> = ({ groupedCalls }): JSX.Element => {
-  //   const callsGroupArr = useMemo(() => {
-  //     return Object.entries(groupedCallsObj).map((item) => ({
-  //       date: item[0],
-  //       calls: item[1] as ICall[],
-  //     }));
-  //   }, [groupedCallsObj]);
-
   return (
     <table className={classes.table}>
       <thead className={classes['table-head']}>

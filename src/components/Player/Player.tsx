@@ -13,7 +13,9 @@ interface PlayerProps {
   partnership_id: string;
 }
 
-const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element => {
+const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
+  console.log(record);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [startedAt, setStartedAt] = useState<number>(0);
@@ -28,6 +30,8 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
   const [text, setText] = useState('');
   const [position, setPosition] = useState(0);
   const progressContainerRef = useRef<HTMLDivElement>(null);
+
+  console.log();
 
   const URL = process.env.REACT_APP_URL;
   const TOKEN = process.env.REACT_APP_TOKEN;
@@ -150,7 +154,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }): JSX.Element 
   }, []);
 
   if (error) {
-    return <div>Ошибка загрузки аудио: {error}</div>;
+    return <div>Ошибка загрузки аудио</div>;
   }
 
   return (

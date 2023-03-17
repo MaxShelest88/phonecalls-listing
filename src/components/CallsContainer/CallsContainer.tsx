@@ -19,7 +19,6 @@ import ErrorsDropdown from './ErrorsDropdown/ErrorsDropdown';
 import IconSearch from '../UI/Icons/IconSearch';
 import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
-import Player from '../Player/Player';
 
 const CallsContainer = () => {
   const datePikerListItems: IListItem[] = useMemo(() => {
@@ -125,6 +124,15 @@ const CallsContainer = () => {
   // todo: usedeboune и фильтрацию по телефонам с использованием маски; декомпозиция callscontainer
 
   const onClickHandler = () => {};
+
+
+//   const { data, isSuccess } = callApi.useFetchAudioQuery({
+//     record: 'MToxMDA2NzYxNToxNDMwMDM3NzExNzow',
+//     partnership_id: "578",
+//   });
+	
+// 	console.log(data);
+	
 
   return (
     <>
@@ -233,7 +241,6 @@ const CallsContainer = () => {
         ) : (
           <CallsTable groupedCallsObj={groupedCallsObj} />
         )}
-       
       </div>
     </>
   );

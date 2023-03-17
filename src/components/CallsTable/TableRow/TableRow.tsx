@@ -1,6 +1,5 @@
-import { arrayBuffer } from 'stream/consumers';
+import { useState } from 'react';
 import { ICall } from '../../../models/ICallList';
-import { callApi } from '../../../services/CallService';
 import { formatTime } from '../../../utils/formatters';
 import Player from '../../Player/Player';
 import classes from './TableRow.module.scss';
@@ -10,9 +9,22 @@ interface TableRowProps {
 }
 
 const TableRow: React.FC<TableRowProps> = ({ call }) => {
-  const isRecord = call.record ? call.record : false;
+  const [active, setActive] = useState(false);
+
+  const showPlayer = () => {
+    setActive(true);
+  };
+
+  const hidePlayer = () => {
+    setActive(false);
+  };
+
   return (
-    <tr className={classes.row}>
+    <tr
+      className={classes.row}
+      onMouseEnter={showPlayer}
+      onMouseLeave={hidePlayer}
+    >
       <td className={classes.type}>
         <div>
           {call.in_out === 1 ? (
@@ -58,17 +70,18 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
       <td className={classes.number}>{call.from_number}</td>
       <td className={classes.source}>{call.source}</td>
       <td className={classes.rating}>Оценка</td>
-      {isRecord? (
-        <td className={classes.time}>{formatTime(call.time)}</td>
-      ) : (
-        <td className={classes.time}>
+      <td className={classes.time}>
+        {call.record && !active ? (
+          formatTime(call.time)
+        ) : call.record && active ? (
           <Player
             record={call.record}
             partnership_id={call.partnership_id}
-            key={call.id}
           />
-        </td>
-      )}
+        ) : (
+          ''
+        )}
+      </td>
     </tr>
   );
 };

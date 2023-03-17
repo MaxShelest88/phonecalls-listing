@@ -31,11 +31,6 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
   const [position, setPosition] = useState(0);
   const progressContainerRef = useRef<HTMLDivElement>(null);
 
-  console.log();
-
-  const URL = process.env.REACT_APP_URL;
-  const TOKEN = process.env.REACT_APP_TOKEN;
-
   const showTip = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const clickX = e.clientX - progressContainerRef.current!.getBoundingClientRect().left;
     const width = progressContainerRef.current?.offsetWidth;
@@ -55,13 +50,13 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
       setIsLoading(true);
       try {
         const { data } = await axios('getRecord', {
-          baseURL: URL,
+          baseURL: process.env.REACT_APP_URL,
           method: 'POST',
           params: {
             record,
             partnership_id,
           },
-          headers: { Authorization: `Bearer ${TOKEN}` },
+          headers: { Authorization: `Bearer ${process.env.REACT_APP_TOKEN}` },
           responseType: 'arraybuffer',
         });
         const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);

@@ -1,5 +1,4 @@
 import CallsContainer from '../CallsContainer/CallsContainer';
-import Loading from '../Loading/Loading';
 
 const Content: React.FC = () => {
   return (

@@ -20,7 +20,7 @@ export const usePlayer = (
   const [tipIsVisible, setTipIsVisible] = useState<boolean>(false);
   const [text, setText] = useState<string>('');
   const [position, setPosition] = useState<number>(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState<number>(0);
 
   const showTip = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

@@ -1,6 +1,6 @@
 import { ICall } from '../../models/ICallList';
 import classes from './CallsTable.module.scss';
-import React, { useMemo } from 'react';
+import React from 'react';
 import TableGroup from './TableGroup/TableGroup';
 
 interface CallTableProps {

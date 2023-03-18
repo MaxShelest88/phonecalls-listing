@@ -67,7 +67,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   };
 
   const onEndDateChangeHandler = (date: Date) => {
-	  const dateValue = {
+    const dateValue = {
       endDate: date.toString(),
       name: `${formatDate(date)} - ${formatDate(endDate)}`,
     } as IDate;
@@ -164,4 +164,4 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
     </div>
   );
 };
-export default React.memo(DatepickerComponent);
+export default DatepickerComponent;

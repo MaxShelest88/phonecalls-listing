@@ -121,8 +121,6 @@ const CallsContainer: React.FC = (): JSX.Element => {
     setCount(0);
   };
 
-  // todo: usedeboune и фильтрацию по телефонам с использованием маски; декомпозиция callscontainer
-
   const onClickHandler = () => {};
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
@@ -107,13 +107,13 @@ const CallsContainer: React.FC = (): JSX.Element => {
     setFiltered([dateValue.isFilter, typeFilter.isFilter].includes(true));
   }, [dateValue.isFilter, typeFilter.isFilter]);
 
-  const onTypeItemClickHandler = (name: string, value: number) => {
+  const onTypeItemClickHandler = useCallback((name: string, value: number) => {
     const typeValue = {
       value,
       name,
     } as IType;
     dispatch(setType(typeValue));
-  };
+  }, [dispatch]);
 
   const onResetHandler = () => {
     dispatch(resetFilters());

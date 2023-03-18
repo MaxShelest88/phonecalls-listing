@@ -1,8 +1,9 @@
+import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import IconChevronDown from '../UI/Icons/IconChevronDown';
 import classes from './DropDown.module.scss';
 
-interface DropDownProps<T> {
+interface DropdownProps<T> {
   items: T[];
   onClickItem: (name: string, value: number) => void;
   selectedItem: T;
@@ -14,7 +15,7 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
   selectedItem,
   onClickItem,
   filtered,
-}: DropDownProps<T>): JSX.Element => {
+}: DropdownProps<T>): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	
@@ -78,4 +79,4 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
     </div>
   );
 };
-export default Dropdown;
+export default React.memo(Dropdown) as typeof Dropdown;

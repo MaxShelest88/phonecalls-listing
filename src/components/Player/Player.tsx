@@ -13,7 +13,7 @@ interface PlayerProps {
   partnership_id: string;
 }
 
-const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
+const Player: React.FC<PlayerProps> = ({ record, partnership_id }):JSX.Element => {
   const progressContainerRef = useRef<HTMLDivElement>(null);
 
   const {

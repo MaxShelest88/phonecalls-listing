@@ -7,7 +7,7 @@ interface AnalyticsItemProps {
   width: string;
 }
 
-const AnalyticsItem: React.FC<AnalyticsItemProps> = ({ text, data, color, width }) => {
+const AnalyticsItem: React.FC<AnalyticsItemProps> = ({ text, data, color, width }): JSX.Element => {
   return (
     <div
       className={classes.item}

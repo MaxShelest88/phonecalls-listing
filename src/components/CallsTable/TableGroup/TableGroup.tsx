@@ -9,10 +9,10 @@ interface TableGroupProps {
 	calls: ICall[]
 }
 
-const TableGroup: React.FC<TableGroupProps> = (arr) => {
+const TableGroup: React.FC<TableGroupProps> = ({date, calls}) => {
 
 	const currentDay = new Date().getDay()
-	const itemDay = new Date(arr.date).getDay();
+	const itemDay = new Date(date).getDay();
 	
   return (
     <tbody className={classes['body']}>
@@ -21,14 +21,14 @@ const TableGroup: React.FC<TableGroupProps> = (arr) => {
           <td colSpan={100}>
             <div>
               <span className={classes.date}>
-                {formatDate(arr.date)}
-                <span className={classes.quantity}>{arr.calls.length}</span>
+                {formatDate(date)}
+                <span className={classes.quantity}>{calls.length}</span>
               </span>
             </div>
           </td>
         )}
       </tr>
-      {arr.calls.map((call) => (
+      {calls.map((call) => (
         <TableRow
           call={call}
           key={call.id}

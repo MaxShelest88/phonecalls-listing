@@ -9,9 +9,9 @@ export const listItems = [
   { text: 'ИП Иванов М.М.' },
 ];
 
-const HeaderOrganizationSelect = () => {
+const HeaderOrganizationSelect: React.FC = (): JSX.Element => {
   const [organization, setOrganization] = useState('ИП Сидорова Александра Михайловна');
-  const [organizationIsVisible, setOrganizationIsVisible] = useState(false);
+  const [organizationIsVisible, setOrganizationIsVisible] = useState<boolean>(false);
   const organizationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

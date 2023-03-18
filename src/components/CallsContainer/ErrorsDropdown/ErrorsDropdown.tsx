@@ -8,7 +8,7 @@ interface ErrorsDropdownProps<T> {
   selectedItem?: T;
 }
 
-const ErrorsDropdown = <
+const ErrorsDropdown:React.FC = <
   T extends { value: number; name: string; img?: string; updates?: boolean },
 >({
   selectedItem,

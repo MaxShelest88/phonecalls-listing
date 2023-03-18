@@ -8,7 +8,7 @@ interface TableRowProps {
   call: ICall;
 }
 
-const TableRow: React.FC<TableRowProps> = ({ call }) => {
+const TableRow: React.FC<TableRowProps> = ({ call }):JSX.Element => {
   const [active, setActive] = useState(false);
 
   const showPlayer = () => {

@@ -1,6 +1,6 @@
 import classes from './Loading.module.scss';
 
-const Loading = () => {
+const Loading: React.FC = (): JSX.Element => {
   return (
     <div className={classes['spinner-container']}>
       <div className={classes.spinner} />

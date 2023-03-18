@@ -14,8 +14,9 @@ import NavItem from './NavItem/NavItem';
 import Button from '../UI/Button/Button';
 import payIcon from '../../assets/icons/sidebar/button/pay/Vector.svg';
 import IconAdd from '../UI/Icons/IconAdd';
+import React from 'react';
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC = ():JSX.Element => {
   return (
     <aside className={classes.side}>
       <div className={classes.logo}>
@@ -90,4 +91,4 @@ const Sidebar: React.FC = () => {
     </aside>
   );
 };
-export default Sidebar;
+export default React.memo(Sidebar);

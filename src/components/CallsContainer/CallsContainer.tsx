@@ -20,7 +20,7 @@ import IconSearch from '../UI/Icons/IconSearch';
 import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
 
-const CallsContainer = () => {
+const CallsContainer: React.FC = (): JSX.Element => {
   const datePikerListItems: IListItem[] = useMemo(() => {
     return [
       { value: 2, name: '3 дня' },
@@ -89,8 +89,7 @@ const CallsContainer = () => {
   );
   const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
     useInput((value: string) => value.trim() !== '');
-	const inputRef = useRef<HTMLInputElement>(null);
-	
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isFilter.current) {

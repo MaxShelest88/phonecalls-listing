@@ -103,6 +103,7 @@ export const usePlayer = (
     setPlay(false);
     setStartedAt(0);
     setStoppedAt(0);
+    if (audioRef.current) setDuration(audioRef.current.duration);
     sourceRef.current?.stop();
     audioCtxContainer.current?.close();
   };

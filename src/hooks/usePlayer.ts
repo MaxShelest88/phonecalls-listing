@@ -27,8 +27,8 @@ export const usePlayer = (
       const clickX = e.clientX - ref.current!.getBoundingClientRect().left;
       const width = ref.current?.offsetWidth;
       setPosition(clickX);
-      const duration = audioRef.current && audioRef.current.duration;
-      const playbackTime = (clickX / width!) * duration!;
+      const currentDuration = audioRef.current && audioRef.current.duration;
+      const playbackTime = (clickX / width!) * currentDuration!;
       setText(formatTime(playbackTime));
       setTipIsVisible(true);
     },
@@ -67,13 +67,13 @@ export const usePlayer = (
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const duration = audioRef.current?.duration;
-      if (play && duration) {
+      const currentDuration = audioRef.current?.duration;
+      if (play && currentDuration) {
         const playbackTime = (Date.now() - startedAt) / 1000;
-        const progressPercent = Math.round((playbackTime * 100) / duration);
+        const progressPercent = Math.round((playbackTime * 100) / currentDuration);
         setRate(progressPercent);
         setDuration((prevDuration) => prevDuration && prevDuration - 1);
-        if (playbackTime > duration) {
+        if (playbackTime > currentDuration) {
           reset();
         }
       }

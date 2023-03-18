@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { usePlayer } from '../../hooks/usePlayer';
 import { formatTime } from '../../utils/formatters';
 import Loading from '../Loading/Loading';
 import IconClose from '../UI/Icons/IconClose';
@@ -14,139 +14,32 @@ interface PlayerProps {
 }
 
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const [startedAt, setStartedAt] = useState<number>(0);
-  const [stoppedAt, setStoppedAt] = useState<number>(0);
-  const [rate, setRate] = useState<number>(0);
-  const [play, setPlay] = useState(false);
-  const audioCtxContainer = useRef<AudioContext | undefined>();
-  const audioRef = useRef<AudioBuffer | undefined>();
-  audioCtxContainer.current = new AudioContext();
-  const sourceRef = useRef<AudioBufferSourceNode | undefined>();
-  const [visible, setVisible] = useState(false);
-  const [text, setText] = useState('');
-  const [position, setPosition] = useState(0);
-  const progressContainerRef = useRef<HTMLDivElement>(null);
-
-  const showTip = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const clickX = e.clientX - progressContainerRef.current!.getBoundingClientRect().left;
-    const width = progressContainerRef.current?.offsetWidth;
-    setPosition(clickX);
-    const duration = audioRef.current && audioRef.current.duration;
-    const playbackTime = (clickX / width!) * duration!;
-    setText(formatTime(playbackTime));
-    setVisible(true);
-  }, []);
-
-  const hideTip = () => {
-    setVisible(false);
-  };
-
-  const fetchAudio = async (record: string, partnership_id: string) => {
-    if (record) {
-      setIsLoading(true);
-      try {
-        const { data } = await axios('getRecord', {
-          baseURL: process.env.REACT_APP_URL,
-          method: 'POST',
-          params: {
-            record,
-            partnership_id,
-          },
-          headers: { Authorization: `Bearer ${process.env.REACT_APP_TOKEN}` },
-          responseType: 'arraybuffer',
-        });
-        const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);
-        audioRef.current = decodedAudio;
-        setIsLoading(false);
-      } catch (AxiosError) {
-        const error = AxiosError as AxiosError;
-        setError(error.message);
-        setIsLoading(false);
-      }
-    }
-  };
+	const progressContainerRef = useRef<HTMLDivElement>(null);
+	
+	const {
+    isLoading,
+    error,
+    text,
+    fetchAudio,
+    hideTip,
+    showTip,
+    play,
+    rate,
+    onStop,
+    onPlay,
+    reset,
+    onProgressClick,
+    position,
+    tipIsVisible,
+    audioRef,
+    startedAt,
+  } = usePlayer(record, partnership_id, progressContainerRef);
 
   useEffect(() => {
-    fetchAudio(record, partnership_id);
+    fetchAudio();
     return () => {
-      setRate(0);
-      setPlay(false);
-      setStartedAt(0);
-      setStoppedAt(0);
-      sourceRef.current?.stop();
-      sourceRef.current?.disconnect();
-      audioCtxContainer.current?.close();
+      reset();
     };
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const duration = audioRef.current?.duration;
-      if (play && duration) {
-        const playbackTime = (Date.now() - startedAt) / 1000;
-        const progressPercent = Math.round((playbackTime * 100) / duration);
-        setRate(progressPercent);
-        if (playbackTime > duration) {
-          setRate(0);
-          clearInterval(interval);
-          setPlay(false);
-          setStartedAt(0);
-          sourceRef.current?.stop();
-          sourceRef.current?.disconnect();
-        }
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [play, rate, startedAt]);
-
-  const onPlay = useCallback(() => {
-    sourceRef.current = audioCtxContainer?.current?.createBufferSource();
-    if (sourceRef.current && audioCtxContainer.current) {
-      sourceRef.current.buffer = audioRef.current as AudioBuffer;
-      sourceRef.current.connect(audioCtxContainer.current.destination);
-      sourceRef.current.start(0, stoppedAt / 1000);
-      setPlay(true);
-      setStartedAt(Date.now() - stoppedAt);
-    }
-  }, [stoppedAt]);
-
-  const onStop = useCallback(() => {
-    sourceRef.current?.stop();
-    setPlay(false);
-    setStoppedAt(Date.now() - startedAt);
-  }, [startedAt]);
-
-  const reset = () => {
-    setRate(0);
-    setPlay(false);
-    setStartedAt(0);
-    setStoppedAt(0);
-    sourceRef.current?.stop();
-  };
-
-  const onProgressClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = e.target as HTMLDivElement;
-    let width;
-    if (target.parentElement?.className.includes('progress-container')) {
-      width = target.parentElement.offsetWidth;
-    } else {
-      width = target.offsetWidth;
-    }
-    const clickX = e.nativeEvent.offsetX;
-    const duration = audioRef.current && audioRef.current.duration;
-    sourceRef.current?.disconnect();
-    sourceRef.current = audioCtxContainer?.current?.createBufferSource();
-    if (sourceRef.current && duration && audioCtxContainer.current) {
-      sourceRef.current.buffer = audioRef.current as AudioBuffer;
-      sourceRef.current.connect(audioCtxContainer.current.destination);
-      const playbackTime = (clickX / width) * duration;
-      setRate(Math.round((playbackTime * 100) / duration));
-      sourceRef.current.start(0, playbackTime);
-      setPlay(true);
-      setStartedAt(Date.now() - playbackTime * 1000);
-    }
   }, []);
 
   if (error) {
@@ -189,7 +82,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
               className={classes['progress-bar']}
               style={{ width: `${rate}%` }}
             />
-            {visible && (
+            {tipIsVisible && (
               <div
                 className={classes.tooltip}
                 style={{ left: `${position}px` }}

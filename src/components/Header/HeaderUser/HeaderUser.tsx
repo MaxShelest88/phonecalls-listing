@@ -30,7 +30,7 @@ const buhList: listItem[] = [
 ];
 
 const HeaderUser: React.FC = (): JSX.Element => {
-  const [userIsVisible, setUserIsVisible] = useState(false);
+  const [userIsVisible, setUserIsVisible] = useState<boolean>(false);
   const userRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

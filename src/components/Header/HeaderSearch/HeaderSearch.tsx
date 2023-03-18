@@ -6,7 +6,7 @@ import Input from '../../UI/Input/Input';
 import classes from './HeaderSearch.module.scss';
 
 const HeaderSearch: React.FC = (): JSX.Element => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
   const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
     useInput((value: string) => value.trim() !== '');
   const inputRef = useRef<HTMLInputElement>(null);

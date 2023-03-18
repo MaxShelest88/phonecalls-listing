@@ -7,17 +7,19 @@ export const formatTime = (time: number): string => {
 
 export const formatDate = (date: string | Date): string => {
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'short',
-    month: 'long',
+    weekday: 'long',
+    month: 'short',
     day: 'numeric',
   };
   const currentDateData = new Date();
   const currentDate = currentDateData.getDate();
   const itemDateData = new Date(date);
   const itemDate = itemDateData.getDate();
+  let formatedDate: string;
   if (itemDate - currentDate === -1) {
-    return typeof date === 'string' ? 'вчера' : itemDateData.toLocaleString('ru', options);
+    formatedDate = typeof date === 'string' ? 'вчера' : itemDateData.toLocaleString('ru', options);
   } else {
-    return itemDateData.toLocaleString('ru', options);
-  }
+    formatedDate = itemDateData.toLocaleString('ru', options);
+	}
+	return formatedDate.replace(/\./, '')
 };

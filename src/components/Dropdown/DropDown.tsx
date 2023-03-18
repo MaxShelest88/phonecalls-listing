@@ -16,7 +16,7 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
   onClickItem,
   filtered,
 }: DropdownProps<T>): JSX.Element => {
-  const [dropdownVisible, setDropdownIsVisible] = useState(false);
+  const [dropdownVisible, setDropdownIsVisible] = useState<boolean>(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	
   useEffect(() => {

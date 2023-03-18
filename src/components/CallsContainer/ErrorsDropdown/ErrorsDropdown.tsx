@@ -13,7 +13,7 @@ const ErrorsDropdown:React.FC = <
 >({
   selectedItem,
 }: ErrorsDropdownProps<T>): JSX.Element => {
-  const [dropdownVisible, setDropdownIsVisible] = useState(false);
+  const [dropdownVisible, setDropdownIsVisible] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

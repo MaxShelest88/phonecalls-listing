@@ -24,7 +24,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   selectedValue,
   onArrowClickHandler,
 }): JSX.Element => {
-  const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
+  const [dropdownIsVisible, setDropdownIsVisible] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [startDateLocal, setStartDateLocal] = useState<Date | null>(null);
   const [endDateLocal, setEndDateLocal] = useState<Date | null>(null);

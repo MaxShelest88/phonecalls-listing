@@ -3,11 +3,12 @@ import HeaderSearch from './HeaderSearch/HeaderSearch';
 import classes from './Header.module.scss';
 import OrganizationSelect from './HeaderOrganizationSelect/HeaderOrganizationSelect';
 import HeaderUser from './HeaderUser/HeaderUser';
+import { formatDate } from '../../utils/formatters';
 
 const Header: React.FC = (): JSX.Element => {
   return (
     <div className={classes.header}>
-      <div className={classes.date}>Среда, 13 окт</div>
+		  <div className={classes.date}>{ formatDate(new Date())}</div>
       <div className={classes.analytics}>
         <AnalyticsItem
           text="Новые звонки"

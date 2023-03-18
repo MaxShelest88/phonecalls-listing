@@ -12,7 +12,6 @@ export interface IType {
 }
 
 export interface FilterState {
-  searchValue: string;
   typeValue: IType;
   dateValue: IDate;
 }

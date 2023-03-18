@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { setDaysBeforeCurrentDate } from '../../../utils/dateHelper';
-import { FilterState, IDate } from './types';
+import { FilterState, IDate, IType } from './types';
 
 const initialState: FilterState = {
-  searchValue: '',
   typeValue: {
     value: -1,
     name: 'Все типы',
@@ -21,10 +20,7 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setSearchValue: (state, action) => {
-      state.searchValue = action.payload;
-    },
-    setType: (state, action) => {
+    setType: (state, action:PayloadAction<IType>) => {
       state.typeValue = action.payload;
       state.typeValue.isFilter = state.typeValue.value === -1 ? false : true;
     },
@@ -40,7 +36,6 @@ const filterSlice = createSlice({
     },
     
     resetFilters: (state) => {
-      state.searchValue = '';
       state.typeValue = { value: -1, name: 'Все типы', isFilter: false };
       state.dateValue = {
         startDate: setDaysBeforeCurrentDate(2),
@@ -52,5 +47,5 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setSearchValue, setType, setDate, resetFilters } = filterSlice.actions;
+export const { setType, setDate, resetFilters } = filterSlice.actions;
 export default filterSlice.reducer;

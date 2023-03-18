@@ -14,9 +14,9 @@ interface PlayerProps {
 }
 
 const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
-	const progressContainerRef = useRef<HTMLDivElement>(null);
-	
-	const {
+  const progressContainerRef = useRef<HTMLDivElement>(null);
+
+  const {
     isLoading,
     error,
     text,
@@ -31,7 +31,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
     onProgressClick,
     position,
     tipIsVisible,
-    audioRef,
+    duration,
     startedAt,
   } = usePlayer(record, partnership_id, progressContainerRef);
 
@@ -52,9 +52,7 @@ const Player: React.FC<PlayerProps> = ({ record, partnership_id }) => {
         <Loading />
       ) : (
         <>
-          <div className={classes.time}>
-            {audioRef.current && formatTime(audioRef.current.duration)}
-          </div>
+          <div className={classes.time}>{duration && formatTime(duration)}</div>
           {!play ? (
             <button
               className={classes['btn-play']}

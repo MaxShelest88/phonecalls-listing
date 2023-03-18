@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { formatTime } from '../utils/formatters';
 
 export const usePlayer = (
@@ -12,24 +12,28 @@ export const usePlayer = (
   const [startedAt, setStartedAt] = useState<number>(0);
   const [stoppedAt, setStoppedAt] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
-  const [play, setPlay] = useState(false);
+  const [play, setPlay] = useState<boolean>(false);
   const audioCtxContainer = useRef<AudioContext | undefined>();
   const audioRef = useRef<AudioBuffer | undefined>();
   audioCtxContainer.current = new AudioContext();
   const sourceRef = useRef<AudioBufferSourceNode | undefined>();
-  const [tipIsVisible, setTipIsVisible] = useState(false);
-  const [text, setText] = useState('');
-  const [position, setPosition] = useState(0);
+  const [tipIsVisible, setTipIsVisible] = useState<boolean>(false);
+  const [text, setText] = useState<string>('');
+  const [position, setPosition] = useState<number>(0);
+  const [duration, setDuration] = useState(0);
 
-  const showTip = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const clickX = e.clientX - ref.current!.getBoundingClientRect().left;
-    const width = ref.current?.offsetWidth;
-    setPosition(clickX);
-    const duration = audioRef.current && audioRef.current.duration;
-    const playbackTime = (clickX / width!) * duration!;
-    setText(formatTime(playbackTime));
-    setTipIsVisible(true);
-  };
+  const showTip = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      const clickX = e.clientX - ref.current!.getBoundingClientRect().left;
+      const width = ref.current?.offsetWidth;
+      setPosition(clickX);
+      const duration = audioRef.current && audioRef.current.duration;
+      const playbackTime = (clickX / width!) * duration!;
+      setText(formatTime(playbackTime));
+      setTipIsVisible(true);
+    },
+    [ref],
+  );
 
   const hideTip = () => {
     setTipIsVisible(false);
@@ -51,6 +55,7 @@ export const usePlayer = (
         });
         const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);
         audioRef.current = decodedAudio;
+        setDuration(audioRef.current!.duration);
         setIsLoading(false);
       } catch (AxiosError) {
         const error = AxiosError as AxiosError;
@@ -67,20 +72,16 @@ export const usePlayer = (
         const playbackTime = (Date.now() - startedAt) / 1000;
         const progressPercent = Math.round((playbackTime * 100) / duration);
         setRate(progressPercent);
+        setDuration((prevDuration) => prevDuration && prevDuration - 1);
         if (playbackTime > duration) {
-          setRate(0);
-          clearInterval(interval);
-          setPlay(false);
-          setStartedAt(0);
-          sourceRef.current?.stop();
-          sourceRef.current?.disconnect();
+          reset();
         }
       }
     }, 1000);
     return () => clearInterval(interval);
   }, [play, rate, startedAt]);
 
-  const onPlay = () => {
+  const onPlay = useCallback(() => {
     sourceRef.current = audioCtxContainer?.current?.createBufferSource();
     if (sourceRef.current && audioCtxContainer.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
@@ -89,7 +90,7 @@ export const usePlayer = (
       setPlay(true);
       setStartedAt(Date.now() - stoppedAt);
     }
-  };
+  }, [stoppedAt]);
 
   const onStop = () => {
     sourceRef.current?.stop();
@@ -106,7 +107,7 @@ export const usePlayer = (
     audioCtxContainer.current?.close();
   };
 
-  const onProgressClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const onProgressClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLDivElement;
     let width;
     if (target.parentElement?.className.includes('progress-container')) {
@@ -115,19 +116,20 @@ export const usePlayer = (
       width = target.offsetWidth;
     }
     const clickX = e.nativeEvent.offsetX;
-    const duration = audioRef.current && audioRef.current.duration;
+    const currentDuration = audioRef.current && audioRef.current.duration;
     sourceRef.current?.disconnect();
     sourceRef.current = audioCtxContainer?.current?.createBufferSource();
-    if (sourceRef.current && duration && audioCtxContainer.current) {
+    if (sourceRef.current && currentDuration && audioCtxContainer.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
       sourceRef.current.connect(audioCtxContainer.current.destination);
-      const playbackTime = (clickX / width) * duration;
-      setRate(Math.round((playbackTime * 100) / duration));
+      const playbackTime = (clickX / width) * currentDuration;
+      setRate(Math.round((playbackTime * 100) / currentDuration));
       sourceRef.current.start(0, playbackTime);
       setPlay(true);
       setStartedAt(Date.now() - playbackTime * 1000);
+      setDuration(currentDuration - playbackTime);
     }
-  };
+  }, []);
 
   return {
     isLoading,
@@ -144,7 +146,7 @@ export const usePlayer = (
     onProgressClick,
     position,
     tipIsVisible,
-    audioRef,
     startedAt,
+    duration,
   };
 };

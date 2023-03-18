@@ -55,7 +55,7 @@ export const usePlayer = (
         });
         const decodedAudio = await audioCtxContainer?.current?.decodeAudioData(data);
         audioRef.current = decodedAudio;
-        setDuration(audioRef.current!.duration);
+        setDuration(decodedAudio!.duration);
         setIsLoading(false);
       } catch (AxiosError) {
         const error = AxiosError as AxiosError;

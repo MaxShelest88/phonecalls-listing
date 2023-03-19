@@ -5,7 +5,6 @@ import classes from './CallsContainer.module.scss';
 import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
 import { useCalls } from '../../hooks/useCalls';
 import IconAdd from '../UI/Icons/IconAdd';
-import DropDown from '../Dropdown/DropDown';
 import { callApi } from '../../services/CallService';
 import { useCount } from '../../hooks/useCount';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -19,6 +18,7 @@ import ErrorsDropdown from './ErrorsDropdown/ErrorsDropdown';
 import IconSearch from '../UI/Icons/IconSearch';
 import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
+import Dropdown from '../Dropdown/Dropdown';
 
 const CallsContainer: React.FC = (): JSX.Element => {
   const datePikerListItems: IListItem[] = useMemo(() => {
@@ -188,31 +188,31 @@ const CallsContainer: React.FC = (): JSX.Element => {
                 />
               </div>
             )}
-            <DropDown<IListItem>
+            <Dropdown<IListItem>
               items={typesListItems}
               onClickItem={onTypeItemClickHandler}
               selectedItem={typeFilter}
               filtered={typeFilter.isFilter}
             />
-            <DropDown<IListItem>
+            <Dropdown<IListItem>
               items={personListItems}
               onClickItem={onClickHandler}
               selectedItem={personListItems[0]}
               filtered={false}
             />
-            <DropDown<IListItem>
+            <Dropdown<IListItem>
               items={numberListItems}
               onClickItem={onClickHandler}
               selectedItem={numberListItems[0]}
               filtered={false}
             />
-            <DropDown<IListItem>
+            <Dropdown<IListItem>
               items={sourceListItems}
               onClickItem={onClickHandler}
               selectedItem={sourceListItems[0]}
               filtered={false}
             />
-            <DropDown<IListItem>
+            <Dropdown<IListItem>
               items={ErrorListItems}
               onClickItem={onClickHandler}
               selectedItem={ErrorListItems[0]}

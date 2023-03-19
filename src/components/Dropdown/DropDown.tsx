@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import IconChevronDown from '../UI/Icons/IconChevronDown';
-import classes from './DropDown.module.scss';
+import classes from './Dropdown.module.scss';
 
 interface DropdownProps<T> {
   items: T[];

@@ -13,7 +13,7 @@ export const callApi = createApi({
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       }),
-      transformResponse: (response: ICallList, meta, arg) => response.results,
+      transformResponse: (response: ICallList) => response.results,
     }),
   }),
 });

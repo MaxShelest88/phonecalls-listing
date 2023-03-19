@@ -1,19 +1,18 @@
-import React from "react";
-import { ICall } from "../../../models/ICallList";
-import { formatDate } from "../../../utils/formatters";
-import TableRow from "../TableRow/TableRow";
+import React from 'react';
+import { ICall } from '../../../models/ICallList';
+import { formatDate } from '../../../utils/formatters';
+import TableRow from '../TableRow/TableRow';
 import classes from './TableGroup.module.scss';
 
 interface TableGroupProps {
-	date: string, 
-	calls: ICall[]
+  date: string;
+  calls: ICall[];
 }
 
-const TableGroup: React.FC<TableGroupProps> = ({date, calls}) => {
+const TableGroup: React.FC<TableGroupProps> = ({ date, calls }): JSX.Element => {
+  const currentDay = new Date().getDay();
+  const itemDay = new Date(date).getDay();
 
-	const currentDay = new Date().getDay()
-	const itemDay = new Date(date).getDay();
-	
   return (
     <tbody className={classes['body']}>
       <tr className={classes['date-row']}>

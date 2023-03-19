@@ -21,7 +21,6 @@ const CallsTable: React.FC<CallTableProps> = ({ groupedCalls }): JSX.Element => 
           <th>Длительность</th>
         </tr>
       </thead>
-
       {groupedCalls.map((groupItem) => (
         <TableGroup
           {...groupItem}

@@ -9,16 +9,16 @@ interface TableRowProps {
 }
 
 const TableRow: React.FC<TableRowProps> = ({ call }):JSX.Element => {
-  const [active, setActive] = useState<boolean>(false);
-
+	const [active, setActive] = useState<boolean>(false);
+	
   const showPlayer = () => {
     setActive(true);
-  };
-
+	};
+	
   const hidePlayer = () => {
     setActive(false);
-  };
-
+	};
+	
   return (
     <tr
       className={classes.row}

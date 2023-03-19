@@ -31,7 +31,7 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
     };
   }, []);
 
-  const DropDownItem: React.FC<T> = (props): JSX.Element => {
+  const DropdownItem: React.FC<T> = (props): JSX.Element => {
     return (
       <li
         className={`${classes.item} ${props.name === selectedItem.name ? classes.active : ''}`}
@@ -68,7 +68,7 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
         <div className={classes.menu}>
           <ul>
             {items.map((item, index) => (
-              <DropDownItem
+              <DropdownItem
                 {...item}
                 key={index}
               />

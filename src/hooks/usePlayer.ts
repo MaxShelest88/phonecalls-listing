@@ -15,7 +15,7 @@ export const usePlayer = (
   const [play, setPlay] = useState<boolean>(false);
   const audioCtxContainer = useRef<AudioContext | undefined>();
   const audioRef = useRef<AudioBuffer | undefined>();
-  audioCtxContainer.current = new AudioContext();
+  audioCtxContainer.current = new window.AudioContext();
   const sourceRef = useRef<AudioBufferSourceNode | undefined>();
   const [tipIsVisible, setTipIsVisible] = useState<boolean>(false);
   const [text, setText] = useState<string>('');
@@ -82,6 +82,9 @@ export const usePlayer = (
   }, [play, rate, startedAt]);
 
   const onPlay = useCallback(() => {
+    if (audioCtxContainer?.current?.state === 'suspended') {
+      audioCtxContainer?.current?.resume();
+    }
     sourceRef.current = audioCtxContainer?.current?.createBufferSource();
     if (sourceRef.current && audioCtxContainer.current) {
       sourceRef.current.buffer = audioRef.current as AudioBuffer;
@@ -109,7 +112,10 @@ export const usePlayer = (
   };
 
   const onProgressClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = e.target as HTMLDivElement;
+    if (audioCtxContainer?.current?.state === 'suspended') {
+      audioCtxContainer?.current?.resume();
+    }
+	  const target = e.target as HTMLDivElement;
     let width;
     if (target.parentElement?.className.includes('progress-container')) {
       width = target.parentElement.offsetWidth;

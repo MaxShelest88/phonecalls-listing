@@ -21,6 +21,13 @@
 .container {
 	position: relative;
 	width: 100%;
+	&:hover {
+		.iconLeft {
+			svg path {
+				fill: #002cfb;
+			}
+		}
+	}
 }
 
 .input:focus + .iconRight {
@@ -30,6 +37,8 @@
 .input.active + .iconRight {
 	top: 8px;
 }
+
+
 
 .input {
 	width: 100%;

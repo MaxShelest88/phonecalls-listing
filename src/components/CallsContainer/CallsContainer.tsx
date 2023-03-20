@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
-import DatepickerComponent from '../DatepickerComponent/DatepickerComponent';
 import { useCalls } from '../../hooks/useCalls';
 import IconAdd from '../UI/Icons/IconAdd';
 import { callApi } from '../../services/CallService';
@@ -20,6 +19,11 @@ import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
 import Dropdown from '../Dropdown/Dropdown';
 import InputMask from 'react-input-mask';
+import React from 'react';
+
+const DatepickerComponent = React.lazy(
+  () => import(/* webpackChunkName: "Datepicker */ '../DatepickerComponent/DatepickerComponent'),
+);
 
 const datePikerListItems: IListItem[] = [
   { value: 2, name: '3 дня' },

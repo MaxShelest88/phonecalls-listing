@@ -8,7 +8,7 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ icon, text, active }) => {
   return (
-    <div className={`${classes.item} ${active && classes.active}`}>
+    <li className={`${classes.item} ${active && classes.active}`}>
       <div className={classes.icon}>
         <img
           src={icon}
@@ -17,7 +17,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, text, active }) => {
       </div>
 		  <div className={classes.text}>{text}</div>
 		  {active && <div className={classes.circule} />}
-    </div>
+    </li>
   );
 };
 export default NavItem;

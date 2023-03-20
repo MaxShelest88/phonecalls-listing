@@ -1,8 +1,9 @@
+import React from 'react';
 import { useState } from 'react';
 import { ICall } from '../../../models/ICallList';
 import { formatTime } from '../../../utils/formatters';
-import Player from '../../Player/Player';
 import classes from './TableRow.module.scss';
+const Player = React.lazy(() => import(/* webpackChunkName: "Player */ '../../Player/Player'));
 
 interface TableRowProps {
   call: ICall;

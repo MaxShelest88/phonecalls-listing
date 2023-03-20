@@ -22,7 +22,7 @@ import InputMask from 'react-input-mask';
 import React from 'react';
 
 const DatepickerComponent = React.lazy(
-  () => import(/* webpackChunkName: "Datepicker */ '../DatepickerComponent/DatepickerComponent'),
+  () => import(/* webpackChunkName: "Datepicker" */ '../DatepickerComponent/DatepickerComponent'),
 );
 
 const datePikerListItems: IListItem[] = [

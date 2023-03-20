@@ -4,7 +4,7 @@
 - проигрывание записи (если есть)
 - сортировка на клиенте
 
-Ссылка [Create React App](https://github.com/facebook/create-react-app).
+Ссылка [на просмотр](https://phonecalls-listing.vercel.app/).
 
 ## Tech Stack
 

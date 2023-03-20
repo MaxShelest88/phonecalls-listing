@@ -1,26 +1,24 @@
-import React, { Suspense } from 'react';
 import { useState } from 'react';
 import { ICall } from '../../../models/ICallList';
 import { formatTime } from '../../../utils/formatters';
-import Loading from '../../Loading/Loading';
+import Player from '../../Player/Player';
 import classes from './TableRow.module.scss';
-const Player = React.lazy(() => import(/* webpackChunkName: "Player */ '../../Player/Player'));
 
 interface TableRowProps {
   call: ICall;
 }
 
-const TableRow: React.FC<TableRowProps> = ({ call }): JSX.Element => {
-  const [active, setActive] = useState<boolean>(false);
-
+const TableRow: React.FC<TableRowProps> = ({ call }):JSX.Element => {
+	const [active, setActive] = useState<boolean>(false);
+	
   const showPlayer = () => {
     setActive(true);
-  };
-
+	};
+	
   const hidePlayer = () => {
     setActive(false);
-  };
-
+	};
+	
   return (
     <tr
       className={classes.row}
@@ -76,12 +74,10 @@ const TableRow: React.FC<TableRowProps> = ({ call }): JSX.Element => {
         {call.record && !active ? (
           formatTime(call.time)
         ) : call.record && active ? (
-          <Suspense fallback={<Loading />}>
-            <Player
-              record={call.record}
-              partnership_id={call.partnership_id}
-            />
-          </Suspense>
+          <Player
+            record={call.record}
+            partnership_id={call.partnership_id}
+          />
         ) : (
           ''
         )}

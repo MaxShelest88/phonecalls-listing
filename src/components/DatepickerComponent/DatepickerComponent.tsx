@@ -53,6 +53,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   const onItemClickHandler = (name: string, value: number) => {
     const dateValue = {
       startDate: setDaysBeforeCurrentDate(value),
+      endDate: new Date().toString(),
       name,
     } as IDate;
     dispatch(setDate(dateValue));

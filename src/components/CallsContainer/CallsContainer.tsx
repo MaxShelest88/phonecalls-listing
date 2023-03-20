@@ -117,7 +117,10 @@ const CallsContainer: React.FC = (): JSX.Element => {
     setCount(0);
   };
 
-  const onClickHandler = () => {};
+	const onClickHandler = () => { };
+	
+	console.log(dateValue);
+	
 
   return (
     <>

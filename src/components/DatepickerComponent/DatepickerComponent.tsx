@@ -70,7 +70,7 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
   const onEndDateChangeHandler = (date: Date) => {
     const dateValue = {
       endDate: date.toString(),
-      name: `${formatDate(date)} - ${formatDate(endDate)}`,
+      name: `${formatDate(startDate)} - ${formatDate(date)}`,
     } as IDate;
     dispatch(setDate(dateValue));
     setEndDateLocal(date);

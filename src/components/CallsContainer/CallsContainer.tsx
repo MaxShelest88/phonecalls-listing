@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, Suspense } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
@@ -136,14 +136,16 @@ const CallsContainer: React.FC = (): JSX.Element => {
             />
           </div>
           {!isLoading && !error && (
-            <DatepickerComponent
-              items={datePikerListItems}
-              endDate={new Date(dateValue.endDate)}
-              startDate={new Date(dateValue.startDate)}
-              calls={calls || []}
-              selectedValue={dateValue.name}
-              onArrowClickHandler={onArrowClickHandler}
-            />
+            <Suspense fallback={<Loading />}>
+              <DatepickerComponent
+                items={datePikerListItems}
+                endDate={new Date(dateValue.endDate)}
+                startDate={new Date(dateValue.startDate)}
+                calls={calls || []}
+                selectedValue={dateValue.name}
+                onArrowClickHandler={onArrowClickHandler}
+              />
+            </Suspense>
           )}
         </div>
         <div className={classes['filers-block']}>

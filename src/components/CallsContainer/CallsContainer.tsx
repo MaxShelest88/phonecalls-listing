@@ -111,16 +111,13 @@ const CallsContainer: React.FC = (): JSX.Element => {
     [dispatch],
   );
 
-  const onResetHandler = () => {
+  const onResetHandler = useCallback(() => {
     dispatch(resetFilters());
     isFilter.current = false;
     setCount(0);
-  };
+  }, [dispatch, setCount]);
 
-	const onClickHandler = () => { };
-	
-	console.log(dateValue);
-	
+  const onClickHandler = useCallback(() => {}, []);
 
   return (
     <>

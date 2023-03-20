@@ -17,8 +17,8 @@ const Dropdown = <T extends { value: number; name: string; img?: string; updates
   filtered,
 }: DropdownProps<T>): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState<boolean>(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
-	
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !e.composedPath().includes(dropdownRef.current)) {

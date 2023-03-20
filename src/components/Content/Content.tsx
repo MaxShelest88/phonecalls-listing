@@ -1,6 +1,6 @@
 import CallsContainer from '../CallsContainer/CallsContainer';
 
-const Content: React.FC = ():JSX.Element => {
+const Content: React.FC = (): JSX.Element => {
   return (
     <div className="content">
       <div className="container">

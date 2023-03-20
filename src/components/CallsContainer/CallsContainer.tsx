@@ -19,6 +19,8 @@ import IconSearch from '../UI/Icons/IconSearch';
 import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
 import Dropdown from '../Dropdown/Dropdown';
+import InputMask, { Props } from 'react-input-mask';
+import { IInputComponentProps } from '../../models/IInput';
 
 const datePikerListItems: IListItem[] = [
   { value: 2, name: '3 дня' },
@@ -32,38 +34,38 @@ const typesListItems: IListItem[] = [
   { value: 1, name: 'Входящие' },
 ];
 
-const personListItems: IListItem[] =  [
-    { value: 1, name: 'Все сотрудники' },
-    { value: 2, name: 'Константин К.', img: avatar2 },
-    { value: 3, name: 'Полина З.', img: avatar2 },
-  ];
+const personListItems: IListItem[] = [
+  { value: 1, name: 'Все сотрудники' },
+  { value: 2, name: 'Константин К.', img: avatar2 },
+  { value: 3, name: 'Полина З.', img: avatar2 },
+];
 
-const numberListItems: IListItem[] =  [
-    { value: 1, name: 'Все звонки' },
-    { value: 2, name: 'Все клиенты' },
-    { value: 3, name: 'Новые клиенты', updates: true },
-    { value: 4, name: 'Все исполнители' },
-    { value: 5, name: 'Через приложение' },
-    { value: 6, name: 'Прочие звонки' },
-  ];
+const numberListItems: IListItem[] = [
+  { value: 1, name: 'Все звонки' },
+  { value: 2, name: 'Все клиенты' },
+  { value: 3, name: 'Новые клиенты', updates: true },
+  { value: 4, name: 'Все исполнители' },
+  { value: 5, name: 'Через приложение' },
+  { value: 6, name: 'Прочие звонки' },
+];
 
-const ErrorListItems: IListItem[] =  [
-    { value: 1, name: 'Все ошибки' },
-    { value: 2, name: 'Приветствие' },
-    { value: 3, name: 'Имя' },
-    { value: 4, name: 'Цена' },
-    { value: 5, name: 'Скидка' },
-    { value: 6, name: 'Предзаказ' },
-    { value: 7, name: 'Благодарность' },
-    { value: 8, name: 'Стоп слова' },
-  ];
+const ErrorListItems: IListItem[] = [
+  { value: 1, name: 'Все ошибки' },
+  { value: 2, name: 'Приветствие' },
+  { value: 3, name: 'Имя' },
+  { value: 4, name: 'Цена' },
+  { value: 5, name: 'Скидка' },
+  { value: 6, name: 'Предзаказ' },
+  { value: 7, name: 'Благодарность' },
+  { value: 8, name: 'Стоп слова' },
+];
 
-const sourceListItems: IListItem[] =  [
-    { value: 1, name: 'Все источники' },
-    { value: 2, name: 'Rabota.ru' },
-    { value: 3, name: 'Yandex' },
-    { value: 4, name: 'Google' },
-  ];
+const sourceListItems: IListItem[] = [
+  { value: 1, name: 'Все источники' },
+  { value: 2, name: 'Rabota.ru' },
+  { value: 3, name: 'Yandex' },
+  { value: 4, name: 'Google' },
+];
 
 const CallsContainer: React.FC = (): JSX.Element => {
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
@@ -143,32 +145,37 @@ const CallsContainer: React.FC = (): JSX.Element => {
         </div>
         <div className={classes['filers-block']}>
           <div className={classes.search}>
-            <Input
-              name="callsSearch"
-              type="text"
+            <InputMask
+              mask="+7 (999) 999-99-99"
+              maskPlaceholder={''}
               value={value}
-              placeholder="Поиск по звонкам"
               onChange={onChangeHandler}
               onBlur={onBlurHandler}
-              error={inputHasError ? 1 : 0}
               onFocus={onFocusHandler}
-              ref={inputRef}
-              onReset={reset}
-              iconleft={
-                <IconSearch
-                  size="16px"
-                  color={'#ADBFDF'}
-                />
-              }
-              iconright={
-                (isFocused || value) && (
-                  <IconClose
-                    size="24px"
+            >
+              <Input
+                name="callsSearch"
+                placeholder="Поиск по звонкам"
+                type="tel"
+                ref={inputRef}
+                onReset={reset}
+                error={inputHasError ? 1 : 0}
+                iconleft={
+                  <IconSearch
+                    size="16px"
                     color={'#ADBFDF'}
                   />
-                )
-              }
-            />
+                }
+                iconright={
+                  (isFocused || value) && (
+                    <IconClose
+                      size="24px"
+                      color={'#ADBFDF'}
+                    />
+                  )
+                }
+              />
+            </InputMask>
           </div>
           <div className={classes.filters}>
             {filtered && (

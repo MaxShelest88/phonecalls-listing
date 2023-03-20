@@ -56,6 +56,8 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
       name,
     } as IDate;
     dispatch(setDate(dateValue));
+    setStartDateLocal(null);
+    setEndDateLocal(null);
   };
 
   const onStartDateChangeHandler = (date: Date) => {

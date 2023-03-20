@@ -14,6 +14,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { IDate } from '../../store/reducers/filter/types';
 import { setDaysBeforeCurrentDate } from '../../utils/dateHelper';
 import { setDate } from '../../store/reducers/filter/filterSlice';
+import InputMask from 'react-input-mask';
 registerLocale('ru', ru);
 
 const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
@@ -132,8 +133,15 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
                         end: addDays(new Date(), 0),
                       },
                     ]}
-                    customInput={<CustomInput />}
-                    placeholderText="_ _._ _._ _"
+                    customInput={
+                      <InputMask
+                        mask="99.99.99"
+                        maskPlaceholder={'__.__.__'}
+                      >
+                        <CustomInput />
+                      </InputMask>
+                    }
+                    placeholderText="__.__.__"
                   />
                   <div className={classes.line} />
                   <DatePicker
@@ -151,8 +159,15 @@ const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({
                         end: addDays(new Date(), 0),
                       },
                     ]}
-                    customInput={<CustomInput />}
-                    placeholderText="_ _._ _._ _"
+                    customInput={
+                      <InputMask
+                        mask="99.99.99"
+                        maskPlaceholder={'__.__.__'}
+                      >
+                        <CustomInput />
+                      </InputMask>
+                    }
+                    placeholderText="__.__.__"
                   />
                 </div>
                 <IconCalendar color="#ADBFDF" />

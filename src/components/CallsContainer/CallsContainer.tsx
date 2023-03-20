@@ -19,8 +19,7 @@ import IconSearch from '../UI/Icons/IconSearch';
 import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
 import Dropdown from '../Dropdown/Dropdown';
-import InputMask, { Props } from 'react-input-mask';
-import { IInputComponentProps } from '../../models/IInput';
+import InputMask from 'react-input-mask';
 
 const datePikerListItems: IListItem[] = [
   { value: 2, name: '3 дня' },

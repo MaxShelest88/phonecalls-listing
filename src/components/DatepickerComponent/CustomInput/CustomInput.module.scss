@@ -2,9 +2,13 @@
 	width: 56px;
 	font-size: 0.875rem;
 	line-height: 175%;
+	font-weight: 400;
 	color: #adbfdf;
 	cursor: pointer;
-	::placeholder {
+	letter-spacing: 4%;
+	&::placeholder {
 		color: #adbfdf;
+		font-size: 0.875rem;
+		letter-spacing: 4%;
 	}
 }

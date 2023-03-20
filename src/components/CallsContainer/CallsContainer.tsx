@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import CallsTable from '../CallsTable/CallsTable';
 import Loading from '../Loading/Loading';
 import classes from './CallsContainer.module.scss';
@@ -20,60 +20,52 @@ import { useInput } from '../../hooks/useInput';
 import Input from '../UI/Input/Input';
 import Dropdown from '../Dropdown/Dropdown';
 
-const CallsContainer: React.FC = (): JSX.Element => {
-  const datePikerListItems: IListItem[] = useMemo(() => {
-    return [
-      { value: 2, name: '3 дня' },
-      { value: 6, name: 'Неделя' },
-      { value: 30, name: 'Месяц' },
-      { value: 364, name: 'Год' },
-    ];
-  }, []);
-  const typesListItems = useMemo(() => {
-    return [
-      { value: -1, name: 'Все типы' },
-      { value: 0, name: 'Исходящие' },
-      { value: 1, name: 'Входящие' },
-    ];
-  }, []);
-  const personListItems: IListItem[] = useMemo(() => {
-    return [
-      { value: 1, name: 'Все сотрудники' },
-      { value: 2, name: 'Константин К.', img: avatar2 },
-      { value: 3, name: 'Полина З.', img: avatar2 },
-    ];
-  }, []);
-  const numberListItems: IListItem[] = useMemo(() => {
-    return [
-      { value: 1, name: 'Все звонки' },
-      { value: 2, name: 'Все клиенты' },
-      { value: 3, name: 'Новые клиенты', updates: true },
-      { value: 4, name: 'Все исполнители' },
-      { value: 5, name: 'Через приложение' },
-      { value: 6, name: 'Прочие звонки' },
-    ];
-  }, []);
-  const ErrorListItems: IListItem[] = useMemo(() => {
-    return [
-      { value: 1, name: 'Все ошибки' },
-      { value: 2, name: 'Приветствие' },
-      { value: 3, name: 'Имя' },
-      { value: 4, name: 'Цена' },
-      { value: 5, name: 'Скидка' },
-      { value: 6, name: 'Предзаказ' },
-      { value: 7, name: 'Благодарность' },
-      { value: 8, name: 'Стоп слова' },
-    ];
-  }, []);
-  const sourceListItems: IListItem[] = useMemo(() => {
-    return [
-      { value: 1, name: 'Все источники' },
-      { value: 2, name: 'Rabota.ru' },
-      { value: 3, name: 'Yandex' },
-      { value: 4, name: 'Google' },
-    ];
-  }, []);
+const datePikerListItems: IListItem[] = [
+  { value: 2, name: '3 дня' },
+  { value: 6, name: 'Неделя' },
+  { value: 30, name: 'Месяц' },
+  { value: 364, name: 'Год' },
+];
+const typesListItems: IListItem[] = [
+  { value: -1, name: 'Все типы' },
+  { value: 0, name: 'Исходящие' },
+  { value: 1, name: 'Входящие' },
+];
 
+const personListItems: IListItem[] =  [
+    { value: 1, name: 'Все сотрудники' },
+    { value: 2, name: 'Константин К.', img: avatar2 },
+    { value: 3, name: 'Полина З.', img: avatar2 },
+  ];
+
+const numberListItems: IListItem[] =  [
+    { value: 1, name: 'Все звонки' },
+    { value: 2, name: 'Все клиенты' },
+    { value: 3, name: 'Новые клиенты', updates: true },
+    { value: 4, name: 'Все исполнители' },
+    { value: 5, name: 'Через приложение' },
+    { value: 6, name: 'Прочие звонки' },
+  ];
+
+const ErrorListItems: IListItem[] =  [
+    { value: 1, name: 'Все ошибки' },
+    { value: 2, name: 'Приветствие' },
+    { value: 3, name: 'Имя' },
+    { value: 4, name: 'Цена' },
+    { value: 5, name: 'Скидка' },
+    { value: 6, name: 'Предзаказ' },
+    { value: 7, name: 'Благодарность' },
+    { value: 8, name: 'Стоп слова' },
+  ];
+
+const sourceListItems: IListItem[] =  [
+    { value: 1, name: 'Все источники' },
+    { value: 2, name: 'Rabota.ru' },
+    { value: 3, name: 'Yandex' },
+    { value: 4, name: 'Google' },
+  ];
+
+const CallsContainer: React.FC = (): JSX.Element => {
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
@@ -101,19 +93,22 @@ const CallsContainer: React.FC = (): JSX.Element => {
       );
     }
     isFilter.current = true;
-  }, [count, datePikerListItems, dispatch]);
+  }, [count, dispatch]);
 
   useEffect(() => {
     setFiltered([dateValue.isFilter, typeFilter.isFilter].includes(true));
   }, [dateValue.isFilter, typeFilter.isFilter]);
 
-  const onTypeItemClickHandler = useCallback((name: string, value: number) => {
-    const typeValue = {
-      value,
-      name,
-    } as IType;
-    dispatch(setType(typeValue));
-  }, [dispatch]);
+  const onTypeItemClickHandler = useCallback(
+    (name: string, value: number) => {
+      const typeValue = {
+        value,
+        name,
+      } as IType;
+      dispatch(setType(typeValue));
+    },
+    [dispatch],
+  );
 
   const onResetHandler = () => {
     dispatch(resetFilters());

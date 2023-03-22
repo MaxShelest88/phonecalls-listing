@@ -154,7 +154,7 @@ const Filters: React.FC<{ calls: ICall[] }> = ({ calls }): JSX.Element => {
               type="tel"
               ref={inputRef}
               onReset={reset}
-              error={inputHasError ? 1 : 0}
+              error={inputHasError.current ? 1 : 0}
               iconleft={
                 <IconSearch
                   size="16px"

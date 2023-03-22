@@ -30,7 +30,7 @@ export const useCalls = (
   const filterdCalls = useFilterCalls(calls, startDate, endDate, type);
   const groupedCalls = useMemo(() => {
     const callsObj = filterdCalls.reduce(
-      (callObj: { [key: string]: ICall[] }, item: ICall, index: number, array: ICall[]) => {
+      (callObj: { [key: string]: ICall[] }, item: ICall, _, array: ICall[]) => {
         callObj[item.date_notime] = array.filter(
           (call: ICall) => call.date_notime === item.date_notime,
         );

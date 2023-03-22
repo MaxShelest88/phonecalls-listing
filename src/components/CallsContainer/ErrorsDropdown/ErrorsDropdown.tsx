@@ -2,17 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import IconChevronDown from '../../UI/Icons/IconChevronDown';
 import classes from './ErrorsDropdown.module.scss';
 
-interface ErrorsDropdownProps<T> {
-  items?: T[];
-  onClickItem?: (name: string, value: number) => void;
-  selectedItem?: T;
-}
-
-const ErrorsDropdown:React.FC = <
-  T extends { value: number; name: string; img?: string; updates?: boolean },
->({
-  selectedItem,
-}: ErrorsDropdownProps<T>): JSX.Element => {
+const ErrorsDropdown: React.FC = (): JSX.Element => {
   const [dropdownVisible, setDropdownIsVisible] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconComponentsProps } from '../../../models/IIcon';
 
-const IconPause: React.FC<IconComponentsProps> = ({ color, size }) => (
+const IconPause: React.FC<IconComponentsProps> = ({ color }) => (
   <svg
     width="8"
     height="8"

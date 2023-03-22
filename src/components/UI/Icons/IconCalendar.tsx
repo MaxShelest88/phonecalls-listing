@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconComponentsProps } from '../../../models/IIcon';
 
-const IconCalendar: React.FC<IconComponentsProps> = ({ color, size }) => (
+const IconCalendar: React.FC<IconComponentsProps> = ({ color }) => (
   <svg
     width="16"
     height="18"

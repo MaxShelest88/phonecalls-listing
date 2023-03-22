@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconComponentsProps } from '../../../models/IIcon';
 
-const IconArrowLeft: React.FC<IconComponentsProps> = ({ color, size }) => (
+const IconArrowLeft: React.FC<IconComponentsProps> = ({ color}) => (
   <svg
     width="7"
     height="10"

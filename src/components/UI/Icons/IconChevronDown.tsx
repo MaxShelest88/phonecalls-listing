@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconComponentsProps } from '../../../models/IIcon';
 
-const IconChevronDown: React.FC<IconComponentsProps> = ({ color, size }) => (
+const IconChevronDown: React.FC<IconComponentsProps> = ({ color }) => (
   <svg
     width="12"
     height="8"

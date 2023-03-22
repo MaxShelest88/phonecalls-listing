@@ -74,6 +74,7 @@ const CallsContainer: React.FC = (): JSX.Element => {
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
+  const isMounted = useRef<boolean>(false);
   const dispatch = useAppDispatch();
   const [count, setCount, onArrowClickHandler] = useCount(datePikerListItems);
   const [filtered, setFiltered] = useState<boolean>(false);
@@ -101,7 +102,10 @@ const CallsContainer: React.FC = (): JSX.Element => {
   }, [count, dispatch]);
 
   useEffect(() => {
-    setFiltered([dateValue.isFilter, typeFilter.isFilter].includes(true));
+    if (isMounted.current) {
+      setFiltered([dateValue.isFilter, typeFilter.isFilter].includes(true));
+    }
+    isMounted.current = true;
   }, [dateValue.isFilter, typeFilter.isFilter]);
 
   const onTypeItemClickHandler = useCallback(
@@ -113,7 +117,10 @@ const CallsContainer: React.FC = (): JSX.Element => {
       dispatch(setType(typeValue));
     },
     [dispatch],
-  );
+	);
+	
+	console.log('render');
+	
 
   const onResetHandler = useCallback(() => {
     dispatch(resetFilters());

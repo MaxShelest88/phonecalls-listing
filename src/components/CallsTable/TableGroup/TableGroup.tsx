@@ -1,6 +1,6 @@
+import { ICall } from 'models/ICallList';
 import React from 'react';
-import { ICall } from '../../../models/ICallList';
-import { formatDate } from '../../../utils/formatters';
+import { formatDate } from 'utils/formatters';
 import TableRow from '../TableRow/TableRow';
 import classes from './TableGroup.module.scss';
 

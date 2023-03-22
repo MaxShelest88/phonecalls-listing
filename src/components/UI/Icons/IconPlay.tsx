@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconComponentsProps } from '../../../models/IIcon';
+import { IconComponentsProps } from 'models/IIcon';
 
 const IconPlay: React.FC<IconComponentsProps> = ({ color }) => (
   <svg

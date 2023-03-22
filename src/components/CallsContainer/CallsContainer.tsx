@@ -1,10 +1,11 @@
-import CallsTable from '../CallsTable/CallsTable';
-import Loading from '../Loading/Loading';
-import { useCalls } from '../../hooks/useCalls';
-import { callApi } from '../../services/CallService';
-import { useAppSelector } from '../../hooks/redux';
+
 import React from 'react';
-import Filters from '../Filters/Filters';
+import CallsTable from 'components/CallsTable/CallsTable';
+import Filters from 'components/Filters/Filters';
+import Loading from 'components/Loading/Loading';
+import { useAppSelector } from 'hooks/redux';
+import { useCalls } from 'hooks/useCalls';
+import { callApi } from 'services/CallService';
 
 const CallsContainer: React.FC = (): JSX.Element => {
   const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery();

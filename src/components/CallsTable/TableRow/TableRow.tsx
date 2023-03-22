@@ -1,10 +1,13 @@
+import Loading from 'components/Loading/Loading';
+import { ICall } from 'models/ICallList';
 import React, { Suspense } from 'react';
 import { useState } from 'react';
-import { ICall } from '../../../models/ICallList';
-import { formatTime } from '../../../utils/formatters';
-import Loading from '../../Loading/Loading';
+import { formatTime } from 'utils/formatters';
+
 import classes from './TableRow.module.scss';
-const Player = React.lazy(() => import(/* webpackChunkName: "Player" */ '../../Player/Player'));
+const Player = React.lazy(
+  () => import(/* webpackChunkName: "Player" */ 'components/Player/Player'),
+);
 
 interface TableRowProps {
   call: ICall;

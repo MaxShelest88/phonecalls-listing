@@ -1,8 +1,9 @@
+import IconClose from 'components/UI/Icons/IconClose';
+import IconSearch from 'components/UI/Icons/IconSearch';
+import Input from 'components/UI/Input/Input';
+import { useInput } from 'hooks/useInput';
 import { useRef, useState } from 'react';
-import { useInput } from '../../../hooks/useInput';
-import IconClose from '../../UI/Icons/IconClose';
-import IconSearch from '../../UI/Icons/IconSearch';
-import Input from '../../UI/Input/Input';
+
 import classes from './HeaderSearch.module.scss';
 
 const HeaderSearch: React.FC = (): JSX.Element => {

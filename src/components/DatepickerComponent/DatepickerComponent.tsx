@@ -1,20 +1,20 @@
+import React from 'react';
 import classes from './DatepickerComponent.module.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import { subDays, addDays, differenceInDays } from 'date-fns';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { IDatepickerComponentProps } from '../../models/IDatepicker';
-import { formatDate } from '../../utils/formatters';
-import CustomInput from './CustomInput/CustomInput';
-import IconCalendar from '../UI/Icons/IconCalendar';
-import IconArrowLeft from '../UI/Icons/IconArrowLeft';
-import 'react-datepicker/dist/react-datepicker.css';
-import React from 'react';
-import { useAppDispatch } from '../../hooks/redux';
-import { IDate } from '../../store/reducers/filter/types';
-import { setDaysBeforeCurrentDate } from '../../utils/dateHelper';
-import { setDate } from '../../store/reducers/filter/filterSlice';
 import InputMask from 'react-input-mask';
+import 'react-datepicker/dist/react-datepicker.css';
+import IconArrowLeft from 'components/UI/Icons/IconArrowLeft';
+import IconCalendar from 'components/UI/Icons/IconCalendar';
+import { useAppDispatch } from 'hooks/redux';
+import { IDatepickerComponentProps } from 'models/IDatepicker';
+import { setDate } from 'store/reducers/filter/filterSlice';
+import { IDate } from 'store/reducers/filter/types';
+import { setDaysBeforeCurrentDate } from 'utils/dateHelper';
+import { formatDate } from 'utils/formatters';
+import CustomInput from './CustomInput/CustomInput';
 registerLocale('ru', ru);
 
 const DatepickerComponent: React.FC<IDatepickerComponentProps> = ({

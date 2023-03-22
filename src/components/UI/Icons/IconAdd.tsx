@@ -1,5 +1,6 @@
+import { IconComponentsProps } from 'models/IIcon';
 import React from 'react';
-import { IconComponentsProps } from '../../../models/IIcon';
+
 
 const IconAdd: React.FC<IconComponentsProps> = ({ color, size, opacity }) => (
   <svg

@@ -1,11 +1,11 @@
+import Loading from 'components/Loading/Loading';
+import IconClose from 'components/UI/Icons/IconClose';
+import IconPause from 'components/UI/Icons/IconPause';
+import IconPlay from 'components/UI/Icons/IconPlay';
+import { usePlayer } from 'hooks/usePlayer';
 import React from 'react';
 import { useEffect, useRef } from 'react';
-import { usePlayer } from '../../hooks/usePlayer';
-import { formatTime } from '../../utils/formatters';
-import Loading from '../Loading/Loading';
-import IconClose from '../UI/Icons/IconClose';
-import IconPause from '../UI/Icons/IconPause';
-import IconPlay from '../UI/Icons/IconPlay';
+import { formatTime } from 'utils/formatters';
 import classes from './Player.module.scss';
 
 interface PlayerProps {

@@ -1,7 +1,7 @@
-import { ICall } from '../../models/ICallList';
 import classes from './CallsTable.module.scss';
 import React from 'react';
 import TableGroup from './TableGroup/TableGroup';
+import { ICall } from 'models/ICallList';
 
 interface CallTableProps {
   groupedCalls: { date: string; calls: ICall[] }[];

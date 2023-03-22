@@ -3,7 +3,8 @@ import HeaderSearch from './HeaderSearch/HeaderSearch';
 import classes from './Header.module.scss';
 import OrganizationSelect from './HeaderOrganizationSelect/HeaderOrganizationSelect';
 import HeaderUser from './HeaderUser/HeaderUser';
-import { formatDate } from '../../utils/formatters';
+import { formatDate } from 'utils/formatters';
+
 
 const Header: React.FC = (): JSX.Element => {
   return (

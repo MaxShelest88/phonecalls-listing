@@ -1,6 +1,6 @@
 import classes from './Input.module.scss';
 import React, { useCallback, useImperativeHandle, useRef } from 'react';
-import { IInputComponentProps } from '../../../models/IInput';
+import { IInputComponentProps } from 'models/IInput';
 
 const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref): JSX.Element => {
   const { value, iconleft, iconright, onReset } = props;

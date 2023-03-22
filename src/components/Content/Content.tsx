@@ -1,4 +1,4 @@
-import CallsContainer from '../CallsContainer/CallsContainer';
+import CallsContainer from "components/CallsContainer/CallsContainer";
 
 const Content: React.FC = (): JSX.Element => {
   return (

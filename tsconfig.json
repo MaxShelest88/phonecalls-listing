@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,14 +15,13 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-	 "allowUnreachableCode": false,
-	 "noImplicitReturns": true,
-	 "noUnusedLocals": true,
-	 "noUnusedParameters": true,
-	 "strictFunctionTypes": true,
-	 "strictPropertyInitialization": true
+    "allowUnreachableCode": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "baseUrl": "src",
   },
-  "include": [
-    "src",
-  ]
+  "include": ["src"]
 }

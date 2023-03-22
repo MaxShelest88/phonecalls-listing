@@ -1,9 +1,9 @@
+import IconChevronDown from 'components/UI/Icons/IconChevronDown';
+import Tooltip from 'components/UI/Tooltip/Tooltip';
 import { useState, useRef, useEffect } from 'react';
-import IconChevronDown from '../../UI/Icons/IconChevronDown';
 import classes from './HeaderUser.module.scss';
-import userImage from '../../../assets/img/user.png';
-import avatar from '../../../assets/img/avatar.png';
-import Tooltip from '../../UI/Tooltip/Tooltip';
+import avatar from 'assets/img/avatar.png';
+import userImage from 'assets/img/user.png';
 
 interface listItem {
   id?: number;

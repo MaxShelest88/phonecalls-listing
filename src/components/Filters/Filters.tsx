@@ -1,24 +1,28 @@
-import { IListItem } from '../../models/IListItem';
-import ErrorsDropdown from '../ErrorsDropdown/ErrorsDropdown';
-import Dropdown from '../Dropdown/Dropdown';
-import IconClose from '../UI/Icons/IconClose';
-import IconSearch from '../UI/Icons/IconSearch';
-import Input from '../UI/Input/Input';
-import avatar2 from '../../assets/img/avatar2.png';
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
-import { useInput } from '../../hooks/useInput';
 import InputMask from 'react-input-mask';
 import classes from './Filters.module.scss';
-import { resetFilters, setDate, setType } from '../../store/reducers/filter/filterSlice';
-import { IDate, IType } from '../../store/reducers/filter/types';
-import IconAdd from '../UI/Icons/IconAdd';
 import React from 'react';
 import { subDays } from 'date-fns';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useCount } from '../../hooks/useCount';
-import { ICall } from '../../models/ICallList';
+import Dropdown from 'components/Dropdown/Dropdown';
+import ErrorsDropdown from 'components/ErrorsDropdown/ErrorsDropdown';
+import IconAdd from 'components/UI/Icons/IconAdd';
+import IconClose from 'components/UI/Icons/IconClose';
+import IconSearch from 'components/UI/Icons/IconSearch';
+import Input from 'components/UI/Input/Input';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useCount } from 'hooks/useCount';
+import { useInput } from 'hooks/useInput';
+import { ICall } from 'models/ICallList';
+import { IListItem } from 'models/IListItem';
+import { setDate, setType, resetFilters } from 'store/reducers/filter/filterSlice';
+import { IDate, IType } from 'store/reducers/filter/types';
+import avatar2 from 'assets/img/avatar2.png'
+
 const DatepickerComponent = React.lazy(
-  () => import(/* webpackChunkName: "Datepicker" */ '../DatepickerComponent/DatepickerComponent'),
+  () =>
+    import(
+      /* webpackChunkName: "Datepicker" */ 'components/DatepickerComponent/DatepickerComponent'
+    ),
 );
 
 const datePikerListItems: IListItem[] = [

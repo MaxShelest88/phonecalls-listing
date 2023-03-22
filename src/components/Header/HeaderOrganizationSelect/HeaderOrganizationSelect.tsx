@@ -1,5 +1,5 @@
+import IconChevronDown from 'components/UI/Icons/IconChevronDown';
 import { useEffect, useRef, useState } from 'react';
-import IconChevronDown from '../../UI/Icons/IconChevronDown';
 import classes from './HeaderOrganizationSelect.module.scss';
 
 export const listItems = [

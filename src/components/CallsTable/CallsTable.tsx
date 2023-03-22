@@ -9,25 +9,27 @@ interface CallTableProps {
 
 const CallsTable: React.FC<CallTableProps> = ({ groupedCalls }): JSX.Element => {
   return (
-    <table className={classes.table}>
-      <thead className={classes['table-head']}>
-        <tr>
-          <th>Тип</th>
-          <th>Время</th>
-          <th>Сотрудник</th>
-          <th>Звонок</th>
-          <th>Источник</th>
-          <th>Оценка</th>
-          <th>Длительность</th>
-        </tr>
-      </thead>
-      {groupedCalls.map((groupItem) => (
-        <TableGroup
-          {...groupItem}
-          key={groupItem.date}
-        />
-      ))}
-    </table>
+    <div className={classes['table-container']}>
+      <table className={classes.table}>
+        <thead className={classes['table-head']}>
+          <tr>
+            <th>Тип</th>
+            <th>Время</th>
+            <th>Сотрудник</th>
+            <th>Звонок</th>
+            <th>Источник</th>
+            <th>Оценка</th>
+            <th>Длительность</th>
+          </tr>
+        </thead>
+        {groupedCalls.map((groupItem) => (
+          <TableGroup
+            {...groupItem}
+            key={groupItem.date}
+          />
+        ))}
+      </table>
+    </div>
   );
 };
 export default React.memo(CallsTable);

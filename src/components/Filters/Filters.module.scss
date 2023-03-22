@@ -1,0 +1,78 @@
+@import "/src/style/var";
+
+.filters-container {
+	margin-bottom: 20px;
+}
+.datepicker-container {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.balance {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 145px;
+	height: 40px;
+	background: #ffffff;
+	border-radius: 48px;
+	font-size: 0.875rem;
+	margin-right: 10px;
+	font-weight: 500;
+	cursor: pointer;
+	.balance-text {
+		color: #899cb1;
+		margin-right: 2px;
+	}
+	.balance-number {
+		margin-right: 10px;
+	}
+	&:hover {
+		svg path {
+			fill: #0000f4;
+		}
+	}
+	&:active {
+		svg path {
+			fill: $active;
+		}
+	}
+}
+
+.filters {
+	display: flex;
+	justify-content: flex-end;
+	gap: 32px;
+}
+
+.filers-block{
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.reset {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	font-size: 0.875rem;
+	line-height: 1.75rem;
+	color: #899cb1;
+	margin-right: 16px;
+	&:hover {
+		color: #002CFB;
+		svg path {
+			fill: #002CFB;
+		}
+	}
+	span {
+		display: block;
+		margin-right: 4px;
+	}
+}
+
+.search{
+	flex: 0 0 482px;
+}

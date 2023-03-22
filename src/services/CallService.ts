@@ -7,7 +7,7 @@ export const callApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: ['Call'],
   endpoints: (build) => ({
-    fetchAllCalls: build.query<ICall[], any>({
+    fetchAllCalls: build.query<ICall[], void>({
       query: () => ({
         url: 'getList',
         method: 'POST',

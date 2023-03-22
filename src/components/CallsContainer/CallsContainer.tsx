@@ -71,7 +71,7 @@ const sourceListItems: IListItem[] = [
 ];
 
 const CallsContainer: React.FC = (): JSX.Element => {
-  const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery('');
+  const { data: calls, isLoading, error } = callApi.useFetchAllCallsQuery();
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const isFilter = useRef<boolean>(false);
   const isMounted = useRef<boolean>(false);
@@ -117,10 +117,7 @@ const CallsContainer: React.FC = (): JSX.Element => {
       dispatch(setType(typeValue));
     },
     [dispatch],
-	);
-	
-	console.log('render');
-	
+  );
 
   const onResetHandler = useCallback(() => {
     dispatch(resetFilters());

@@ -3,7 +3,7 @@ import IconChevronDown from '../../UI/Icons/IconChevronDown';
 import classes from './HeaderUser.module.scss';
 import userImage from '../../../assets/img/user.png';
 import avatar from '../../../assets/img/avatar.png';
-import Tooltip from '../../Tooltip/Tooltip';
+import Tooltip from '../../UI/Tooltip/Tooltip';
 
 interface listItem {
   id?: number;

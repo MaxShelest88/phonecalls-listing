@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import IconChevronDown from '../UI/Icons/IconChevronDown';
 import classes from './ErrorsDropdown.module.scss';
@@ -68,4 +69,4 @@ const ErrorsDropdown: React.FC = (): JSX.Element => {
     </div>
   );
 };
-export default ErrorsDropdown;
+export default React.memo(ErrorsDropdown);

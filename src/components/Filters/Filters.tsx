@@ -75,6 +75,9 @@ const Filters: React.FC<{ calls: ICall[] }> = ({ calls }): JSX.Element => {
   const [filtered, setFiltered] = useState<boolean>(false);
   const dateValue = useAppSelector((store) => store.filterReducer.dateValue);
   const typeFilter = useAppSelector((store) => store.filterReducer.typeValue);
+  const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
+    useInput((value: string) => value.trim() !== '');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isFilter.current) {
@@ -94,11 +97,6 @@ const Filters: React.FC<{ calls: ICall[] }> = ({ calls }): JSX.Element => {
     }
     isMounted.current = true;
   }, [dateValue.isFilter, typeFilter.isFilter]);
-
-  const { value, inputHasError, onBlurHandler, onChangeHandler, reset, onFocusHandler, isFocused } =
-    useInput((value: string) => value.trim() !== '');
-
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const onTypeItemClickHandler = useCallback(
     (name: string, value: number) => {

@@ -1,5 +1,5 @@
 import classes from './Input.module.scss';
-import React, { useImperativeHandle, useRef } from 'react';
+import React, { useCallback, useImperativeHandle, useRef } from 'react';
 import { IInputComponentProps } from '../../../models/IInput';
 
 const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref): JSX.Element => {
@@ -7,9 +7,9 @@ const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref): JSX
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onFocusHandler = () => {
+  const onFocusHandler = useCallback(() => {
     inputRef.current?.focus();
-  };
+  }, []);
 
   useImperativeHandle(
     ref,
@@ -42,4 +42,4 @@ const Input: React.FC<IInputComponentProps> = React.forwardRef((props, ref): JSX
   );
 });
 
-export default Input;
+export default React.memo(Input);

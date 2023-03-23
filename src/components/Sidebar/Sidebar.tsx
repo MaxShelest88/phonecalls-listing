@@ -1,5 +1,5 @@
 import classes from './Sidebar.module.scss';
-import logo from 'assets/icons/sidebar/logo.svg';
+// import logo from 'assets/icons/sidebar/logo.svg';
 import chartIcon from 'assets/icons/sidebar/chart-timeline-variant.svg';
 import ordersIcon from 'assets/icons/sidebar/orders-24px.svg';
 import messageIcon from 'assets/icons/sidebar/mail_outline-24px.svg';
@@ -19,12 +19,7 @@ import IconAdd from 'components/UI/Icons/IconAdd';
 const Sidebar: React.FC = (): JSX.Element => {
   return (
     <aside className={classes.side}>
-      <div className={classes.logo}>
-        <img
-          src={logo}
-          alt="logo"
-        />
-      </div>
+      <div className={classes.logo}>MyCRM</div>
       <nav className={classes.menu}>
         <ul className={classes.list}>
           <NavItem

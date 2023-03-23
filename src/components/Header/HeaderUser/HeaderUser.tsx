@@ -102,7 +102,7 @@ const HeaderUser: React.FC = (): JSX.Element => {
         <div className={classes.dropdown}>
           <div className={classes.card}>
             <div className={classes.header}>
-              <div className={classes.name}>Упоров Кирилл</div>
+              <div className={classes.name}>Иван Иванов</div>
               <Tooltip text="Выйти">
                 <div
                   tip-anchor="exit"
@@ -159,7 +159,7 @@ const HeaderUser: React.FC = (): JSX.Element => {
                   className={classes.telNumber}
                   href="tel:88003331721"
                 >
-                  8 (800) 333-17-21
+                  8 (800) 123-45-67
                 </a>
               </div>
               <div className={classes.mail}>
@@ -178,7 +178,7 @@ const HeaderUser: React.FC = (): JSX.Element => {
                   </svg>
                 </div>
                 <div className={classes.mailAddr}>
-                  <a href="mailto:hi@skilla.ru">hi@skilla.ru</a>
+                  <a href="mailto:hi@skilla.ru">email@email.ru</a>
                 </div>
               </div>
             </div>
